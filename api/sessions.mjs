@@ -9,11 +9,18 @@ export default async function handler(req, res) {
   const token = (req.query?.token || req.headers["x-admin-token"] || "").toString();
   const expected = process.env.ADMIN_TOKEN;
   if (!expected) {
-    res.status(500).json({ error: "admin_token_not_configured" });
+    res.status(500).json({ error: "admin_token_not_configured", hint: "Set ADMIN_TOKEN env var in Vercel project settings." });
     return;
   }
   if (!token || token !== expected) {
     res.status(403).json({ error: "forbidden" });
+    return;
+  }
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    res.status(503).json({
+      error: "blob_store_not_connected",
+      hint: "Create a Vercel Blob store and connect it to this project. Go to vercel.com → nektar-cefr → Storage → Create Database → Blob → Connect to Project."
+    });
     return;
   }
 

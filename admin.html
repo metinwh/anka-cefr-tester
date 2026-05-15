@@ -97,7 +97,7 @@
       display: none;
     }
     .status.show { display: block; }
-    .status.error { color: var(--bad); border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.06); }
+    .status.error { color: var(--bad); border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.06); white-space: pre-line; }
 
     .grid {
       display: grid;
@@ -312,8 +312,20 @@
 
       try {
         const r = await fetch(`/api/sessions?token=${encodeURIComponent(token)}`);
-        if (r.status === 403) { setStatus("Forbidden — token is wrong.", true); return; }
-        if (!r.ok) { setStatus(`Server error ${r.status}.`, true); return; }
+        if (r.status === 403) { setStatus("Forbidden — admin token is wrong.", true); return; }
+        if (!r.ok) {
+          // Show the actual error from the response body
+          let detail = "";
+          try {
+            const errBody = await r.json();
+            detail = errBody.error || `HTTP ${r.status}`;
+            if (errBody.hint) detail += "\n→ " + errBody.hint;
+          } catch {
+            detail = `HTTP ${r.status}`;
+          }
+          setStatus(detail, true);
+          return;
+        }
         const data = await r.json();
         lastData = data;
         render(data);
