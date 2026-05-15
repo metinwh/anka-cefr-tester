@@ -10279,7 +10279,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Profesyonel e-posta. Hangisi doğal?",
+      "prompt": "İş arkadaşın sana gecikmeyi haber verdi. Profesyonel ama sıcak bir e-posta cevabı yazıyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10292,14 +10292,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "I appreciate you to let me know.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "Thank you for letting me know.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "I appreciate for your informing.",
+          "text": "I appreciate for your information.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10309,8 +10309,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "Thanks for letting me know.",
-        "role": "weak",
-        "credit": 0.25,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10346,7 +10346,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Toplantıda fikir belirtiyorsun. Hangisi doğal?",
+      "prompt": "Toplantıda bir öneriye henüz tam ikna olmadığını, karşı tarafı doğrudan reddetmeden söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10359,14 +10359,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "I don't convinced yet.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "I'm not fully convinced yet.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "I am not full convinced.",
+          "text": "I don't convinced yet.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10375,9 +10375,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "I'm not fully convinced yet.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "I'm not completely convinced yet.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10413,7 +10413,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Rapor özeti. Hangisi doğal?",
+      "prompt": "Raporun kısa özetinde sonuçların önceki verilerle büyük ölçüde uyumlu olduğunu söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10426,14 +10426,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "The results are generally same.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "The results are mostly consistent.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "Results are consistent broadly.",
+          "text": "The results are generally same.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10442,9 +10442,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "The results are mostly consistent.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "The results are largely consistent.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10547,7 +10547,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Belirsizlik anlatıyorsun. Hangisi doğal?",
+      "prompt": "İki veri kaynağı arasında açıklanması gereken küçük bir tutarsızlık olduğunu resmi bir tonda belirtiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10560,14 +10560,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "There seems a discrepancy exists.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "There appears to be a discrepancy.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "A discrepancy is seeming there.",
+          "text": "There seems a discrepancy exists.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10576,9 +10576,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "There appears to be a discrepancy.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "There seems to be some inconsistency.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10614,7 +10614,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Geri bildirim veriyorsun. Hangisi doğal?",
+      "prompt": "Bir metin taslağına nazik geri bildirim veriyorsun; sorun içerikte değil, ifadenin açıklığında.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10627,10 +10627,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "The wording can be more clear a bit.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "The wording could be clearer.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -10643,9 +10643,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "The wording could be clearer.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "This could be worded a little more clearly.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10681,7 +10681,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Sonucu yorumluyorsun. Hangisi doğal?",
+      "prompt": "Bir gecikmenin olası nedenini resmi bir tonda açıklıyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10694,10 +10694,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "That may explain for the delay.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "That might explain the delay.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -10710,9 +10710,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "That might explain the delay.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "That could explain the delay.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10748,7 +10748,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Karar tartışıyorsun. Hangisi doğal?",
+      "prompt": "Bir karar vermeden önce seçeneklerin artılarını ve eksilerini değerlendirmek gerektiğini söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10761,14 +10761,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "We need to weight the options.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "We need to consider the options.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "We need scale the options.",
+          "text": "We need to weight the options.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10777,9 +10777,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "We need to consider the options.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "We need to look at the options carefully.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10815,7 +10815,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Resmi sunum. Hangisi doğal?",
+      "prompt": "Resmi bir sunumda anlattığın bulgunun daha geniş bir tartışma başlattığını söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10828,14 +10828,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "This makes a wider question.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "This brings up a broader question.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "This gives a big question.",
+          "text": "This makes a wider question.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10844,9 +10844,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "This brings up a broader question.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "This opens up a broader question.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13367,7 +13367,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Rapor dili. Hangisi doğal?",
+      "prompt": "Bir raporda mevcut kanıtların kesin bir sonuca varmak için yeterince güçlü olmadığını temkinli biçimde ifade ediyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13380,10 +13380,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "The evidence is not fully clear.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "The evidence is still inconclusive.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13396,9 +13396,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "The evidence is still inconclusive.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "The evidence is not yet conclusive.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13434,7 +13434,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Strateji tartışması. Hangisi doğal?",
+      "prompt": "Strateji toplantısında önerilen yaklaşımın beklenenin tersine zarar verebileceğini diplomatik biçimde söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13447,10 +13447,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "That approach may not help.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "That approach might backfire.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13463,9 +13463,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "That approach might backfire.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "That approach could end up being counterproductive.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13501,7 +13501,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Akademik özet. Hangisi doğal?",
+      "prompt": "Akademik bir özetin sonunda bulguların aşırı kesin yorumlanmaması gerektiğini belirtiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13514,10 +13514,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "The findings should be read carefully.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "The findings need cautious interpretation.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13530,9 +13530,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "The findings need cautious interpretation.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "The findings should be treated with caution.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13568,7 +13568,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Toplantıda nüanslı cevap. Hangisi doğal?",
+      "prompt": "Toplantıda bir öneriyi tamamen reddetmediğini, ama henüz net biçimde kabul de etmediğini söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13581,10 +13581,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "I would not delete it completely.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "I wouldn't dismiss it completely.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13597,9 +13597,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "I wouldn't dismiss it completely.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "I wouldn't rule it out completely.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13635,7 +13635,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Eleştiri yazıyorsun. Hangisi doğal?",
+      "prompt": "Bir makale eleştirisinde argümanın ikna edici olduğunu, fakat bazı iddiaların fazla ileri götürüldüğünü söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13648,10 +13648,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "The argument is good but too strong.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "The argument is strong but exaggerated.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13664,9 +13664,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "The argument is strong but exaggerated.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "The argument is convincing, but it goes too far.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13702,7 +13702,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Politika yorumluyorsun. Hangisi doğal?",
+      "prompt": "Bir politika kararında iki fayda arasında yapılan fedakarlığın savunulmasının zor olduğunu açıklıyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13715,10 +13715,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "The choice is hard to explain.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "The trade-off is hard to defend.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13731,9 +13731,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "The trade-off is hard to defend.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "It is difficult to justify that trade-off.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13769,7 +13769,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Araştırma konuşması. Hangisi doğal?",
+      "prompt": "Bir araştırma toplantısında, çalışmanın küçük örneklem yüzünden daha geniş gruplara genellenemeyeceğini söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13782,10 +13782,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "The sample size makes limits.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "The sample size limits the conclusions.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13798,9 +13798,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "The sample size limits the conclusions.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "The small sample limits how far we can generalize.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13836,7 +13836,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Resmi e-posta. Hangisi doğal?",
+      "prompt": "Üst düzey bir danışmandan aldığın geri bildirime cevap veriyorsun ve sonraki adım için ek yönlendirme istemeye açık olduğunu kibarca belirtiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13849,10 +13849,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "I want more guidance from you.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "Any further guidance would be welcome.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13865,9 +13865,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "Any further guidance would be welcome.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "I would appreciate any further guidance.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
