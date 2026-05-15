@@ -406,8 +406,27 @@
       this.updateBoundaryEvidence(boundary, item, role, category, selectedCredit, naturalness);
       this.state.boundary_item_counts[boundary] = (this.state.boundary_item_counts[boundary] || 0) + 1;
 
+      // Generic consecutive-wrong probe-down: if learner is failing repeatedly
+      // (regardless of role type — distractor/l1_trap/nonnative/dev_error all count),
+      // step DOWN. Stops the engine from grinding "step_up" at the ceiling forever
+      // when the user is clearly below this level.
+      const isCorrectCat = ["correct_fast", "correct_normal", "correct_slow", "partial_credit", "partial_credit_slow"].includes(category);
+      const recent2Wrong = this.state.response_log.slice(-2);
+      const priorTwoWrong = recent2Wrong.length === 2 && recent2Wrong.every((e) => !e.correct);
+      const thisIsWrong = !isCorrectCat && category !== "misclick_suspected";
+
       let movement;
-      if (category === "misclick_suspected") {
+      if (thisIsWrong && priorTwoWrong && boundary !== "A1/A2") {
+        // 3 consecutive wrongs at non-floor boundary → probe down hard.
+        this.state.consecutive_fast_correct = 0;
+        this.state.consecutive_wrong = (this.state.consecutive_wrong || 0) + 1;
+        movement = this.movementDecision(
+          stepBoundary(boundary, -1),
+          "probe_down",
+          `${boundary} has 3 consecutive wrong answers (mixed roles); probing the lower boundary.`,
+          "lower boundary check"
+        );
+      } else if (category === "misclick_suspected") {
         this.state.consecutive_fast_correct = 0;
         movement = this.movementDecision(boundary, "handle_misclick", "Very fast wrong answer is treated as possible misclick; staying on the same boundary.", "same boundary, cleaner confirmation item");
       } else if (category === "partial_credit" || category === "partial_credit_slow") {
@@ -646,7 +665,9 @@
         return this.movementDecision(boundary, "confirm_boundary", `${boundary} is mixed; correct answer does not step up until another independent pass focus confirms it.`, "same boundary, different focus");
       }
       if (category === "correct_fast" && hasTwoFastCorrectAcrossDifferentFocuses(boundary, this.state)) {
-        return this.movementDecision(stepBoundary(boundary, 2), "fast_track_up", `${boundary} has fast correct answers across independent focuses.`, "higher boundary check");
+        // Was stepBoundary(boundary, 2) — too aggressive. A couple of fast correct
+        // answers at A1/A2 should not vault the learner to B1/B2 in one step.
+        return this.movementDecision(stepBoundary(boundary, 1), "fast_track_up", `${boundary} has fast correct answers across independent focuses; advancing one step.`, "higher boundary check");
       }
       if (hasCleanPass(boundary, this.state)) {
         return this.movementDecision(stepBoundary(boundary, 1), "step_up", `${boundary} has a clean pass signal with no prior resistance; probing the next boundary.`, "next boundary probe");
@@ -834,6 +855,24 @@
           level = maxLevel(level, BOUNDARY_TO_LEVELS[boundary][0]);
         }
       }
+      // ── Accuracy guardrail ──────────────────────────────────────────
+      // Don't lock above what overall performance supports. A learner who
+      // happened to land 2 correct at A1/A2 then spam-clicked through 18
+      // mostly-wrong items at B2/C1 should not test as C1.
+      const total = this.state.response_log.length;
+      if (total >= 6) {
+        const correctCount = this.state.response_log.filter((e) => e.correct).length;
+        const accuracy = correctCount / total;
+        const order = ["A1", "A2", "B1", "B2", "C1"];
+        const currentIdx = order.indexOf(level);
+        if (currentIdx > 0) {
+          if (accuracy < 0.40) {
+            level = order[Math.max(0, currentIdx - 2)];   // severe underperform → demote 2
+          } else if (accuracy < 0.55) {
+            level = order[Math.max(0, currentIdx - 1)];   // borderline → demote 1
+          }
+        }
+      }
       return level;
     }
 
@@ -856,8 +895,35 @@
 
     finish(decision) {
       const lock = decision.lock || this.bestAvailableLock();
+      // ── Final accuracy ceiling (applies to ALL termination paths) ──
+      // Your locked level cannot exceed what session accuracy supports.
+      // C1 requires ≥70% across the whole session. B2 requires ≥55%.
+      // This stops random-clickers from being promoted to C1 by lucky
+      // early correct streaks + ignored misclicks at the ceiling.
+      let estimatedLevel = lock.estimatedLevel;
+      const total = this.state.response_log.length;
+      if (total >= 6 && estimatedLevel) {
+        const correctCount = this.state.response_log.filter((e) => e.correct).length;
+        const accuracy = correctCount / total;
+        const order = ["A1", "A2", "B1", "B2", "C1"];
+        const ceilingFor = (acc) => {
+          if (acc < 0.40) return "A2"; // sub-random / spam-click territory
+          if (acc < 0.55) return "B1";
+          if (acc < 0.70) return "B2";
+          return "C1";
+        };
+        const ceiling = ceilingFor(accuracy);
+        const lockIdx = order.indexOf(estimatedLevel);
+        const ceilIdx = order.indexOf(ceiling);
+        if (lockIdx > ceilIdx) {
+          estimatedLevel = ceiling;
+          lock.estimatedLevel = estimatedLevel;
+          lock.accuracy_adjusted_from = order[lockIdx];
+          lock.accuracy_adjusted_reason = `Session accuracy ${Math.round(accuracy * 100)}% caps at ${ceiling}; original lock was ${order[lockIdx]}.`;
+        }
+      }
       const result = {
-        estimated_level: lock.estimatedLevel,
+        estimated_level: estimatedLevel,
         confidence: this.computeConfidence(),
         termination_action: decision.action,
         termination_reason: decision.reason,

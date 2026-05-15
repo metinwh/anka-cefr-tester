@@ -882,14 +882,28 @@
         confidence_at_end: engine.state.confidence,
         trajectory: engine.state.response_log
       };
+      const body = JSON.stringify(payload);
+      // Prefer sendBeacon — survives page unload reliably. Fall back to fetch.
+      let sent = false;
       try {
+        if (navigator.sendBeacon) {
+          const blob = new Blob([body], { type: "application/json" });
+          sent = navigator.sendBeacon("/api/log", blob);
+        }
+      } catch (e) { console.warn("[log] sendBeacon failed:", e); }
+      if (!sent) {
         fetch("/api/log", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body,
           keepalive: true
-        }).catch(() => {});
-      } catch (_) { /* silent */ }
+        }).then((r) => {
+          if (!r.ok) console.warn("[log] /api/log returned", r.status);
+          else console.log("[log] session recorded:", sid);
+        }).catch((e) => console.warn("[log] fetch failed:", e));
+      } else {
+        console.log("[log] session beacon sent:", sid);
+      }
     }
 
     function answer(optionId) {

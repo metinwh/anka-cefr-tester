@@ -342,7 +342,7 @@ const naturalnessRows = {
     ["Profesyonel e-posta. Hangisi doğal?", "I appreciate you letting me know.", "I appreciate you to let me know.", "I appreciate for your informing.", "Thanks for letting me know.", "email_register", ["appreciate"]],
     ["Toplantıda fikir belirtiyorsun. Hangisi doğal?", "I'm not entirely convinced yet.", "I don't convinced yet.", "I am not full convinced.", "I'm not fully convinced yet.", "stance", ["convinced"]],
     ["Rapor özeti. Hangisi doğal?", "The results are broadly consistent.", "The results are generally same.", "Results are consistent broadly.", "The results are mostly consistent.", "academic_register", ["consistent"]],
-    ["Kibar itiraz. Hangisi doğal?", "I see your point, but I'm not sure.", "I see what you say but no.", "Your point is wrong for me.", "I understand, but I'm not sure.", "diplomatic_disagreement", ["point"]],
+    ["Toplantıda bir fikre kibarca karşı çıkıyorsun.", "I see your point, but I'm not sure.", "I understand your point, but I have concerns.", "Your point is wrong.", "I understand, but I'm not sure.", "diplomatic_disagreement", ["point"], { weakRole: "acceptable", weakCredit: 0.6, closeRole: "acceptable", closeCredit: 0.6 }],
     ["Belirsizlik anlatıyorsun. Hangisi doğal?", "There seems to be a discrepancy.", "There seems a discrepancy exists.", "A discrepancy is seeming there.", "There appears to be a discrepancy.", "formal_problem", ["discrepancy"]],
     ["Geri bildirim veriyorsun. Hangisi doğal?", "The wording could be a bit clearer.", "The wording can be more clear a bit.", "The words must clear more.", "The wording could be clearer.", "feedback", ["wording"]],
     ["Sonucu yorumluyorsun. Hangisi doğal?", "That may account for the delay.", "That may explain for the delay.", "That can be delay reason.", "That might explain the delay.", "cause_effect", ["account"]],
@@ -364,13 +364,17 @@ const naturalnessRows = {
 };
 
 function makeNaturalness(level, row, index) {
-  const [prompt, key, weak, nonnative, close, focus, lexicon] = row;
+  const [prompt, key, weak, nonnative, close, focus, lexicon, tuning = {}] = row;
   return naturalness(level, index, {
     prompt,
     key,
     weak,
     nonnative,
     close,
+    weakRole: tuning.weakRole,
+    weakCredit: tuning.weakCredit,
+    closeRole: tuning.closeRole,
+    closeCredit: tuning.closeCredit,
     focus: [focus],
     lexicon,
     difficulty: LEVEL_META[level].diff + (index % 5) * 0.01,
@@ -413,35 +417,39 @@ const pragmaticRows = {
     ["Geri bildirim için teşekkür ediyorsun.", "Thanks for the feedback.", "Thanks for your criticize.", "Your feedback is accepted.", "Thanks, that's helpful.", "feedback_response", ["feedback"]]
   ],
   b2: [
-    ["Yöneticin yanlış veri sundu.", "Could we double-check those figures?", "Those numbers look wrong.", "You got the data wrong.", "Maybe we should revisit the figures.", "diplomatic_correction", ["figures"]],
-    ["Bir fikre temkinli yaklaşıyorsun.", "I have some reservations about that.", "I don't like that idea.", "That idea is not good.", "I'm not fully convinced by that.", "hedged_disagreement", ["reservations"]],
+    ["Toplantıda yöneticin yanlış bir veri paylaştı. Onu doğrudan utandırmadan düzeltmek istiyorsun.", "Could we double-check those figures?", "Those figures may need another look.", "Those figures are wrong.", "Maybe we should revisit the figures.", "diplomatic_correction", ["figures"], { weakRole: "acceptable", weakCredit: 0.6, closeRole: "acceptable", closeCredit: 0.6 }],
+    ["Bir önerinin riskli olduğunu düşünüyorsun ama kişiyi kırmadan söylemek istiyorsun.", "I have some reservations about that.", "I'm not fully convinced by that yet.", "I don't like that idea.", "I'm not fully convinced by that.", "hedged_disagreement", ["reservations"], { weakRole: "acceptable", weakCredit: 0.6, closeRole: "acceptable", closeCredit: 0.6 }],
     ["E-postada gecikmeyi açıklıyorsun.", "Apologies for the delay in replying.", "Sorry, I answer late.", "I was late to reply you.", "Sorry for the late reply.", "email_apology", ["delay"]],
-    ["Müşteri çok sert konuştu.", "I understand your frustration.", "Calm down, please.", "You are too angry.", "I can see why you're frustrated.", "customer_empathy", ["frustration"]],
+    ["Bir müşteri ürünle ilgili öfkeli bir mesaj yazdı. Empati kurup konuşmayı sakinleştirmek istiyorsun.", "I understand how frustrating this must be.", "I can see why you're upset.", "Please calm down before we continue.", "I can see why you're frustrated.", "customer_empathy", ["frustration"], { weakRole: "acceptable", weakCredit: 0.65, closeRole: "acceptable", closeCredit: 0.6 }],
     ["Toplantıda sözü toparlıyorsun.", "To sum up, we have two options.", "At sum, two options exist.", "The end is two options.", "In short, we have two options.", "discourse_management", ["sum up"]],
     ["Bir riskten kibarca bahsediyorsun.", "That might create some issues later.", "That will make problems.", "This is risky thing.", "That could cause issues later.", "risk_language", ["issues"]],
     ["Meslektaşının önerisini geliştiriyorsun.", "Could we build on that idea?", "Can we add over that idea?", "Your idea needs more.", "Maybe we can develop that idea.", "collaboration", ["build on"]],
-    ["Resmi bir talebi kapatıyorsun.", "Please let me know if anything is unclear.", "Tell me if you don't understand.", "If unclear, say me.", "Let me know if anything is unclear.", "formal_email", ["unclear"]]
+    ["Resmi bir e-postayı bitirirken karşı tarafın soru sorabileceğini nazikçe belirtmek istiyorsun.", "Please let me know if anything is unclear.", "Let me know if you have any questions.", "Tell me if you don't understand.", "Let me know if anything is unclear.", "formal_email", ["unclear"], { weakRole: "acceptable", weakCredit: 0.65, closeRole: "acceptable", closeCredit: 0.6 }]
   ],
   c1: [
-    ["Üst düzey toplantıda veriye itiraz ediyorsun.", "Could we revisit those figures?", "Those figures look off.", "Your figures are wrong.", "Might we double-check those figures?", "executive_diplomacy", ["figures"]],
-    ["Bir öneriyi reddetmeden sınır çiziyorsun.", "I wouldn't rule it out entirely.", "Maybe, but not now.", "This is not our thing.", "I wouldn't dismiss it outright.", "nuanced_response", ["rule out"]],
+    ["Üst düzey toplantıda veride sorun fark ettin; hem saygılı hem net olmalısın.", "Might we double-check those figures?", "Those figures look slightly off to me.", "Your figures are wrong.", "Could we revisit those figures?", "executive_diplomacy", ["figures"], { weakRole: "acceptable", weakCredit: 0.6, closeRole: "acceptable", closeCredit: 0.6 }],
+    ["Bir öneriyi tamamen reddetmeden şu an öncelik olmadığını belirtmek istiyorsun.", "I wouldn't rule it out entirely.", "It may be worth revisiting later.", "This is not relevant to us.", "I wouldn't dismiss it outright.", "nuanced_response", ["rule out"], { weakRole: "acceptable", weakCredit: 0.65, closeRole: "acceptable", closeCredit: 0.6 }],
     ["Akademik sunumda sınırlılık söylüyorsun.", "This does not capture every case.", "This is not perfect.", "It doesn't include all things.", "This only captures the main trend.", "limitations", ["capture"]],
     ["Bir iddiayı yumuşatmak istiyorsun.", "That may be putting it too strongly.", "That is too strong.", "You say it too much.", "That wording may be too strong.", "hedging", ["strongly"]],
-    ["Kıdemli kişiye alternatif sunuyorsun.", "Another way to frame it might be...", "I have a better frame.", "Your frame is wrong.", "We might frame it differently.", "senior_register", ["frame"]],
+    ["Kıdemli bir kişinin fikrine alternatif bir çerçeve sunuyorsun.", "Another way to frame it might be...", "We might frame it slightly differently.", "Your framing is wrong.", "We might frame it differently.", "senior_register", ["frame"], { weakRole: "acceptable", weakCredit: 0.65, closeRole: "acceptable", closeCredit: 0.6 }],
     ["Belirsiz sonucu raporluyorsun.", "The evidence points in that direction.", "The evidence says yes.", "Evidence tells this way.", "The evidence seems to suggest that.", "evidence_language", ["evidence"]],
     ["Eleştiriyi diplomatik veriyorsun.", "The reasoning is sound, but incomplete.", "Your reason is not enough.", "This logic misses parts.", "The reasoning is solid but limited.", "diplomatic_feedback", ["reasoning"]],
-    ["Kararı ertelemeyi öneriyorsun.", "It may be premature to decide today.", "We shouldn't decide now.", "Decision today is early.", "It might be too early to decide.", "strategic_delay", ["premature"]]
+    ["Kararın aceleye gelmemesi gerektiğini profesyonelce söylüyorsun.", "It may be premature to decide today.", "It might be too early to decide today.", "We should not decide because it is early.", "It might be too early to decide.", "strategic_delay", ["premature"], { weakRole: "acceptable", weakCredit: 0.65, closeRole: "acceptable", closeCredit: 0.6 }]
   ]
 };
 
 function makePragmatic(level, row, index) {
-  const [prompt, key, weak, nonnative, close, focus, lexicon] = row;
+  const [prompt, key, weak, nonnative, close, focus, lexicon, tuning = {}] = row;
   return pragmatic(level, index, {
     prompt,
     key,
     weak,
     nonnative,
     close,
+    weakRole: tuning.weakRole,
+    weakCredit: tuning.weakCredit,
+    closeRole: tuning.closeRole,
+    closeCredit: tuning.closeCredit,
     focus: [focus],
     lexicon,
     difficulty: LEVEL_META[level].diff + 0.02 + (index % 4) * 0.01,

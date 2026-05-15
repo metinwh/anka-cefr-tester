@@ -10480,7 +10480,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Kibar itiraz. Hangisi doğal?",
+      "prompt": "Toplantıda bir fikre kibarca karşı çıkıyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10493,14 +10493,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "I see what you say but no.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "I understand your point, but I have concerns.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "Your point is wrong for me.",
+          "text": "Your point is wrong.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10510,8 +10510,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "I understand, but I'm not sure.",
-        "role": "weak",
-        "credit": 0.25,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10882,7 +10882,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Yöneticin yanlış veri sundu.",
+      "prompt": "Toplantıda yöneticin yanlış bir veri paylaştı. Onu doğrudan utandırmadan düzeltmek istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -10895,14 +10895,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "Those numbers look wrong.",
-          "role": "weak",
-          "credit": 0.3,
-          "naturalness": "weak"
+          "text": "Those figures may need another look.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "You got the data wrong.",
+          "text": "Those figures are wrong.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10912,8 +10912,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "Maybe we should revisit the figures.",
-        "role": "weak",
-        "credit": 0.3,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This response is plausible for a learner one level lower, but the tone or register is less exact than the key."
       },
@@ -10949,7 +10949,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Bir fikre temkinli yaklaşıyorsun.",
+      "prompt": "Bir önerinin riskli olduğunu düşünüyorsun ama kişiyi kırmadan söylemek istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -10962,14 +10962,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "I don't like that idea.",
-          "role": "weak",
-          "credit": 0.3,
-          "naturalness": "weak"
+          "text": "I'm not fully convinced by that yet.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "That idea is not good.",
+          "text": "I don't like that idea.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -10979,8 +10979,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "I'm not fully convinced by that.",
-        "role": "weak",
-        "credit": 0.3,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This response is plausible for a learner one level lower, but the tone or register is less exact than the key."
       },
@@ -11083,27 +11083,27 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Müşteri çok sert konuştu.",
+      "prompt": "Bir müşteri ürünle ilgili öfkeli bir mesaj yazdı. Empati kurup konuşmayı sakinleştirmek istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
         {
           "id": "k",
-          "text": "I understand your frustration.",
+          "text": "I understand how frustrating this must be.",
           "role": "key",
           "credit": 1,
           "naturalness": "key"
         },
         {
           "id": "w",
-          "text": "Calm down, please.",
-          "role": "weak",
-          "credit": 0.3,
-          "naturalness": "weak"
+          "text": "I can see why you're upset.",
+          "role": "acceptable",
+          "credit": 0.65,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "You are too angry.",
+          "text": "Please calm down before we continue.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -11113,8 +11113,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "I can see why you're frustrated.",
-        "role": "weak",
-        "credit": 0.3,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This response is plausible for a learner one level lower, but the tone or register is less exact than the key."
       },
@@ -11351,7 +11351,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Resmi bir talebi kapatıyorsun.",
+      "prompt": "Resmi bir e-postayı bitirirken karşı tarafın soru sorabileceğini nazikçe belirtmek istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -11364,14 +11364,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "Tell me if you don't understand.",
-          "role": "weak",
-          "credit": 0.3,
-          "naturalness": "weak"
+          "text": "Let me know if you have any questions.",
+          "role": "acceptable",
+          "credit": 0.65,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "If unclear, say me.",
+          "text": "Tell me if you don't understand.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -11381,8 +11381,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "Let me know if anything is unclear.",
-        "role": "weak",
-        "credit": 0.3,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This response is plausible for a learner one level lower, but the tone or register is less exact than the key."
       },
@@ -13903,23 +13903,23 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Üst düzey toplantıda veriye itiraz ediyorsun.",
+      "prompt": "Üst düzey toplantıda veride sorun fark ettin; hem saygılı hem net olmalısın.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
         {
           "id": "k",
-          "text": "Could we revisit those figures?",
+          "text": "Might we double-check those figures?",
           "role": "key",
           "credit": 1,
           "naturalness": "key"
         },
         {
           "id": "w",
-          "text": "Those figures look off.",
-          "role": "weak",
-          "credit": 0.3,
-          "naturalness": "weak"
+          "text": "Those figures look slightly off to me.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13932,9 +13932,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "Might we double-check those figures?",
-        "role": "weak",
-        "credit": 0.3,
+        "text": "Could we revisit those figures?",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This response is plausible for a learner one level lower, but the tone or register is less exact than the key."
       },
@@ -13970,7 +13970,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Bir öneriyi reddetmeden sınır çiziyorsun.",
+      "prompt": "Bir öneriyi tamamen reddetmeden şu an öncelik olmadığını belirtmek istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -13983,14 +13983,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "Maybe, but not now.",
-          "role": "weak",
-          "credit": 0.3,
-          "naturalness": "weak"
+          "text": "It may be worth revisiting later.",
+          "role": "acceptable",
+          "credit": 0.65,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "This is not our thing.",
+          "text": "This is not relevant to us.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -14000,8 +14000,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "I wouldn't dismiss it outright.",
-        "role": "weak",
-        "credit": 0.3,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This response is plausible for a learner one level lower, but the tone or register is less exact than the key."
       },
@@ -14171,7 +14171,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Kıdemli kişiye alternatif sunuyorsun.",
+      "prompt": "Kıdemli bir kişinin fikrine alternatif bir çerçeve sunuyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -14184,14 +14184,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "I have a better frame.",
-          "role": "weak",
-          "credit": 0.3,
-          "naturalness": "weak"
+          "text": "We might frame it slightly differently.",
+          "role": "acceptable",
+          "credit": 0.65,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "Your frame is wrong.",
+          "text": "Your framing is wrong.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -14201,8 +14201,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "We might frame it differently.",
-        "role": "weak",
-        "credit": 0.3,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This response is plausible for a learner one level lower, but the tone or register is less exact than the key."
       },
@@ -14372,7 +14372,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Kararı ertelemeyi öneriyorsun.",
+      "prompt": "Kararın aceleye gelmemesi gerektiğini profesyonelce söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -14385,14 +14385,14 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "We shouldn't decide now.",
-          "role": "weak",
-          "credit": 0.3,
-          "naturalness": "weak"
+          "text": "It might be too early to decide today.",
+          "role": "acceptable",
+          "credit": 0.65,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
-          "text": "Decision today is early.",
+          "text": "We should not decide because it is early.",
           "role": "nonnative",
           "credit": 0,
           "naturalness": "nonnative"
@@ -14402,8 +14402,8 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "close_competitor": {
         "id": "cc",
         "text": "It might be too early to decide.",
-        "role": "weak",
-        "credit": 0.3,
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This response is plausible for a learner one level lower, but the tone or register is less exact than the key."
       },
