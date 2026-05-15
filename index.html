@@ -1084,10 +1084,12 @@
     }
 
     function instrFor(item) {
-      if (item.prompt_lang === "tr" || item.format === "meaning_tr_en") return "Anlamı seç.";
-      if (item.type === "discourse_marker") return "Cümledeki ilişkiye uygun bağlacı seç.";
+      // Item type wins. The Turkish prompt language alone does NOT mean
+      // it's a vocab/meaning question — naturalness items also have Turkish prompts.
       if (["pragmatic_choice","naturalness_judgment","function","natural_speech","spoken_chunk"].includes(item.type))
         return "En doğal cevabı seç.";
+      if (item.type === "discourse_marker") return "Cümledeki ilişkiye uygun bağlacı seç.";
+      if (item.type === "vocab" || item.format === "meaning_tr_en") return "Anlamı seç.";
       if (["idiom","collocation","phrasal_verb"].includes(item.type))
         return "Cümleyi doğal tamamlayan ifadeyi seç.";
       return "Boşluğu tamamla.";

@@ -37,7 +37,16 @@
     // Rapid-confirm: once confidence is high or a streak emerges, switch to short vocab probes
     // to verify the level and lock fast. Set to 0 to disable.
     rapidConfirmCount: 2,
-    rapidConfirmStreakLength: 4
+    rapidConfirmStreakLength: 3,
+    rapidConfirmTolerance: 1,    // wrongs allowed in rapid mode before bailing
+    // Force-lock fallback: after this many items, if recent N at current boundary
+    // are mostly correct, lock without waiting for strict evidence gates.
+    forceLockMinItems: 10,
+    forceLockWindow: 6,
+    forceLockMinCorrect: 4,
+    // Vocab cap: stop the engine from grinding "Anlamı seç" Q's after this many.
+    vocabSoftCap: 2,
+    vocabHardCap: 4
   };
   const RESPONSE_CATEGORIES = [
     "correct_fast",
@@ -207,7 +216,18 @@
       const rapidConfirmBias = this.state.rapid_confirm
         ? (item.type === "vocab" ? 8.0 : -4.0)
         : 0;
-      return exactBoundary + focusPenalty + lemmaPenalty + recentLemmaPenalty + modeBonus + distanceBonus + difficultyBonus + coldStartBonus + mixBonus + roleBonus + readingBonus + mixedBonus + repeatPenalty + discrimination + tieBreak + rapidConfirmBias;
+      // Vocab cap: "Anlamı seç" was popping up too often. After the soft cap,
+      // apply a strong penalty so other types win the selection race.
+      // (Exempted while in rapid-confirm — that mode wants vocab.)
+      let vocabCapPenalty = 0;
+      if (item.type === "vocab" && !this.state.rapid_confirm) {
+        const vocabSeen = this.state.response_log.filter((e) => e.type === "vocab").length;
+        const soft = this.settings.vocabSoftCap ?? 2;
+        const hard = this.settings.vocabHardCap ?? 4;
+        if (vocabSeen >= hard) vocabCapPenalty = -12;
+        else if (vocabSeen >= soft) vocabCapPenalty = -5;
+      }
+      return exactBoundary + focusPenalty + lemmaPenalty + recentLemmaPenalty + modeBonus + distanceBonus + difficultyBonus + coldStartBonus + mixBonus + roleBonus + readingBonus + mixedBonus + repeatPenalty + discrimination + tieBreak + rapidConfirmBias + vocabCapPenalty;
     }
 
     answer(optionId, responseMs) {
@@ -308,25 +328,31 @@
       // ── Rapid-confirm state transitions ───────────────────────────
       // Enter rapid mode when confidence becomes "high" OR when there's a
       // streak of N correct answers at the current top boundary. Once in,
-      // decrement remaining on correct, exit on wrong.
-      const rcCount   = this.settings.rapidConfirmCount   ?? 2;
-      const rcStreakN = this.settings.rapidConfirmStreakLength ?? 4;
+      // decrement remaining on correct, tolerate a single wrong, then exit.
+      const rcCount     = this.settings.rapidConfirmCount        ?? 2;
+      const rcStreakN   = this.settings.rapidConfirmStreakLength ?? 3;
+      const rcTolerance = this.settings.rapidConfirmTolerance    ?? 1;
       if (rcCount > 0) {
         if (this.state.rapid_confirm) {
           if (correct) {
             this.state.rapid_confirm_remaining = Math.max(0, this.state.rapid_confirm_remaining - 1);
           } else {
-            // streak broken — bail back to standard probing
-            this.state.rapid_confirm = false;
-            this.state.rapid_confirm_remaining = 0;
+            // One wrong is forgiven; second wrong bails out.
+            this.state.rapid_confirm_wrong_tolerance =
+              (this.state.rapid_confirm_wrong_tolerance ?? 0) - 1;
+            if (this.state.rapid_confirm_wrong_tolerance < 0) {
+              this.state.rapid_confirm = false;
+              this.state.rapid_confirm_remaining = 0;
+            }
           }
-        } else if (this.state.items_asked >= 6) {
+        } else if (this.state.items_asked >= 5) {
           const tail = this.state.response_log.slice(-rcStreakN);
           const streakHit = tail.length === rcStreakN
             && tail.every((e) => e.correct && e.boundary === this.state.current_boundary);
           if (this.state.confidence === "high" || streakHit) {
             this.state.rapid_confirm = true;
             this.state.rapid_confirm_remaining = rcCount;
+            this.state.rapid_confirm_wrong_tolerance = rcTolerance;
             this.state.rapid_confirm_locked_boundary = this.state.current_boundary;
           }
         }
@@ -714,6 +740,29 @@
         const lock = this.adjacentLock() || this.bestAvailableLock();
         return { action: "terminate_high_confidence", lock, reason: "Rapid-confirm complete (vocab streak verified)." };
       }
+
+      // Force-lock fallback: if the learner has clearly demonstrated the current
+      // boundary (≥ minCorrect of last `window` items at this boundary), lock.
+      // Stops endless "step_up" grinding at the ceiling.
+      const flMin    = this.settings.forceLockMinItems   ?? 10;
+      const flWindow = this.settings.forceLockWindow     ?? 6;
+      const flNeeded = this.settings.forceLockMinCorrect ?? 4;
+      if (this.state.items_asked >= flMin) {
+        const recentAtCurrent = this.state.response_log
+          .slice(-flWindow)
+          .filter((e) => e.boundary === this.state.current_boundary);
+        if (recentAtCurrent.length >= flNeeded) {
+          const correctCount = recentAtCurrent.filter((e) => e.correct).length;
+          if (correctCount >= flNeeded) {
+            const lock = this.adjacentLock() || this.bestAvailableLock();
+            return {
+              action: "terminate_high_confidence",
+              lock,
+              reason: `Force-lock: ${correctCount}/${recentAtCurrent.length} correct at ${this.state.current_boundary}.`
+            };
+          }
+        }
+      }
       if (this.state.items_asked < minItems) return null;
 
       const contradiction = hasContradiction(this.state);
@@ -931,6 +980,7 @@
       rapid_confirm: false,
       rapid_confirm_remaining: 0,
       rapid_confirm_locked_boundary: null,
+      rapid_confirm_wrong_tolerance: 0,
       result: null
     };
   }

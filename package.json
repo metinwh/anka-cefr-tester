@@ -2,7 +2,6 @@
   "name": "nektar-cefr-tester",
   "version": "2.0.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "@vercel/blob": "^0.27.0"
   }
