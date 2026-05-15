@@ -12,7 +12,26 @@ export default async function handler(req, res) {
   }
 
   try {
-    const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
+    // Body parsing — handle every shape Vercel might give us:
+    // (a) already-parsed object (when content-type is application/json)
+    // (b) raw string (sendBeacon often sends as text/plain or application/json)
+    // (c) Buffer
+    let body = req.body;
+    if (Buffer.isBuffer(body)) body = body.toString("utf8");
+    if (typeof body === "string") {
+      const s = body.trim();
+      if (!s) body = {};
+      else {
+        try { body = JSON.parse(s); }
+        catch (parseErr) {
+          // sendBeacon-from-Blob sometimes has BOM or weird wrapping — strip and retry
+          const stripped = s.replace(/^﻿/, "").trim();
+          try { body = JSON.parse(stripped); }
+          catch { body = { _parse_error: String(parseErr.message), _raw_preview: s.slice(0, 200) }; }
+        }
+      }
+    }
+    if (!body || typeof body !== "object") body = {};
 
     const fwd = req.headers["x-forwarded-for"] || "";
     const ip = (typeof fwd === "string" ? fwd.split(",")[0] : "").trim()
