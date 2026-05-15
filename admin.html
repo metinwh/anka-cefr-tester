@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>NEKTAR Admin — Session Logs</title>
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --panel: #111827;
+      --text: #f4f0eb;
+      --muted: #8b97a8;
+      --accent: #ff7a1a;
+      --accent-soft: #ffb36f;
+      --border: rgba(255,255,255,0.08);
+      --good: #4ade80;
+      --warn: #fbbf24;
+      --bad:  #f87171;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 28px 22px;
+    }
+    h1 {
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .sub { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+    .accent { color: var(--accent-soft); }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 14px;
+    }
+    .toolbar input[type=password], .toolbar input[type=text] {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 9px 12px;
+      font: inherit;
+      flex: 1 1 240px;
+      min-width: 200px;
+    }
+    .toolbar input:focus { outline: none; border-color: var(--accent); }
+    .toolbar button {
+      background: var(--accent);
+      color: #1a0800;
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: filter 150ms ease;
+    }
+    .toolbar button:hover { filter: brightness(1.06); }
+    .toolbar button.ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .toolbar .stat {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      margin-left: 6px;
+    }
+    .stat strong { color: var(--text); font-weight: 700; }
+
+    .status {
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 14px;
+      display: none;
+    }
+    .status.show { display: block; }
+    .status.error { color: var(--bad); border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.06); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .card {
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .card .label {
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .card .value {
+      font-size: 22px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+    .card.level .value { color: var(--accent-soft); }
+
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead th {
+      text-align: left;
+      padding: 12px 14px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.015);
+    }
+    tbody td {
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: top;
+    }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr.expanded { background: rgba(255,255,255,0.02); }
+    tbody td.actions { white-space: nowrap; }
+    tbody td.lvl { font-weight: 800; color: var(--accent-soft); }
+    tbody td.mono {
+      font-family: SFMono-Regular, Consolas, Menlo, monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.65);
+    }
+    tbody td.dim { color: var(--muted); }
+
+    button.row {
+      background: transparent;
+      color: var(--accent-soft);
+      border: 1px solid rgba(255,122,26,0.3);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-right: 4px;
+    }
+    button.row:hover { background: rgba(255,122,26,0.08); }
+
+    .detail {
+      padding: 16px 18px;
+      background: rgba(0,0,0,0.25);
+      border-top: 1px solid var(--border);
+    }
+    .detail pre {
+      font-family: SFMono-Regular, Consolas, Menlo, monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.75);
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 400px;
+      overflow: auto;
+    }
+    .empty {
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .conf-high  { color: var(--good); }
+    .conf-medium{ color: var(--warn); }
+    .conf-low   { color: var(--bad); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>NEKTAR ANKA — <span class="accent">Session Logs</span></h1>
+    <div class="sub">Live trajectory of every completed placement session. JSON / Markdown export.</div>
+
+    <div class="toolbar">
+      <input type="password" id="token" placeholder="admin token" autocomplete="off">
+      <button id="load">Load sessions</button>
+      <button id="dl-json" class="ghost" disabled>Download JSON</button>
+      <button id="dl-md"   class="ghost" disabled>Download MD</button>
+      <span class="stat" id="stat"></span>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="grid" id="summary" style="display:none"></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>When</th>
+            <th>Level</th>
+            <th>Conf</th>
+            <th>Turns</th>
+            <th>Duration</th>
+            <th>IP</th>
+            <th>Geo</th>
+            <th>Device</th>
+            <th>Session</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <tr><td colspan="10" class="empty">Enter your admin token and click <strong>Load sessions</strong>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const tokenInput = document.getElementById("token");
+    const loadBtn    = document.getElementById("load");
+    const statusEl   = document.getElementById("status");
+    const rowsEl     = document.getElementById("rows");
+    const statEl     = document.getElementById("stat");
+    const summaryEl  = document.getElementById("summary");
+    const dlJsonBtn  = document.getElementById("dl-json");
+    const dlMdBtn    = document.getElementById("dl-md");
+    let lastData = null;
+
+    // Pre-fill token from ?token=... in URL
+    const urlToken = new URLSearchParams(location.search).get("token") || "";
+    if (urlToken) tokenInput.value = urlToken;
+
+    function setStatus(msg, isError) {
+      statusEl.textContent = msg;
+      statusEl.className = "status show" + (isError ? " error" : "");
+    }
+    function clearStatus() { statusEl.className = "status"; statusEl.textContent = ""; }
+
+    function fmtDate(iso) {
+      if (!iso) return "—";
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString("tr-TR", { hour12: false });
+      } catch { return iso; }
+    }
+    function fmtDur(ms) {
+      if (!ms && ms !== 0) return "—";
+      const s = Math.round(ms / 1000);
+      return s < 60 ? `${s}s` : `${Math.floor(s/60)}m ${s%60}s`;
+    }
+    function fmtDevice(ua, dev) {
+      if (!ua) return "—";
+      const isIPhone = /iPhone/.test(ua);
+      const isIPad   = /iPad/.test(ua);
+      const isAndroid= /Android/.test(ua);
+      const isMac    = /Macintosh/.test(ua);
+      const isWin    = /Windows/.test(ua);
+      const isLinux  = /Linux/.test(ua) && !isAndroid;
+      let dev_name = "Other";
+      if (isIPhone) dev_name = "iPhone";
+      else if (isIPad) dev_name = "iPad";
+      else if (isAndroid) dev_name = "Android";
+      else if (isMac) dev_name = "Mac";
+      else if (isWin) dev_name = "Windows";
+      else if (isLinux) dev_name = "Linux";
+      const browser = /Edg\//.test(ua) ? "Edge"
+        : /Chrome\//.test(ua) ? "Chrome"
+        : /Safari\//.test(ua) ? "Safari"
+        : /Firefox\//.test(ua) ? "Firefox"
+        : "browser";
+      const dims = (dev?.screen_w && dev?.screen_h) ? ` ${dev.screen_w}×${dev.screen_h}` : "";
+      return `${dev_name} ${browser}${dims}`;
+    }
+    function geoStr(g) {
+      if (!g) return "—";
+      const parts = [g.city, g.region, g.country].filter(Boolean);
+      return parts.length ? parts.join(", ") : "—";
+    }
+
+    async function load() {
+      const token = tokenInput.value.trim();
+      if (!token) { setStatus("Enter the admin token first.", true); return; }
+      setStatus("Loading…", false);
+      loadBtn.disabled = true;
+
+      try {
+        const r = await fetch(`/api/sessions?token=${encodeURIComponent(token)}`);
+        if (r.status === 403) { setStatus("Forbidden — token is wrong.", true); return; }
+        if (!r.ok) { setStatus(`Server error ${r.status}.`, true); return; }
+        const data = await r.json();
+        lastData = data;
+        render(data);
+        clearStatus();
+        dlJsonBtn.disabled = false;
+        dlMdBtn.disabled   = false;
+      } catch (e) {
+        setStatus("Network error: " + e.message, true);
+      } finally {
+        loadBtn.disabled = false;
+      }
+    }
+
+    function render(data) {
+      const sessions = data.sessions || [];
+      statEl.innerHTML = `<strong>${sessions.length}</strong> session${sessions.length === 1 ? "" : "s"} · fetched ${fmtDate(data.fetched_at)}`;
+
+      // Summary cards
+      const levelCounts = {};
+      let totalMs = 0;
+      let totalTurns = 0;
+      for (const s of sessions) {
+        const lvl = s.result?.estimated_level || "—";
+        levelCounts[lvl] = (levelCounts[lvl] || 0) + 1;
+        totalMs += (s.duration_ms || 0);
+        totalTurns += (s.items_asked || 0);
+      }
+      const levels = ["A1","A2","B1","B2","C1"];
+      summaryEl.innerHTML = levels.map(L => `
+        <div class="card level"><div class="label">${L}</div><div class="value">${levelCounts[L] || 0}</div></div>
+      `).join("") + `
+        <div class="card"><div class="label">Avg duration</div><div class="value">${sessions.length ? fmtDur(totalMs/sessions.length) : "—"}</div></div>
+        <div class="card"><div class="label">Avg turns</div><div class="value">${sessions.length ? (totalTurns/sessions.length).toFixed(1) : "—"}</div></div>
+      `;
+      summaryEl.style.display = sessions.length ? "grid" : "none";
+
+      if (!sessions.length) {
+        rowsEl.innerHTML = `<tr><td colspan="10" class="empty">No sessions logged yet.</td></tr>`;
+        return;
+      }
+
+      rowsEl.innerHTML = sessions.map((s, idx) => {
+        const lvl = s.result?.estimated_level || "—";
+        const conf = s.confidence_at_end || s.result?.confidence || "—";
+        const confClass = conf === "high" ? "conf-high" : conf === "medium" ? "conf-medium" : "conf-low";
+        return `
+          <tr data-idx="${idx}">
+            <td class="dim">${fmtDate(s.server_received_at || s.ended_at)}</td>
+            <td class="lvl">${escapeHtml(lvl)}</td>
+            <td class="${confClass}">${escapeHtml(conf)}</td>
+            <td>${s.items_asked ?? "—"}</td>
+            <td class="dim">${fmtDur(s.duration_ms)}</td>
+            <td class="mono">${escapeHtml(s.ip || "—")}</td>
+            <td class="dim">${escapeHtml(geoStr(s.geo))}</td>
+            <td class="dim">${escapeHtml(fmtDevice(s.user_agent, s.device))}</td>
+            <td class="mono">${escapeHtml((s.session_id || "—").slice(0, 22))}</td>
+            <td class="actions">
+              <button class="row" data-action="view" data-idx="${idx}">view</button>
+              <button class="row" data-action="md"   data-idx="${idx}">.md</button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    rowsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("button.row");
+      if (!btn) return;
+      const idx = +btn.dataset.idx;
+      const s = lastData.sessions[idx];
+      if (btn.dataset.action === "view") toggleDetail(idx, s);
+      else if (btn.dataset.action === "md") downloadFile(sessionToMd(s), `session-${s.session_id || idx}.md`, "text/markdown");
+    });
+
+    function toggleDetail(idx, s) {
+      const tr = rowsEl.querySelector(`tr[data-idx="${idx}"]`);
+      const next = tr.nextElementSibling;
+      if (next && next.classList.contains("detail-row")) {
+        next.remove();
+        tr.classList.remove("expanded");
+        return;
+      }
+      tr.classList.add("expanded");
+      const detail = document.createElement("tr");
+      detail.classList.add("detail-row");
+      detail.innerHTML = `<td colspan="10" class="detail"><pre>${escapeHtml(JSON.stringify(s, null, 2))}</pre></td>`;
+      tr.after(detail);
+    }
+
+    dlJsonBtn.addEventListener("click", () => {
+      if (!lastData) return;
+      downloadFile(JSON.stringify(lastData, null, 2), `nektar-sessions-${todayStr()}.json`, "application/json");
+    });
+    dlMdBtn.addEventListener("click", () => {
+      if (!lastData) return;
+      const md = (lastData.sessions || []).map(sessionToMd).join("\n\n---\n\n");
+      downloadFile(md, `nektar-sessions-${todayStr()}.md`, "text/markdown");
+    });
+
+    function sessionToMd(s) {
+      const lines = [];
+      lines.push(`# Session ${s.session_id || "—"}`);
+      lines.push("");
+      lines.push(`- **Level:** ${s.result?.estimated_level || "—"} (confidence: ${s.confidence_at_end || s.result?.confidence || "—"})`);
+      lines.push(`- **Started:** ${s.started_at || "—"}`);
+      lines.push(`- **Ended:**   ${s.ended_at || "—"}`);
+      lines.push(`- **Duration:** ${fmtDur(s.duration_ms)} · **Turns:** ${s.items_asked ?? "—"}`);
+      lines.push(`- **Mode:** ${s.mode || "—"}`);
+      lines.push(`- **IP:** \`${s.ip || "—"}\` · **Geo:** ${geoStr(s.geo)}`);
+      lines.push(`- **Device:** ${fmtDevice(s.user_agent, s.device)}`);
+      lines.push(`- **User-Agent:** \`${s.user_agent || "—"}\``);
+      lines.push(`- **Termination:** ${s.result?.termination_action || "—"} — ${s.result?.termination_reason || ""}`);
+      lines.push("");
+      lines.push("## Trajectory");
+      lines.push("");
+      lines.push("| T | Boundary | Type | Selected | Role | OK | MS | Action | After | Conf |");
+      lines.push("|---|----------|------|----------|------|----|----|--------|-------|------|");
+      for (const e of (s.trajectory || [])) {
+        lines.push(`| ${e.turn} | ${e.boundary} | ${e.type} | ${e.selected_option_id || "—"} | ${e.selected_role || "—"} | ${e.correct ? "✓" : "✗"} | ${e.response_ms} | ${e.engine_action} | ${e.state_after?.current_boundary || "—"} | ${e.state_after?.confidence || "—"} |`);
+      }
+      return lines.join("\n");
+    }
+
+    function todayStr() { return new Date().toISOString().slice(0, 10); }
+    function downloadFile(content, filename, mime) {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function escapeHtml(v) {
+      return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+    }
+
+    loadBtn.addEventListener("click", load);
+    tokenInput.addEventListener("keydown", (e) => { if (e.key === "Enter") load(); });
+    if (urlToken) load();
+  </script>
+</body>
+</html>

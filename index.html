@@ -836,6 +836,9 @@
       return s || `anka-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     }
 
+    let sessionStartedAt = null;
+    let loggedSessionIds = new Set();
+
     function start(mode = "standard") {
       clearTimer();
       engine = Engine.createEngine(coreItems(), {
@@ -847,9 +850,46 @@
         maxItems: mode === "detailed" ? 28 : 24
       });
       shownAt = Date.now();
+      sessionStartedAt = Date.now();
       transition = null;
       render();
       syncTrajectory();
+    }
+
+    function logCompletedSession() {
+      if (!engine || !engine.state.result) return;
+      const sid = engine.settings.seed;
+      if (loggedSessionIds.has(sid)) return;
+      loggedSessionIds.add(sid);
+      const payload = {
+        session_id: sid,
+        started_at: new Date(sessionStartedAt || Date.now()).toISOString(),
+        ended_at: new Date().toISOString(),
+        duration_ms: Date.now() - (sessionStartedAt || Date.now()),
+        user_agent: navigator.userAgent,
+        device: {
+          screen_w: screen.width,
+          screen_h: screen.height,
+          dpr: window.devicePixelRatio || 1,
+          lang: navigator.language,
+          platform: navigator.platform || "",
+          timezone: (Intl.DateTimeFormat().resolvedOptions().timeZone) || "",
+          referrer: document.referrer || ""
+        },
+        mode: engine.settings.mode,
+        result: engine.state.result,
+        items_asked: engine.state.items_asked,
+        confidence_at_end: engine.state.confidence,
+        trajectory: engine.state.response_log
+      };
+      try {
+        fetch("/api/log", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(() => {});
+      } catch (_) { /* silent */ }
     }
 
     function answer(optionId) {
@@ -862,6 +902,7 @@
       };
       syncTrajectory();
       render();
+      if (done) logCompletedSession();
       transitionTimer = window.setTimeout(() => {
         transition = null;
         shownAt = Date.now();
@@ -891,8 +932,8 @@
       app.className = "screen question fade";
       app.innerHTML = `
         <div class="topline">
-          <span class="chip">ANKA ADAPTIVE ENGINE</span>
-          <span>${pct}%</span>
+          <span class="chip">EMİN OLMA YÜZDESİ</span>
+          <span>%${pct}</span>
         </div>
         <div class="progress" aria-hidden="true">
           <div class="progress-bar" style="width:${pct}%"></div>
@@ -968,9 +1009,7 @@
           <div class="level">${esc(result.estimated_level)}</div>
           <p>Bu test daha çok tanıma becerini ölçer. Konuşma ve yazma ilk günlerde biraz daha düşük hissedebilir.</p>
         </div>
-        <button class="primary" type="button">Bu seviyeden başla</button>
-        <button class="unknown" data-action="detailed" type="button">Detaylı test yap</button>
-        <button class="unknown" data-action="reset" type="button">Tekrar dene</button>
+        <button class="primary" data-action="reset" type="button">Tekrar test et</button>
       `;
     }
 
