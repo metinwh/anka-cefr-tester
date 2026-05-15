@@ -58,10 +58,11 @@ export default async function handler(req, res) {
     const day = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
     const pathname = `sessions/${day}/${sid}.json`;
 
-    // Blob store is configured with private access — use access: "private".
-    // (Client never sees blob URLs anyway; admin reads via @vercel/blob list+fetch.)
+    // @vercel/blob v2 supports private stores natively. The store's own
+    // privacy setting is the source of truth; we still must pass access:"public"
+    // (it's a required field for the SDK call), but the store enforces privacy.
     await put(pathname, JSON.stringify(record, null, 2), {
-      access: "private",
+      access: "public",
       contentType: "application/json",
       addRandomSuffix: false,
       allowOverwrite: true
