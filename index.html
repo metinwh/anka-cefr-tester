@@ -741,18 +741,23 @@
           <table class="console-table">
             <thead>
               <tr>
-                <th>T</th>
-                <th>Bndry</th>
+                <th>Turn</th>
+                <th>Item</th>
+                <th>Boundary</th>
+                <th>Type</th>
+                <th>Focus</th>
+                <th>Selected</th>
                 <th>Role</th>
-                <th>Res</th>
+                <th>Correct</th>
                 <th>MS</th>
                 <th>Action</th>
-                <th>Flow</th>
-                <th>Conf</th>
+                <th>Before</th>
+                <th>After</th>
+                <th>Confidence</th>
               </tr>
             </thead>
             <tbody id="trajectory-body">
-              <tr><td colspan="8" class="console-empty">Henüz veri yok.</td></tr>
+              <tr><td colspan="13" class="console-empty">Henüz veri yok.</td></tr>
             </tbody>
           </table>
         </div>
@@ -762,7 +767,7 @@
     <footer class="footer">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
         <img src="./loading_dark.png" alt="Nektar Logo" style="height: 24px; opacity: 0.8; filter: grayscale(1) brightness(2); transition: all 0.3s ease;" onmouseover="this.style.opacity='1'; this.style.filter='none'" onmouseout="this.style.opacity='0.8'; this.style.filter='grayscale(1) brightness(2)'">
-        <span>CEFR Tester Beta by Nektar ANKA Lab / 2026 all rights reserved</span>
+        <span>NEKTAR Lab: ANKA CEFR Tester Beta / 2026 all rights reserved</span>
       </div>
     </footer>
 
@@ -1031,18 +1036,23 @@
       const log = engine?.state?.response_log || [];
       turnPill.textContent = `${log.length} turns`;
       if (!log.length) {
-        tBody.innerHTML = `<tr><td colspan="8" class="console-empty">Henüz veri yok.</td></tr>`;
+        tBody.innerHTML = `<tr><td colspan="13" class="console-empty">Henüz veri yok.</td></tr>`;
         return;
       }
       tBody.innerHTML = log.map((e) => `
         <tr>
           <td>${e.turn}</td>
+          <td><code>${esc(e.item_id)}</code></td>
           <td>${esc(e.boundary)}</td>
+          <td>${esc(e.type)}</td>
+          <td>${esc(Array.isArray(e.focus) && e.focus.length ? e.focus.join(", ") : "—")}</td>
+          <td>${esc(e.selected_option_id || "—")}</td>
           <td>${esc(e.selected_role)}</td>
           <td>${e.correct ? "✓" : "✗"}</td>
           <td>${e.response_ms}</td>
           <td>${esc(e.engine_action)}</td>
-          <td>${esc(e.state_before.current_boundary)} → ${esc(e.state_after.current_boundary)}</td>
+          <td>${esc(e.state_before.current_boundary)}</td>
+          <td>${esc(e.state_after.current_boundary)}</td>
           <td>${esc(e.state_after.confidence)}</td>
         </tr>
       `).join("");
