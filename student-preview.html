@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nektar CEFR Placement Preview</title>
+  <style>
+    :root {
+      --bg: #0f141b;
+      --panel: #151c26;
+      --panel-soft: #1a2330;
+      --text: #f4f0eb;
+      --muted: #a9b2bf;
+      --accent: #ff7a1a;
+      --accent-soft: #ffb36f;
+      --border: rgba(255, 255, 255, 0.1);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at top left, rgba(255, 122, 26, 0.13), transparent 34%),
+        linear-gradient(180deg, #101821 0%, var(--bg) 58%);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: 0;
+    }
+
+    .phone {
+      width: min(100vw, 430px);
+      min-height: 100vh;
+      display: grid;
+      align-content: center;
+      padding: 18px;
+    }
+
+    .screen {
+      min-height: 680px;
+      display: grid;
+      align-content: center;
+      gap: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)), var(--panel);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+      overflow: hidden;
+    }
+
+    .screen.question {
+      align-content: start;
+    }
+
+    .screen.fade {
+      animation: fadeUp 260ms ease both;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 820;
+    }
+
+    .chip {
+      display: inline-grid;
+      place-items: center;
+      min-height: 24px;
+      width: fit-content;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .progress {
+      height: 5px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #252d3a;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: var(--w);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      transition: width 280ms ease;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .welcome {
+      display: grid;
+      gap: 16px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .info-item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border-radius: var(--radius);
+      background: #111821;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .info-dot {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255, 122, 26, 0.16);
+      color: var(--accent-soft);
+      font-weight: 950;
+      font-size: 12px;
+    }
+
+    .instruction {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .prompt {
+      min-height: 72px;
+      display: grid;
+      align-items: center;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: #18212c;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-size: 19px;
+      line-height: 1.35;
+      font-weight: 760;
+      animation: fadeUp 260ms ease both;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+    }
+
+    .choice {
+      min-height: 56px;
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 10px;
+      align-items: center;
+      text-align: left;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #111821;
+      color: var(--text);
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+      animation: choiceIn 260ms ease both;
+      animation-delay: calc(var(--i) * 48ms);
+    }
+
+    .choice:hover {
+      border-color: rgba(255, 179, 111, 0.55);
+      background: var(--panel-soft);
+      transform: translateY(-1px);
+    }
+
+    .letter {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #232b38;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .choice span:last-child {
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 740;
+    }
+
+    .primary,
+    .unknown {
+      min-height: 48px;
+      border-radius: 12px;
+      font-weight: 850;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #190d03;
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.04);
+    }
+
+    .unknown {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .transition {
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+
+    .thinking-card {
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+      padding: 24px 12px;
+    }
+
+    .thinking-bars {
+      display: flex;
+      align-items: end;
+      gap: 6px;
+      height: 42px;
+    }
+
+    .thinking-bars span {
+      width: 7px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--accent-soft), var(--accent));
+      animation: barPulse 820ms ease-in-out infinite;
+      animation-delay: calc(var(--i) * 110ms);
+    }
+
+    .thinking-bars span:nth-child(1) { height: 18px; }
+    .thinking-bars span:nth-child(2) { height: 30px; }
+    .thinking-bars span:nth-child(3) { height: 24px; }
+    .thinking-bars span:nth-child(4) { height: 36px; }
+
+    .transition-text {
+      max-width: 24ch;
+      color: var(--text);
+      font-size: 23px;
+      line-height: 1.22;
+      font-weight: 900;
+    }
+
+    .transition-sub {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .result {
+      display: grid;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .level {
+      color: var(--accent-soft);
+      font-size: 72px;
+      line-height: 0.95;
+      font-weight: 950;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes choiceIn {
+      from { opacity: 0; transform: translateY(7px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes barPulse {
+      0%, 100% { transform: scaleY(0.64); opacity: 0.56; }
+      50% { transform: scaleY(1); opacity: 1; }
+    }
+
+    @media (max-width: 460px) {
+      .phone { padding: 0; }
+      .screen {
+        min-height: 100vh;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        justify-content: stretch;
+      }
+      h1 { font-size: 30px; }
+      .prompt { font-size: 18px; }
+      .choice span:last-child { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <section id="app" class="screen"></section>
+  </main>
+
+  <script src="./placement-questions.js"></script>
+  <script src="./placement-pool.generated.js"></script>
+  <script src="./placement-questions-v2.js"></script>
+  <script src="./ceiling-probe-engine.js"></script>
+  <script>
+    const Engine = window.NektarCeilingProbeEngine;
+    const content = window.NEKTAR_PLACEMENT_CONTENT;
+    const contentV2 = window.NEKTAR_PLACEMENT_CONTENT_V2;
+    const app = document.getElementById("app");
+    const LEGACY_CORE_EXCLUDED_TYPES = new Set(["function", "pragmatic_choice", "naturalness_judgment", "natural_speech", "spoken_chunk"]);
+    const TRANSITION_COPY = [
+      "Cevab\u0131n kaydedildi.",
+      "Bir sonraki soruyu se\u00e7iyorum.",
+      "Bir sonraki sorunun zorlu\u011funu ayarl\u0131yorum.",
+      "Hmm... s\u0131radaki maddeyi haz\u0131rl\u0131yorum.",
+      "Tamamd\u0131r, \u015fimdi sonraki soruya ge\u00e7iyoruz.",
+      "K\u0131sa bir kontrol daha yap\u0131yorum.",
+      "Ak\u0131\u015f\u0131 cevab\u0131na g\u00f6re g\u00fcncelliyorum.",
+      "S\u0131radaki soru haz\u0131rlan\u0131yor.",
+      "Bir sonraki maddeyi se\u00e7iyorum.",
+      "Sonucunu netle\u015ftirmek i\u00e7in devam ediyoruz."
+    ];
+    let engine = null;
+    let shownAt = 0;
+    let transition = null;
+    let transitionTimer = null;
+
+    function seed() {
+      const urlSeed = new URLSearchParams(location.search).get("seed");
+      return urlSeed || `student-preview-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function start(mode = "standard") {
+      clearTransitionTimer();
+      engine = Engine.createEngine(corePlacementItems(), {
+        seed: seed(),
+        mode,
+        startBoundary: "A1/A2",
+        standardMinItems: 8,
+        detailedMinItems: 14,
+        maxItems: mode === "detailed" ? 28 : 24
+      });
+      shownAt = Date.now();
+      transition = null;
+      render();
+    }
+
+    function answer(optionId) {
+      if (!engine || !engine.currentItem || engine.state.result || transition) return;
+      const step = engine.answer(optionId, Date.now() - shownAt);
+      const resultReady = Boolean(engine.state.result);
+      transition = {
+        text: resultReady ? "Sonucunu haz\u0131rl\u0131yorum." : pickTransitionCopy(step),
+        resultReady
+      };
+      render();
+      transitionTimer = window.setTimeout(() => {
+        transition = null;
+        shownAt = Date.now();
+        render();
+      }, resultReady ? 820 : 680);
+    }
+
+    function render() {
+      if (transition) {
+        app.className = "screen fade";
+        app.innerHTML = renderTransition();
+        return;
+      }
+      if (!engine) {
+        app.className = "screen fade";
+        app.innerHTML = renderWelcome();
+        return;
+      }
+      if (engine.state.result) {
+        app.className = "screen fade";
+        app.innerHTML = renderResult(engine.state.result);
+        return;
+      }
+
+      const item = engine.currentItem;
+      const options = orderedOptions(item);
+      const pct = Math.min(95, progress());
+      app.className = "screen question fade";
+      app.innerHTML = `
+        <div class="topline">
+          <span class="chip">Seviye tespiti</span>
+          <span>${pct}%</span>
+        </div>
+        <div class="progress" aria-hidden="true"><span style="--w:${pct}%"></span></div>
+        <div class="instruction">${escapeHtml(instructionFor(item))}</div>
+        <div class="prompt">${escapeHtml(item.prompt)}</div>
+        <div class="choices">
+          ${options.map((option, index) => `
+            <button class="choice" style="--i:${index}" data-answer="${escapeHtml(option.id)}" type="button">
+              <span class="letter">${String.fromCharCode(65 + index)}</span>
+              <span>${escapeHtml(option.text)}</span>
+            </button>
+          `).join("")}
+        </div>
+        <button class="unknown" data-answer="unknown" type="button">Bilmiyorum</button>
+      `;
+    }
+
+    function renderWelcome() {
+      return `
+        <div class="welcome">
+          <span class="chip">Nektar seviye tespiti</span>
+          <div>
+            <h1>K&#305;sa seviye testi</h1>
+            <p>Yakla&#351;&#305;k 2 dakika s&#252;rer. Kelime, gramer, kal&#305;p ifade ve okuma sezgisiyle ba&#351;lang&#305;&#231; seviyeni bulur.</p>
+          </div>
+          <div class="info-list">
+            <div class="info-item"><span class="info-dot">1</span><span>Sorular cevaplar&#305;na g&#246;re se&#231;ilir; bazen kolayla&#351;&#305;r, bazen daha ay&#305;rt edici olur.</span></div>
+            <div class="info-item"><span class="info-dot">2</span><span>Emin de&#287;ilsen <strong>Bilmiyorum</strong> diyebilirsin. Bu da testin sana uyum sa&#287;lamas&#305;na yard&#305;m eder.</span></div>
+            <div class="info-item"><span class="info-dot">3</span><span>Bu k&#305;sa test sosyal nezaket yarg&#305;s&#305; de&#287;il, temel dil kontrol&#252; yapar. Do&#287;ru cevaplar test s&#305;ras&#305;nda g&#246;sterilmez.</span></div>
+          </div>
+        </div>
+        <button class="primary" data-action="start" type="button">Ba&#351;la</button>
+      `;
+    }
+
+    function corePlacementItems() {
+      const legacy = content.items || [];
+      const diagnostic = (contentV2?.items || []).map((item) => ({
+        ...item,
+        source_collection: item.source_collection || "diagnostic_v2"
+      }));
+      const merged = legacy.concat(diagnostic);
+      const items = merged.filter((item) =>
+        item.source_collection === "diagnostic_v2" || !LEGACY_CORE_EXCLUDED_TYPES.has(item.type)
+      );
+      return items.length ? items : merged;
+    }
+
+    function renderTransition() {
+      return `
+        <div class="transition">
+          <div class="thinking-card">
+            <div class="thinking-bars" aria-hidden="true">
+              <span style="--i:0"></span>
+              <span style="--i:1"></span>
+              <span style="--i:2"></span>
+              <span style="--i:3"></span>
+            </div>
+            <div class="transition-text">${escapeHtml(transition.text)}</div>
+            <div class="transition-sub">K&#305;sa test ak&#305;&#351;&#305; devam ediyor.</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderResult(result) {
+      return `
+        <div class="result">
+          <div class="topline">&#214;nerilen ba&#351;lang&#305;&#231; seviyen</div>
+          <div class="level">${escapeHtml(result.estimated_level)}</div>
+          <p>Bu test daha &#231;ok tan&#305;ma becerini &#246;l&#231;er. Konu&#351;ma ve yazma ilk g&#252;nlerde biraz daha d&#252;&#351;&#252;k hissedebilir.</p>
+        </div>
+        <button class="primary" type="button">Bu seviyeden ba&#351;la</button>
+        <button class="unknown" data-action="detailed" type="button">Detayl&#305; test yap</button>
+        <button class="unknown" data-action="reset" type="button">Tekrar dene</button>
+      `;
+    }
+
+    function pickTransitionCopy(step) {
+      const turn = engine?.state?.items_asked || 0;
+      const seedValue = engine?.settings?.seed || "student-preview";
+      const unit = Engine.hashToUnit(`${seedValue}|transition|${turn}|${step?.logEntry?.item_id || ""}`);
+      return TRANSITION_COPY[Math.floor(unit * TRANSITION_COPY.length) % TRANSITION_COPY.length];
+    }
+
+    function clearTransitionTimer() {
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+      transitionTimer = null;
+    }
+
+    function progress() {
+      const asked = engine?.state?.items_asked || 0;
+      const minItems = engine?.settings?.mode === "detailed" ? engine.settings.detailedMinItems : engine.settings.standardMinItems;
+      const confidence = engine?.state?.confidence || "low";
+      const boost = confidence === "high" ? 18 : confidence === "medium" ? 8 : 0;
+      return Math.round(Math.min(95, ((asked / Math.max(1, minItems)) * 72) + boost));
+    }
+
+    function orderedOptions(item) {
+      return item.options
+        .map((option, index) => ({ option, sort: Engine.hashToUnit(`${engine.settings.seed}|${item.id}|${option.id}|${index}`) }))
+        .sort((a, b) => a.sort - b.sort)
+        .map((entry) => entry.option);
+    }
+
+    function instructionFor(item) {
+      if (item.prompt_lang === "tr" || item.format === "meaning_tr_en") return "Anlam\u0131 se\u00e7.";
+      if (item.type === "discourse_marker") return "C\u00fcmledeki ili\u015fkiye uygun ba\u011flac\u0131 se\u00e7.";
+      if (["pragmatic_choice", "naturalness_judgment", "function", "natural_speech", "spoken_chunk"].includes(item.type)) return "En do\u011fal cevab\u0131 se\u00e7.";
+      if (["idiom", "collocation", "phrasal_verb"].includes(item.type)) return "C\u00fcmleyi do\u011fal tamamlayan ifadeyi se\u00e7.";
+      return "Bo\u015flu\u011fu tamamla.";
+    }
+
+    function escapeHtml(value) {
+      return String(value || "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    app.addEventListener("click", (event) => {
+      if (transition) return;
+      const answerButton = event.target.closest("[data-answer]");
+      if (answerButton) {
+        answer(answerButton.dataset.answer);
+        return;
+      }
+      const actionButton = event.target.closest("[data-action]");
+      if (!actionButton) return;
+      if (actionButton.dataset.action === "start") start("standard");
+      if (actionButton.dataset.action === "detailed") start("detailed");
+      if (actionButton.dataset.action === "reset") {
+        clearTransitionTimer();
+        engine = null;
+        transition = null;
+        render();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

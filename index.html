@@ -1,0 +1,1090 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ANKA CEFR Tester — Nektar</title>
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --panel: #111827;
+      --panel-soft: #1a2535;
+      --text: #f4f0eb;
+      --muted: #7e8ea2;
+      --accent: #ff7a1a;
+      --accent-soft: #ffb36f;
+      --border: rgba(255, 255, 255, 0.07);
+      --radius: 16px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { height: 100%; }
+
+    body {
+      min-height: 100%;
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Background orbs ─────────────────────────────────── */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      will-change: transform;
+    }
+
+    .bg-orb:nth-child(1) {
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(255,122,26,0.22), transparent 70%);
+      top: -180px; left: -120px;
+      animation: orb1 20s ease-in-out infinite;
+    }
+    .bg-orb:nth-child(2) {
+      width: 440px; height: 440px;
+      background: radial-gradient(circle, rgba(255,68,0,0.15), transparent 70%);
+      bottom: 10%; right: -100px;
+      animation: orb2 26s ease-in-out infinite;
+    }
+    .bg-orb:nth-child(3) {
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(255,160,60,0.1), transparent 70%);
+      top: 45%; left: 35%;
+      animation: orb3 32s ease-in-out infinite;
+    }
+
+    @keyframes orb1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(40px,50px) scale(1.1); }
+      66% { transform: translate(-25px,25px) scale(0.93); }
+    }
+    @keyframes orb2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      40% { transform: translate(-50px,-35px) scale(1.12); }
+      70% { transform: translate(25px,-55px) scale(0.9); }
+    }
+    @keyframes orb3 {
+      0%,100% { transform: translate(-50%,-50%) scale(1); }
+      50% { transform: translate(-50%,calc(-50% - 35px)) scale(1.18); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bg-orb { animation: none; }
+    }
+
+    /* ── Layout ──────────────────────────────────────────── */
+    .layout {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100dvh;
+    }
+
+    .app-area {
+      flex: 1;
+      width: 100%;
+      max-width: 480px;
+      padding: calc(20px + var(--safe-top)) 16px calc(20px + var(--safe-bottom));
+      display: grid;
+      align-content: center;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: 0;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    /* ── Screen card ─────────────────────────────────────── */
+    .screen {
+      position: relative;
+      min-height: 640px;
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: 28px 22px;
+      border-radius: 26px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.008) 100%),
+        var(--panel);
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow:
+        0 40px 120px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,122,26,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(ellipse at 15% -5%, rgba(255,122,26,0.09), transparent 55%);
+      pointer-events: none;
+    }
+
+    .screen.question { align-content: start; }
+
+    .screen.fade { animation: fadeUp 320ms cubic-bezier(0.22,1,0.36,1) both; }
+
+    /* ── Topline ─────────────────────────────────────────── */
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 26px;
+      padding: 0 11px;
+      border-radius: 999px;
+      background: rgba(255,122,26,0.1);
+      border: 1px solid rgba(255,122,26,0.22);
+      color: var(--accent-soft);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: none;
+    }
+
+    .chip::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: dotPulse 2.2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes dotPulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.65); }
+    }
+
+    /* ── Progress ────────────────────────────────────────── */
+    .progress {
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft), var(--accent));
+      background-size: 200% 100%;
+      transition: width 420ms cubic-bezier(0.22,1,0.36,1);
+      animation: barShimmer 2.2s linear infinite;
+    }
+
+    @keyframes barShimmer {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+
+    /* ── Typography ──────────────────────────────────────── */
+    h1 {
+      font-size: 36px;
+      line-height: 1.04;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+
+    .shimmer-text {
+      background: linear-gradient(
+        90deg,
+        var(--text) 0%,
+        var(--text) 35%,
+        var(--accent-soft) 50%,
+        var(--text) 65%,
+        var(--text) 100%
+      );
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: textShimmer 5s linear infinite;
+    }
+
+    @keyframes textShimmer {
+      0% { background-position: 100% center; }
+      100% { background-position: -100% center; }
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* ── Welcome ─────────────────────────────────────────── */
+    .welcome { display: grid; gap: 20px; }
+    .welcome-head { display: grid; gap: 10px; }
+
+    .info-list { display: grid; gap: 9px; }
+
+    .info-item {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 11px;
+      align-items: start;
+      padding: 13px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      transition: border-color 200ms ease, background 200ms ease;
+      animation: fadeUp 400ms cubic-bezier(0.22,1,0.36,1) both;
+      animation-delay: calc(var(--i,0) * 80ms + 80ms);
+    }
+
+    /* (hover removed — mobile-first tap UI) */
+
+    .info-dot {
+      width: 28px; height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255,122,26,0.14);
+      color: var(--accent-soft);
+      font-weight: 900;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* ── Instruction ─────────────────────────────────────── */
+    .instruction {
+      color: var(--muted);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: none;
+    }
+
+    /* ── Prompt ──────────────────────────────────────────── */
+    .prompt {
+      position: relative;
+      min-height: 76px;
+      display: grid;
+      align-items: center;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 700;
+      animation: fadeUp 320ms cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .prompt::before {
+      content: "";
+      position: absolute;
+      top: -1px; left: 20px; right: 20px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,122,26,0.35), transparent);
+    }
+
+    /* ── Choices ─────────────────────────────────────────── */
+    .choices { display: grid; gap: 9px; }
+
+    .choice {
+      position: relative;
+      min-height: 56px;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      align-items: center;
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.022);
+      color: var(--text);
+      transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        transform 180ms cubic-bezier(0.22,1,0.36,1),
+        box-shadow 180ms ease;
+      animation: choiceIn 320ms cubic-bezier(0.22,1,0.36,1) both;
+      animation-delay: calc(var(--i) * 55ms);
+      overflow: hidden;
+    }
+
+    .choice::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255,122,26,0.06), transparent 60%);
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    /* Tap-only feedback. No hover state on any device. */
+    .choice:active {
+      transform: scale(0.985);
+      border-color: rgba(255,122,26,0.42);
+      background: rgba(255,122,26,0.06);
+    }
+    .choice:active::after { opacity: 1; }
+
+    .letter {
+      width: 28px; height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .choice-text {
+      font-size: 16px;
+      line-height: 1.4;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Buttons ─────────────────────────────────────────── */
+    .primary {
+      min-height: 52px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      background: linear-gradient(135deg, #ff8c2a, var(--accent));
+      color: #1a0800;
+      letter-spacing: 0.01em;
+      transition:
+        transform 180ms cubic-bezier(0.22,1,0.36,1),
+        box-shadow 180ms ease,
+        filter 180ms ease;
+      box-shadow: 0 4px 22px rgba(255,122,26,0.38);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(255,255,255,0.18), transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Tap-only feedback. */
+    .primary:active {
+      transform: scale(0.98);
+      filter: brightness(1.04);
+    }
+
+    .primary.pulse {
+      animation: btnPulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes btnPulse {
+      0%,100% { box-shadow: 0 4px 22px rgba(255,122,26,0.38); }
+      50% { box-shadow: 0 4px 35px rgba(255,122,26,0.65), 0 0 0 6px rgba(255,122,26,0.1); }
+    }
+
+    .unknown {
+      min-height: 44px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+    }
+    /* Tap-only feedback. */
+    .unknown:active {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+    }
+
+    /* ── Transition screen ───────────────────────────────── */
+    .transition-screen {
+      min-height: 520px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .thinking-card {
+      display: grid;
+      gap: 22px;
+      justify-items: center;
+      padding: 36px 24px;
+    }
+
+    .thinking-bars {
+      display: flex;
+      align-items: end;
+      gap: 7px;
+      height: 52px;
+    }
+
+    .thinking-bars span {
+      width: 7px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--accent-soft), var(--accent));
+      animation: barPulse 920ms cubic-bezier(0.45,0.05,0.55,0.95) infinite;
+      animation-delay: calc(var(--i) * 115ms);
+      box-shadow: 0 0 14px rgba(255,122,26,0.45);
+    }
+
+    .thinking-bars span:nth-child(1) { height: 18px; }
+    .thinking-bars span:nth-child(2) { height: 34px; }
+    .thinking-bars span:nth-child(3) { height: 26px; }
+    .thinking-bars span:nth-child(4) { height: 44px; }
+    .thinking-bars span:nth-child(5) { height: 16px; }
+
+    .transition-text {
+      max-width: 22ch;
+      color: var(--text);
+      font-size: 23px;
+      line-height: 1.22;
+      font-weight: 800;
+    }
+
+    .transition-sub {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* ── Result screen ───────────────────────────────────── */
+    .result-screen { display: grid; gap: 14px; }
+
+    .result-eyebrow {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: none;
+    }
+
+    .level {
+      font-size: 92px;
+      line-height: 0.88;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--accent-soft) 20%, var(--accent) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: levelReveal 500ms cubic-bezier(0.22,1,0.36,1) both;
+      filter: drop-shadow(0 0 28px rgba(255,122,26,0.45));
+    }
+
+    @keyframes levelReveal {
+      from {
+        opacity: 0;
+        transform: scale(0.68) translateY(12px);
+        filter: drop-shadow(0 0 0 rgba(255,122,26,0));
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: drop-shadow(0 0 28px rgba(255,122,26,0.45));
+      }
+    }
+
+    /* ── Core keyframes ──────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes choiceIn {
+      from { opacity: 0; transform: translateY(9px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes barPulse {
+      0%,100% { transform: scaleY(0.5); opacity: 0.45; }
+      50%     { transform: scaleY(1);   opacity: 1; }
+    }
+
+    /* ── Mobile ──────────────────────────────────────────── */
+    @media (max-width: 500px) {
+      .app-area {
+        padding: var(--safe-top) 0 0;
+        align-content: start;
+      }
+      .screen {
+        min-height: 100dvh;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        padding: calc(24px + var(--safe-top)) 18px calc(24px + var(--safe-bottom));
+      }
+      .screen::before { display: none; }
+      h1 { font-size: 30px; }
+      .prompt { font-size: 18px; }
+      .choice-text { font-size: 15px; }
+      .level { font-size: 80px; }
+    }
+
+    /* ── Trajectory console ──────────────────────────────── */
+    .console-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      padding: 16px 16px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .console-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1.5px solid rgba(255,122,26,0.6);
+      border-radius: 12px;
+      color: var(--accent-soft);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 12px 24px;
+      letter-spacing: 0.08em;
+      background: rgba(255,122,26,0.12);
+      transition: all 180ms ease;
+      box-shadow: 0 4px 12px rgba(255,122,26,0.1);
+    }
+
+    .console-toggle-btn:active {
+      border-color: var(--accent);
+      color: #fff;
+      background: var(--accent);
+      transform: scale(0.98);
+    }
+
+    .console-toggle-btn svg {
+      flex-shrink: 0;
+      transition: transform 240ms cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .console-toggle-btn.open svg { transform: rotate(180deg); }
+
+    .console-panel {
+      width: 100%;
+      background: rgba(255,255,255,0.018);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .console-panel.visible {
+      display: block;
+      animation: fadeUp 240ms ease both;
+    }
+
+    .console-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .console-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      text-transform: none;
+    }
+
+    .turn-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255,122,26,0.1);
+      border: 1px solid rgba(255,122,26,0.22);
+      color: var(--accent-soft);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .console-table {
+      width: 100%;
+      border-collapse: collapse;
+      white-space: nowrap;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 11px;
+    }
+
+    .console-table td {
+      padding: 6px 8px;
+      color: rgba(255,255,255,0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.028);
+      font-size: 10px;
+    }
+
+    .console-table th {
+      padding: 6px 8px;
+      text-align: left;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 9px;
+      letter-spacing: 0.05em;
+      text-transform: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .console-table tr:last-child td { border-bottom: 0; }
+    /* (row hover removed) */
+
+    .console-table code {
+      background: rgba(255,255,255,0.07);
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 10px;
+    }
+
+    .console-empty {
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      font-family: inherit;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .footer {
+      padding: 14px 16px calc(14px + var(--safe-bottom));
+      text-align: center;
+      color: rgba(255,255,255,0.18);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+  </div>
+
+  <div class="layout">
+
+    <div class="app-area">
+      <section id="app" class="screen"></section>
+    </div>
+
+    <div class="console-wrapper">
+      <button class="console-toggle-btn" id="console-toggle" type="button">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="3 5 7 9 11 5"/>
+        </svg>
+        <span id="console-label">KAYIT DEFTERİNİ GÖSTER</span>
+      </button>
+
+      <div class="console-panel" id="console-panel">
+        <div class="console-head">
+          <span class="console-title">TRAJECTORY</span>
+          <span class="turn-pill" id="turn-pill">0 turns</span>
+        </div>
+        <div class="table-scroll">
+          <table class="console-table">
+            <thead>
+              <tr>
+                <th>T</th>
+                <th>Bndry</th>
+                <th>Role</th>
+                <th>Res</th>
+                <th>MS</th>
+                <th>Action</th>
+                <th>Flow</th>
+                <th>Conf</th>
+              </tr>
+            </thead>
+            <tbody id="trajectory-body">
+              <tr><td colspan="8" class="console-empty">Henüz veri yok.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+        <img src="./loading_dark.png" alt="Nektar Logo" style="height: 24px; opacity: 0.8; filter: grayscale(1) brightness(2); transition: all 0.3s ease;" onmouseover="this.style.opacity='1'; this.style.filter='none'" onmouseout="this.style.opacity='0.8'; this.style.filter='grayscale(1) brightness(2)'">
+        <span>CEFR Tester Beta by Nektar ANKA Lab / 2026 all rights reserved</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="./placement-questions.js"></script>
+  <script src="./placement-pool.generated.js"></script>
+  <script src="./placement-questions-v2.js"></script>
+  <script src="./ceiling-probe-engine.js"></script>
+  <script>
+    const Engine  = window.NektarCeilingProbeEngine;
+    const content = window.NEKTAR_PLACEMENT_CONTENT;
+    const contentV2 = window.NEKTAR_PLACEMENT_CONTENT_V2;
+    const app     = document.getElementById("app");
+
+    /* Console toggle */
+    const consoleToggle = document.getElementById("console-toggle");
+    const consolePanel  = document.getElementById("console-panel");
+    const consoleLabel  = document.getElementById("console-label");
+    const turnPill      = document.getElementById("turn-pill");
+    const tBody         = document.getElementById("trajectory-body");
+    let consoleOpen = true;
+
+    // Initialize console state
+    if (consoleOpen) {
+      consolePanel.classList.add("visible");
+      consoleToggle.classList.add("open");
+      consoleLabel.textContent = "KAYIT DEFTERİNİ GİZLE";
+    }
+
+    consoleToggle.addEventListener("click", () => {
+      consoleOpen = !consoleOpen;
+      consolePanel.classList.toggle("visible", consoleOpen);
+      consoleToggle.classList.toggle("open", consoleOpen);
+      consoleLabel.textContent = consoleOpen ? "KAYIT DEFTERİNİ GİZLE" : "KAYIT DEFTERİNİ GÖSTER";
+    });
+
+    /* Engine state */
+    // LEGACY_CORE_EXCLUDED only filters items WITHOUT source_collection === "diagnostic_v2".
+    // Codex v2 items bypass this filter entirely.
+    //
+    // Audit (CODEX_BRIEF.md context):
+    //  - naturalness_judgment: 7 legacy items, all clean → ENABLED
+    //  - pragmatic_choice: 8 legacy items, all have "You are at..." scaffolding bug → kept off,
+    //    Codex v2 will deliver 40 fresh pragmatic_choice items
+    //  - function / natural_speech / spoken_chunk: design overlap or require audio → kept off
+    const LEGACY_CORE_EXCLUDED = new Set([
+      "function", "pragmatic_choice", "natural_speech", "spoken_chunk"
+    ]);
+
+    const TRANSITION_COPY = [
+      "Cevabın kaydedildi.",
+      "Bir sonraki soruyu seçiyorum.",
+      "Bir sonraki sorunun zorluğunu ayarlıyorum.",
+      "Hmm... sıradaki maddeyi hazırlıyorum.",
+      "Tamam, şimdi sonraki soruya geçiyoruz.",
+      "Kısa bir kontrol daha yapıyorum.",
+      "Akışı cevabına göre güncelliyorum.",
+      "Sıradaki soru hazırlanıyor.",
+      "Bir sonraki maddeyi seçiyorum.",
+      "Sonucunu netleştirmek için devam ediyoruz."
+    ];
+
+    let engine  = null;
+    let shownAt = 0;
+    let transition = null;
+    let transitionTimer = null;
+
+    function seed() {
+      const s = new URLSearchParams(location.search).get("seed");
+      return s || `anka-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function start(mode = "standard") {
+      clearTimer();
+      engine = Engine.createEngine(coreItems(), {
+        seed: seed(),
+        mode,
+        startBoundary: "A1/A2",
+        standardMinItems: 8,
+        detailedMinItems: 14,
+        maxItems: mode === "detailed" ? 28 : 24
+      });
+      shownAt = Date.now();
+      transition = null;
+      render();
+      syncTrajectory();
+    }
+
+    function answer(optionId) {
+      if (!engine || !engine.currentItem || engine.state.result || transition) return;
+      const step = engine.answer(optionId, Date.now() - shownAt);
+      const done  = Boolean(engine.state.result);
+      transition  = {
+        text: done ? "Sonucunu hazırlıyorum." : pickCopy(step),
+        done
+      };
+      syncTrajectory();
+      render();
+      transitionTimer = window.setTimeout(() => {
+        transition = null;
+        shownAt = Date.now();
+        render();
+      }, done ? 820 : 680);
+    }
+
+    function render() {
+      if (transition) {
+        app.className = "screen fade";
+        app.innerHTML = htmlTransition();
+        return;
+      }
+      if (!engine) {
+        app.className = "screen fade";
+        app.innerHTML = htmlWelcome();
+        return;
+      }
+      if (engine.state.result) {
+        app.className = "screen fade";
+        app.innerHTML = htmlResult(engine.state.result);
+        return;
+      }
+      const item    = engine.currentItem;
+      const opts    = orderedOptions(item);
+      const pct     = Math.min(95, calcProgress());
+      app.className = "screen question fade";
+      app.innerHTML = `
+        <div class="topline">
+          <span class="chip">ANKA ADAPTIVE ENGINE</span>
+          <span>${pct}%</span>
+        </div>
+        <div class="progress" aria-hidden="true">
+          <div class="progress-bar" style="width:${pct}%"></div>
+        </div>
+        <div class="instruction">${esc(instrFor(item))}</div>
+        <div class="prompt">${esc(item.prompt)}</div>
+        <div class="choices">
+          ${opts.map((o, i) => `
+            <button class="choice" style="--i:${i}" data-answer="${esc(o.id)}" type="button">
+              <span class="letter">${String.fromCharCode(65 + i)}</span>
+              <span class="choice-text">${esc(o.text)}</span>
+            </button>
+          `).join("")}
+        </div>
+        <button class="unknown" data-answer="unknown" type="button">Bilmiyorum</button>
+        <div style="margin-top: 24px; display: flex; justify-content: center;">
+          <button class="unknown" data-action="reset" style="color: #ff6666; border-color: rgba(255,77,77,0.3); min-height: 40px; padding: 0 20px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;" type="button">vazgeç</button>
+        </div>
+      `;
+    }
+
+    function htmlWelcome() {
+      return `
+        <div class="welcome">
+          <span class="chip">ANKA ADAPTIVE ENGINE: CEFR</span>
+          <div class="welcome-head">
+            <h1><span class="shimmer-text">ADAPTİF SEVİYE TESTİ</span></h1>
+            <p>Sadece birkaç dakika sürer. Kişiye göre değişir, seviyenden emin olduğu anda testi bırakır.</p>
+          </div>
+          <div class="info-list">
+            <div class="info-item" style="--i:0">
+              <span class="info-dot">1</span>
+              <span>Sorular cevaplarına göre seçilir; bazen kolaylaşır, bazen daha ayırt edici olur.</span>
+            </div>
+            <div class="info-item" style="--i:1">
+              <span class="info-dot">2</span>
+              <span>Emin değilsen <strong>Bilmiyorum</strong> diyebilirsin. Bu da testin sana uyum sağlamasına yardım eder.</span>
+            </div>
+            <div class="info-item" style="--i:2">
+              <span class="info-dot">3</span>
+              <span>Bazı soruların doğru cevaplarıyla birlikte yanlış cevapları da duruma göre değerlendirir. Soruların seçenekleri sizin vereceğiniz tepkilere göre şekillenir.</span>
+            </div>
+          </div>
+        </div>
+        <button class="primary pulse" data-action="start" type="button">Başla</button>
+      `;
+    }
+
+    function htmlTransition() {
+      return `
+        <div class="transition-screen">
+          <div class="thinking-card">
+            <div class="thinking-bars" aria-hidden="true">
+              <span style="--i:0"></span>
+              <span style="--i:1"></span>
+              <span style="--i:2"></span>
+              <span style="--i:3"></span>
+              <span style="--i:4"></span>
+            </div>
+            <div class="transition-text">${esc(transition.text)}</div>
+            <div class="transition-sub">Kısa test akışı devam ediyor.</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function htmlResult(result) {
+      return `
+        <div class="result-screen">
+          <div class="topline">
+            <span class="result-eyebrow">ÖNERİLEN BAŞLANGIÇ SEVİYEN</span>
+          </div>
+          <div class="level">${esc(result.estimated_level)}</div>
+          <p>Bu test daha çok tanıma becerini ölçer. Konuşma ve yazma ilk günlerde biraz daha düşük hissedebilir.</p>
+        </div>
+        <button class="primary" type="button">Bu seviyeden başla</button>
+        <button class="unknown" data-action="detailed" type="button">Detaylı test yap</button>
+        <button class="unknown" data-action="reset" type="button">Tekrar dene</button>
+      `;
+    }
+
+    function syncTrajectory() {
+      const log = engine?.state?.response_log || [];
+      turnPill.textContent = `${log.length} turns`;
+      if (!log.length) {
+        tBody.innerHTML = `<tr><td colspan="8" class="console-empty">Henüz veri yok.</td></tr>`;
+        return;
+      }
+      tBody.innerHTML = log.map((e) => `
+        <tr>
+          <td>${e.turn}</td>
+          <td>${esc(e.boundary)}</td>
+          <td>${esc(e.selected_role)}</td>
+          <td>${e.correct ? "✓" : "✗"}</td>
+          <td>${e.response_ms}</td>
+          <td>${esc(e.engine_action)}</td>
+          <td>${esc(e.state_before.current_boundary)} → ${esc(e.state_after.current_boundary)}</td>
+          <td>${esc(e.state_after.confidence)}</td>
+        </tr>
+      `).join("");
+    }
+
+    /* Helpers */
+    function mergedItems() {
+      const legacy = content.items || [];
+      const diagnostic = (contentV2?.items || []).map((item) => ({
+        ...item,
+        source_collection: item.source_collection || "diagnostic_v2"
+      }));
+      return legacy.concat(diagnostic);
+    }
+
+    function coreItems() {
+      const items = mergedItems().filter((i) =>
+        i.source_collection === "diagnostic_v2" || !LEGACY_CORE_EXCLUDED.has(i.type)
+      );
+      return items.length ? items : mergedItems();
+    }
+
+    function pickCopy(step) {
+      const turn = engine?.state?.items_asked || 0;
+      const sv   = engine?.settings?.seed || "anka";
+      const u    = Engine.hashToUnit(`${sv}|transition|${turn}|${step?.logEntry?.item_id || ""}`);
+      return TRANSITION_COPY[Math.floor(u * TRANSITION_COPY.length) % TRANSITION_COPY.length];
+    }
+
+    function clearTimer() {
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+      transitionTimer = null;
+    }
+
+    function calcProgress() {
+      const asked = engine?.state?.items_asked || 0;
+      const min   = engine?.settings?.mode === "detailed"
+        ? engine.settings.detailedMinItems
+        : engine.settings.standardMinItems;
+      const conf  = engine?.state?.confidence || "low";
+      const boost = conf === "high" ? 18 : conf === "medium" ? 8 : 0;
+      return Math.round(Math.min(95, ((asked / Math.max(1, min)) * 72) + boost));
+    }
+
+    function orderedOptions(item) {
+      return item.options
+        .map((o, idx) => ({
+          o,
+          sort: Engine.hashToUnit(`${engine.settings.seed}|${item.id}|${o.id}|${idx}`)
+        }))
+        .sort((a, b) => a.sort - b.sort)
+        .map((x) => x.o);
+    }
+
+    function instrFor(item) {
+      if (item.prompt_lang === "tr" || item.format === "meaning_tr_en") return "Anlamı seç.";
+      if (item.type === "discourse_marker") return "Cümledeki ilişkiye uygun bağlacı seç.";
+      if (["pragmatic_choice","naturalness_judgment","function","natural_speech","spoken_chunk"].includes(item.type))
+        return "En doğal cevabı seç.";
+      if (["idiom","collocation","phrasal_verb"].includes(item.type))
+        return "Cümleyi doğal tamamlayan ifadeyi seç.";
+      return "Boşluğu tamamla.";
+    }
+
+    function listText(v) {
+      return Array.isArray(v) && v.length ? v.join(", ") : "—";
+    }
+
+    function esc(v) {
+      return String(v ?? "").replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+      }[c]));
+    }
+
+    /* Event delegation */
+    app.addEventListener("click", (e) => {
+      if (transition) return;
+      const ab = e.target.closest("[data-answer]");
+      if (ab) { answer(ab.dataset.answer); return; }
+      const ab2 = e.target.closest("[data-action]");
+      if (!ab2) return;
+      if (ab2.dataset.action === "start")    start("standard");
+      if (ab2.dataset.action === "detailed") start("detailed");
+      if (ab2.dataset.action === "reset") {
+        clearTimer();
+        engine = null;
+        transition = null;
+        render();
+        syncTrajectory();
+      }
+    });
+
+    render();
+    syncTrajectory();
+  </script>
+
+</body>
+</html>
