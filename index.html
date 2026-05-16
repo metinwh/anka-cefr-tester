@@ -857,12 +857,16 @@
       shownAt = Date.now();
       sessionStartedAt = Date.now();
       transition = null;
+      lastLogStatus = "waiting";   // reset for the new session
       render();
       syncTrajectory();
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v4-2026-05-16-status";
+    const LOG_BUILD = "v5-2026-05-16-status-race";
+    // Latest log status — stored so the indicator survives the render race
+    // between transition→result screens.
+    let lastLogStatus = "waiting";
 
     function logCompletedSession() {
       if (!engine || !engine.state.result) return;
@@ -1046,12 +1050,16 @@
           </div>
           <div class="level">${esc(result.estimated_level)}</div>
           <p>Bu test daha çok tanıma becerini ölçer. Konuşma ve yazma ilk günlerde biraz daha düşük hissedebilir.</p>
-          <div id="log-status" style="margin-top:6px;font-size:11px;color:rgba(255,255,255,0.35);font-family:SFMono-Regular,Consolas,Menlo,monospace;letter-spacing:0.02em;">build: ${LOG_BUILD} · log: …</div>
+          <div id="log-status" style="margin-top:6px;font-size:11px;color:rgba(255,255,255,0.35);font-family:SFMono-Regular,Consolas,Menlo,monospace;letter-spacing:0.02em;">build: ${LOG_BUILD} · log: ${lastLogStatus}</div>
         </div>
         <button class="primary" data-action="reset" type="button">Tekrar test et</button>
       `;
     }
     function setLogStatus(msg) {
+      lastLogStatus = msg;
+      // Try to update the DOM right now. If the indicator isn't mounted yet
+      // (race against the 820ms transition screen), the value lives in
+      // lastLogStatus and will be picked up next time htmlResult renders.
       const el = document.getElementById("log-status");
       if (el) el.textContent = `build: ${LOG_BUILD} · log: ${msg}`;
     }
