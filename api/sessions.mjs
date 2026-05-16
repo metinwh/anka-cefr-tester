@@ -36,8 +36,10 @@ export default async function handler(req, res) {
     // Sort newest-first
     blobs.sort((a, b) => (b.uploadedAt || "").localeCompare(a.uploadedAt || ""));
 
-    // Fetch each blob in parallel (capped). For private stores we must go
-    // through head() to get a signed downloadUrl (b.url alone won't work).
+    // Fetch each blob's content. For private stores, the URL requires the
+    // BLOB_READ_WRITE_TOKEN as a Bearer Authorization header.
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN || "";
+    const authHeader = blobToken ? { Authorization: `Bearer ${blobToken}` } : {};
     const concurrency = 8;
     const sessions = new Array(blobs.length);
     let i = 0;
@@ -46,14 +48,9 @@ export default async function handler(req, res) {
         const idx = i++;
         const b = blobs[idx];
         try {
-          // Try the direct URL first (works for public blobs).
-          let r = await fetch(b.url);
-          if (!r.ok && b.downloadUrl) r = await fetch(b.downloadUrl);
-          if (!r.ok) {
-            // Last resort: ask the SDK for a fresh signed URL via head().
-            const meta = await head(b.url).catch(() => null);
-            if (meta?.downloadUrl) r = await fetch(meta.downloadUrl);
-          }
+          // Pass auth on every request (no harm on public; required on private).
+          let r = await fetch(b.url, { headers: authHeader });
+          if (!r.ok && b.downloadUrl) r = await fetch(b.downloadUrl, { headers: authHeader });
           if (!r.ok) throw new Error("blob_fetch_failed_" + r.status);
           sessions[idx] = await r.json();
         } catch (e) {
