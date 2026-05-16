@@ -12,17 +12,20 @@ const legacy = global.window.NEKTAR_PLACEMENT_CONTENT;
 const contentV2 = global.window.NEKTAR_PLACEMENT_CONTENT_V2;
 const items = contentV2.items;
 
+// Per-level expected mix. May 2026 update — idiom items added at B1+ via daily-phrase pack.
 const expectedMix = {
-  vocab: 20,
-  naturalness_judgment: 10,
-  pragmatic_choice: 8,
-  collocation: 6,
-  phrasal_verb: 6
+  A1: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 0 },
+  A2: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 0 },
+  B1: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 },
+  B2: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 },
+  C1: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 }
 };
+const expectedLevelTotals = { A1: 50, A2: 50, B1: 60, B2: 60, C1: 60 };
+const expectedTotal = Object.values(expectedLevelTotals).reduce((a, b) => a + b, 0); // 280
 
 const report = Validator.validatePayload(contentV2, { sourceLabel: "diagnostic-v2-tests" });
 assert.equal(report.summary.errorCount, 0, JSON.stringify(report.issues.filter((issue) => issue.severity === "error"), null, 2));
-assert.equal(items.length, 250, "diagnostic v2 pool must contain exactly 250 items");
+assert.equal(items.length, expectedTotal, `diagnostic v2 pool must contain exactly ${expectedTotal} items`);
 
 const seenIds = new Set();
 const vocabLemmasByLevel = new Map();
@@ -69,9 +72,10 @@ for (const item of items) {
 
 for (const level of contentV2.levels) {
   const levelTotal = items.filter((item) => item.cefr_level === level).length;
-  assert.equal(levelTotal, 50, `${level} must contain exactly 50 items`);
-  for (const [type, expected] of Object.entries(expectedMix)) {
-    assert.equal(byLevelType[`${level}|${type}`] || 0, expected, `${level} ${type} count mismatch`);
+  assert.equal(levelTotal, expectedLevelTotals[level], `${level} must contain exactly ${expectedLevelTotals[level]} items`);
+  const mixForLevel = expectedMix[level] || {};
+  for (const [type, expected] of Object.entries(mixForLevel)) {
+    assert.equal(byLevelType[`${level}|${type}`] || 0, expected, `${level} ${type} count mismatch (expected ${expected})`);
   }
 }
 
@@ -81,6 +85,6 @@ const mergedStudentCore = (legacy.items || []).concat(items).filter((item) =>
 );
 assert(mergedStudentCore.some((item) => item.source_collection === "diagnostic_v2" && item.type === "naturalness_judgment"), "student core should include v2 naturalness items");
 assert(mergedStudentCore.some((item) => item.source_collection === "diagnostic_v2" && item.type === "pragmatic_choice"), "student core should include v2 pragmatic items");
-assert.equal(mergedStudentCore.length, 1049, "student core should be 799 legacy active + 250 diagnostic v2 items");
+assert.equal(mergedStudentCore.length, 799 + expectedTotal, `student core should be 799 legacy active + ${expectedTotal} diagnostic v2 items`);
 
 console.log("diagnostic v2 tests passed");

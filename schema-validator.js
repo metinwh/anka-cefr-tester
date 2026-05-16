@@ -39,7 +39,7 @@
   const ABSOLUTE_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
   const PLC_ID = /^plc_(a1a2|a2b1|b1b2|b2c1)_\d{3}$/;
   const GEN_ID = /^gen_(a1a2|a2b1|b1b2|b2c1)_[a-z]+(?:_[a-z]+)*_\d{3}$/;
-  const V2_ID = /^v2_(a1|a2|b1|b2|c1)_(vocab|nat|prag|coll|phr)_\d{3}$/;
+  const V2_ID = /^v2_(a1|a2|b1|b2|c1)_(vocab|nat|prag|coll|phr|idiom)_\d{3}$/;
   const COMPACT = { "A1/A2": "a1a2", "A2/B1": "a2b1", "B1/B2": "b1b2", "B2/C1": "b2c1" };
   const V2_LEVEL_BOUNDARY = { a1: "A1/A2", a2: "A1/A2", b1: "A2/B1", b2: "B1/B2", c1: "B2/C1" };
 

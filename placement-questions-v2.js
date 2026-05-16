@@ -15120,6 +15120,1794 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "lt": "This particle or single-word transfer is plausible from Turkish but wrong in this phrasal verb.",
         "d": "This particle forms a different or impossible expression in this context."
       }
+    },
+    {
+      "id": "v2_b1_idiom_001",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Birinden özür duydun, çok büyük bir mesele değil. Ne dersin?",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "It's no big deal.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Don't worry about it.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "It is not a big problem for me.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "No problem at all.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Defensible but flattens the idiomatic 'no big deal' nuance."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "deal",
+        "big"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"It's no big deal\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_002",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Konuşurken bir konu değiştiriyor ya da yan bilgi ekliyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "By the way, did you call her?",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Anyway, did you call her?",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "From the way, did you call her?",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Speaking of which, did you call her?",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Similar transition but slightly more formal — a B1 learner often confuses the two."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "way"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"By the way, did you call her\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_003",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Bir teklife kesinlikle evet diyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "I'll be there for sure.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "I'll definitely be there.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "I'm coming for sure of it.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "I'll be there for certain.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable but stiffer; 'for sure' is the natural spoken form."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "sure"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"I'll be there for sure\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_004",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Biraz yorgun olduğunu söylüyorsun, çok değil.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "I'm kind of tired.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "I'm a little tired.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "I am tired of a kind.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "I'm sort of tired.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonymous hedge; both work, but 'kind of' is the more common spoken form."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "kind"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"I'm kind of tired\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_005",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Karşındaki bir açıklama yaptı ve mantıklı geldi.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "That makes sense.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "I understand now.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "It makes the sense.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "That sounds reasonable.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable, but 'makes sense' is the natural collocation."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "sense"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"That makes sense\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_006",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Beklemediğin bir şey aniden oldu.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "He showed up out of nowhere.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "He came suddenly without warning.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "He came from no place.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "He turned up out of the blue.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "A near-synonymous idiom that's slightly stronger; learners often mix them."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "nowhere"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"He showed up out of nowhere\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_007",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Acelen var, biri seni durdurmaya çalışıyor.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Sorry, I'm in a hurry.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Sorry, I'm rushing right now.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "Sorry, I am at a hurry.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Sorry, I'm in a rush.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonym but slightly less common; both natural."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "hurry"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"Sorry, I'm in a hurry\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_008",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Az önce verdiğin kararı yeniden düşündün ve değiştirdin.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "On second thought, I'll have tea instead.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Actually, I'll have tea instead.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "With second thought, I'll have tea instead.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Come to think of it, I'll have tea instead.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable paraphrase; lacks the precise 'reconsidering' nuance."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "second",
+        "thought"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"On second thought, I'll have tea instead\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_009",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Bir arkadaşına samimi bir şekilde 'ne haber' diyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Hey, what's up?",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Hi, how are you?",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "Hey, what is upper?",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Hey, how's it going?",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Both casual greetings; 'what's up' is the more informal one."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "up"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"Hey, what's up\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b1_idiom_010",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Birisi işten çıkarıldı; doğal cümleyi seç.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "He got fired last month.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "He lost his job last month.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "He was got from his job.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "He got sacked last month.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "British-informal synonym; correct but register-specific."
+      },
+      "estimated_difficulty": 0.3,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "fired",
+        "job"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B1: daily_idiom"
+      ],
+      "signal": "The idiom \"He got fired last month\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_001",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Birisi yeterli bilgi olmadan hızlıca yargıya varıyor; uyarıyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Don't jump to conclusions yet.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Don't decide too quickly.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "Don't jump on conclusions yet.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Don't rush to judgment yet.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Near-synonym but more formal-sounding; B1 learners often pick it."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "jump",
+        "conclusion"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"Don't jump to conclusions yet\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_002",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Birisi bir isim söyledi, tanıdık geliyor ama tam hatırlayamıyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "The name rings a bell.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "The name sounds familiar.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "The name rings the bell.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "The name is familiar to me.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Defensible but loses the idiomatic 'half-remembered' nuance."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "ring",
+        "bell"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"The name rings a bell\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_003",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Yarın sınavın var, sıkı ders çalışmalısın.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "I need to hit the books tonight.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "I need to study hard tonight.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "I need to hit on books tonight.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "I need to crack the books tonight.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonym but rarer; both idiomatic, 'hit the books' is the standard."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "book"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"I need to hit the books tonight\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_004",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Birisi sürpriz planın sırrını yanlışlıkla açıkladı.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "He spilled the beans about the party.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "He told everyone about the party.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "He spilled the beans of the party.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "He let the cat out of the bag about the party.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Near-synonymous idiom; a B1 learner might confuse the two."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "beans"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"He spilled the beans about the party\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_005",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Arkadaşın şaka yapıyor, ciddi söylemiyor.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Relax, I'm just pulling your leg.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Relax, I'm only joking.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "Relax, I'm pulling your leg only.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Relax, I'm just kidding you.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable but less idiomatic; loses the playful tease nuance."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "leg",
+        "pull"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"Relax, I'm just pulling your leg\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_006",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Bir kelime aklında ama hatırlayamıyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "It's on the tip of my tongue.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "I almost remember it, but not quite.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "It's at the top of my tongue.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "It's on the edge of my tongue.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Non-standard variant; the established idiom is 'tip of the tongue'."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "tip",
+        "tongue"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"It's on the tip of my tongue\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_007",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "İlk tanışmada ortamı yumuşatıyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "A small joke can break the ice.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "A small joke can make people relax.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "A small joke can break the iceberg.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "A small joke can warm up the room.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Defensible but doesn't capture the formal-introduction context."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "ice",
+        "break"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"A small joke can break the ice\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_008",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Yaptırdığın tamir çok pahalıydı.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "The repair cost an arm and a leg.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "The repair was very expensive.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "The repair cost arm and leg.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "The repair cost a fortune.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonym idiom; both convey 'expensive' but use different metaphors."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "arm",
+        "leg"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"The repair cost an arm and a leg\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_009",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Biraz hasta hissediyorsun, halsizsin.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "I'm feeling under the weather today.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "I'm not feeling well today.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "I'm feeling under weather today.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "I'm feeling a bit off today.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable but vaguer; lacks the gentle 'mildly unwell' tone."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "weather"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"I'm feeling under the weather today\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_b2_idiom_010",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "daily_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Bir şey çok nadiren olur.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "She visits once in a blue moon.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "She rarely visits.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "She visits one time in a blue moon.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "She visits every now and then.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable but suggests more frequency than 'once in a blue moon'."
+      },
+      "estimated_difficulty": 0.5,
+      "estimated_discrimination": 0.8,
+      "lexicon": [
+        "moon",
+        "blue"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_B2: daily_idiom"
+      ],
+      "signal": "The idiom \"She visits once in a blue moon\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_001",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Toplantıda kimsenin dile getirmediği bariz bir mesele var.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "We need to address the elephant in the room.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "We need to discuss the obvious problem nobody's mentioning.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "We need to talk about the elephant.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "We need to confront the obvious issue here.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable paraphrase but loses the cultural-idiomatic punch."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "elephant",
+        "room"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"We need to address the elephant in the room\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_002",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Birisi konuya direkt girmiyor, lafı dolandırıyor; uyarıyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Stop beating around the bush and tell me.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Stop avoiding the point and just tell me.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "Stop beating the bush and tell me.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Stop dancing around the topic and tell me.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Near-synonymous idiom but slightly different register."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "bush",
+        "beat"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"Stop beating around the bush and tell me\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_003",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Hoş olmayan ama gerekli bir şeyi yapmaya karar veriyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "I just had to bite the bullet and apologize.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "I just had to do the unpleasant thing and apologize.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "I had to bite a bullet and apologize.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "I just had to grin and bear it and apologize.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Different idiom; conveys endurance rather than decisive unpleasant action."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "bullet",
+        "bite"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"I just had to bite the bullet and apologize\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_004",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Karşındaki seni eleştirdi ama o da aynı şeyi yapıyor; alaycı cevap.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "You're one to talk!",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "That's rich coming from you.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "You are the talker!",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Look who's talking!",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonymous retort; a B2 learner often picks the latter as it's more familiar."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "talk"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"You're one to talk\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_005",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Çok geç saatlere kadar çalıştığını söylüyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "I've been burning the midnight oil all week.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "I've been working very late all week.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "I've been burning oil at midnight all week.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "I've been pulling all-nighters all week.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonymous casual idiom; slightly different formality register."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "midnight",
+        "oil"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"I've been burning the midnight oil all week\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_006",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Karar veya sıradaki hamle artık karşı tarafa kalmış.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "We've made our offer; the ball is in your court.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "We've made our offer; now it's up to you.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "We've made our offer; the ball is on your court.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "We've made our offer; the decision is yours now.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable, but lacks the negotiation-handoff metaphor."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "ball",
+        "court"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"We've made our offer; the ball is in your court\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_007",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Az önce bahsettiğin kişi tam o anda yanına geldi.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Speak of the devil — there she is!",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "What a coincidence — there she is!",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "Speak the devil — there she is!",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Talk of the devil — there she is!",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "British-variant of the same idiom; both acceptable, regional split."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "devil",
+        "speak"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"Speak of the devil — there she is\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_008",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Uzun süre denedikten sonra pes ediyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "After years of trying, he threw in the towel.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "After years of trying, he gave up.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "After years of trying, he threw the towel.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "After years of trying, he called it quits.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonymous; equally idiomatic with different metaphor."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "towel",
+        "throw"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"After years of trying, he threw in the towel\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_009",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Lafı uzatmadan asıl konuya geçiyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Let's cut to the chase: what's the price?",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Let's get to the point: what's the price?",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "Let's cut at the chase: what's the price?",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Let's get down to brass tacks: what's the price?",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonym but more business-formal; subtle register shift."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "chase",
+        "cut"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"Let's cut to the chase: what's the price\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
+    },
+    {
+      "id": "v2_c1_idiom_010",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "format": "idiom_meaning",
+      "focus": [
+        "sophisticated_idioms",
+        "natural_speech"
+      ],
+      "skill_tags": [
+        "recognition",
+        "register"
+      ],
+      "prompt": "Önceki argümanı destekleyen başka bir nokta ekliyorsun.",
+      "prompt_lang": "tr",
+      "instruction_tr": "En doğal cevabı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "By the same token, the new policy will help interns.",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Similarly, the new policy will help interns.",
+          "role": "distractor",
+          "credit": 0.55
+        },
+        {
+          "id": "w",
+          "text": "By the same coin, the new policy will help interns.",
+          "role": "distractor"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "In the same vein, the new policy will help interns.",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonymous discourse connector; both natural in formal writing."
+      },
+      "estimated_difficulty": 0.68,
+      "estimated_discrimination": 0.83,
+      "lexicon": [
+        "token"
+      ],
+      "distractor_distance": "medium",
+      "source_grounding": [
+        "CEFR_C1: daily_idiom"
+      ],
+      "signal": "The idiom \"By the same token, the new policy will help intern\" tests recognition of natural everyday English.",
+      "trap": {
+        "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
+        "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
+      }
     }
   ]
 };
