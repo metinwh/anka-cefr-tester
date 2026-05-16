@@ -71,7 +71,12 @@ export default async function handler(req, res) {
       .slice(0, 100);
 
     const day = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-    const pathname = `sessions/${day}/${sid}.json`;
+    // Chunk uploads (trajectory pieces) get their own blob path so they don't
+    // race-overwrite the meta record. /api/sessions merges them on read.
+    const isChunk = typeof body.chunk_index === "number" && Array.isArray(body.turns);
+    const pathname = isChunk
+      ? `sessions/${day}/${sid}.chunk-${String(body.chunk_index).padStart(3, "0")}.json`
+      : `sessions/${day}/${sid}.json`;
 
     // Try multiple shapes for compatibility with the private store.
     // v2 SDK + private store: omit access; v2 SDK + public store: access:"public".

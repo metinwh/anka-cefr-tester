@@ -863,7 +863,7 @@
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v10-2026-05-16-tinyGET";
+    const LOG_BUILD = "v11-2026-05-16-chunks";
     // Endpoint URL — content blockers (1Blocker, AdGuard) often kill anything
     // matching "/log" patterns. Use a neutral name.
     const LOG_ENDPOINT = "/api/record";
@@ -907,25 +907,27 @@
       let settled = false;
       const finish = (msg) => { if (!settled) { settled = true; showStatus(msg); } };
 
-      // --- TINY ping payload (< 300 chars URL) for filtered mobile networks ---
-      const tiny = {
+      // --- MEDIUM-sized GET payload (everything except trajectory) ---
+      // Uses real field names so the admin can render rows properly.
+      // Trajectory is dropped here because it doesn't fit under most mobile
+      // URL filters (~2-4KB). A separate POST attempt may still deliver it.
+      const meta = {
         session_id: sid,
         log_build: LOG_BUILD,
+        started_at: payload.started_at,
         ended_at: payload.ended_at,
         duration_ms: payload.duration_ms,
+        mode: payload.mode,
         items_asked: payload.items_asked,
         confidence_at_end: payload.confidence_at_end,
-        result: {
-          estimated_level: payload.result?.estimated_level,
-          confidence: payload.result?.confidence,
-          termination_action: payload.result?.termination_action
-        },
-        ua_short: (navigator.userAgent || "").slice(0, 80),
-        partial: true
+        result: payload.result,                   // full result object
+        user_agent: (navigator.userAgent || "").slice(0, 300),
+        device: payload.device,                   // full device fingerprint
+        partial: true                              // marker: trajectory missing
       };
-      const tinyBody = JSON.stringify(tiny);
+      const tinyBody = JSON.stringify(meta);
       const tinyUrl = LOG_ENDPOINT + "?d=" + encodeURIComponent(tinyBody);
-      console.log("[log] tiny URL length:", tinyUrl.length);
+      console.log("[log] meta URL length:", tinyUrl.length);
 
       // --- (1) Tiny GET — should pass any URL-length filter ---
       try {
@@ -968,6 +970,43 @@
           if (r.ok && !settled) finish("✓ sent via POST (" + body.length + "B)");
         }).catch(() => { /* silent — tiny-GET path is the safety net */ });
       } catch (e) { console.warn("[log] POST setup threw:", e); }
+
+      // --- (4) Trajectory chunks via separate GETs ---
+      // Each chunk gets its own blob path so they don't overwrite each other.
+      // Server appends chunks; /api/sessions merges by session_id.
+      const traj = payload.trajectory || [];
+      const CHUNK_SIZE = 3;
+      let chunkSuccess = 0;
+      let chunkTotal = Math.ceil(traj.length / CHUNK_SIZE);
+      for (let i = 0; i < traj.length; i += CHUNK_SIZE) {
+        const idx = Math.floor(i / CHUNK_SIZE);
+        const chunkBody = {
+          session_id: sid,
+          chunk_index: idx,
+          chunk_total: chunkTotal,
+          log_build: LOG_BUILD,
+          turns: traj.slice(i, i + CHUNK_SIZE)
+        };
+        const cBody = JSON.stringify(chunkBody);
+        const cUrl = LOG_ENDPOINT + "?d=" + encodeURIComponent(cBody);
+        // Fire in parallel — each has its own blob path, no race.
+        (function(idx, cUrl) {
+          fetch(cUrl, { method: "GET" })
+            .then((r) => {
+              if (r.ok) {
+                chunkSuccess++;
+                console.log("[log] chunk", idx, "/", chunkTotal, "ok");
+                // Update status to reflect progressive trajectory delivery
+                if (settled && chunkSuccess === chunkTotal) {
+                  showStatus("✓ sent meta + " + chunkSuccess + "/" + chunkTotal + " chunks");
+                }
+              } else {
+                console.warn("[log] chunk", idx, "error", r.status);
+              }
+            })
+            .catch((e) => console.warn("[log] chunk", idx, "failed:", e));
+        })(idx, cUrl);
+      }
     }
 
     function answer(optionId) {

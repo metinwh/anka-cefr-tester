@@ -41,25 +41,63 @@ export default async function handler(req, res) {
     // BLOB_READ_WRITE_TOKEN as a Bearer Authorization header.
     const blobToken = process.env.BLOB_READ_WRITE_TOKEN || "";
     const authHeader = blobToken ? { Authorization: `Bearer ${blobToken}` } : {};
-    const concurrency = 8;
-    const sessions = new Array(blobs.length);
+    const concurrency = 12;
+    const fetched = new Array(blobs.length);
     let i = 0;
     async function worker() {
       while (i < blobs.length) {
         const idx = i++;
         const b = blobs[idx];
         try {
-          // Pass auth on every request (no harm on public; required on private).
           let r = await fetch(b.url, { headers: authHeader });
           if (!r.ok && b.downloadUrl) r = await fetch(b.downloadUrl, { headers: authHeader });
           if (!r.ok) throw new Error("blob_fetch_failed_" + r.status);
-          sessions[idx] = await r.json();
+          const data = await r.json();
+          fetched[idx] = { pathname: b.pathname, data };
         } catch (e) {
-          sessions[idx] = { __error: String(e?.message || e), __blob: b.pathname };
+          fetched[idx] = { pathname: b.pathname, data: { __error: String(e?.message || e) } };
         }
       }
     }
     await Promise.all(Array.from({ length: Math.min(concurrency, blobs.length) }, worker));
+
+    // Group by base session id. Chunks have ".chunk-NNN.json" suffix.
+    const groups = {};
+    for (const item of fetched) {
+      if (!item) continue;
+      const filename = item.pathname.split("/").pop() || "";
+      const isChunk = /\.chunk-\d+\.json$/.test(filename);
+      const baseId = filename.replace(/\.chunk-\d+\.json$/, "").replace(/\.json$/, "");
+      if (!groups[baseId]) groups[baseId] = { meta: null, chunks: [], pathname: item.pathname };
+      if (isChunk) groups[baseId].chunks.push(item.data);
+      else groups[baseId].meta = item.data;
+    }
+
+    // Merge chunks into trajectory for sessions that don't have one yet.
+    const sessions = Object.values(groups).map((g) => {
+      const session = g.meta || { __chunks_only: true, session_id: g.pathname };
+      if (g.chunks.length > 0) {
+        const haveFullTrajectory = Array.isArray(session.trajectory) && session.trajectory.length > 0;
+        if (!haveFullTrajectory) {
+          // Sort by chunk_index then flatten turns
+          const sortedChunks = g.chunks
+            .filter((c) => c && Array.isArray(c.turns))
+            .sort((a, b) => (a.chunk_index || 0) - (b.chunk_index || 0));
+          session.trajectory = sortedChunks.flatMap((c) => c.turns);
+          session._trajectory_from_chunks = sortedChunks.length;
+          // Also update items_asked if missing — count of merged turns
+          if (!session.items_asked) session.items_asked = session.trajectory.length;
+        }
+      }
+      return session;
+    });
+
+    // Sort newest-first by ended_at or server_received_at
+    sessions.sort((a, b) => {
+      const ta = new Date(a.server_received_at || a.ended_at || 0).getTime();
+      const tb = new Date(b.server_received_at || b.ended_at || 0).getTime();
+      return tb - ta;
+    });
 
     res.status(200).json({
       count: sessions.length,
