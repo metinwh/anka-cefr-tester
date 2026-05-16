@@ -1333,9 +1333,9 @@
           <div class="progress-bar" style="width:${pct}%"></div>
         </div>
         <div class="instruction">${esc(instrFor(item))}</div>
-        <div class="prompt typewriter-prompt" aria-label="${esc(item.prompt)}">
-          <span class="prompt-ghost" aria-hidden="true">${esc(item.prompt)}</span>
-          <span class="prompt-live typing-live" data-typewriter-prompt aria-hidden="true">${esc(item.prompt)}</span>
+        <div class="prompt typewriter-prompt" aria-label="${esc(promptPlainText(item.prompt))}">
+          <span class="prompt-ghost" aria-hidden="true">${promptHtml(item.prompt)}</span>
+          <span class="prompt-live typing-live" data-typewriter-prompt aria-hidden="true">${promptHtml(item.prompt)}</span>
         </div>
         <div class="choices">
           ${opts.map((o, i) => `
@@ -1516,7 +1516,14 @@
 
       const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const promptLive = app.querySelector("[data-typewriter-prompt]");
-      if (promptLive) typeInto(promptLive, promptText, { reduced, delay: 80, stepMs: 18 });
+      if (promptLive) {
+        typeInto(promptLive, promptPlainText(promptText), {
+          reduced,
+          delay: 80,
+          stepMs: 18,
+          htmlOnComplete: promptHtml(promptText)
+        });
+      }
     }
 
     function typeInto(live, text, config = {}) {
@@ -1525,7 +1532,8 @@
       const full = String(text ?? "");
       const reduced = Boolean(config.reduced);
       if (reduced || full.length < 2) {
-        live.textContent = full;
+        if (config.htmlOnComplete) live.innerHTML = config.htmlOnComplete;
+        else live.textContent = full;
         live.classList.remove("typing");
         return;
       }
@@ -1539,6 +1547,7 @@
         i = Math.min(full.length, i + stepSize);
         live.textContent = full.slice(0, i);
         if (i >= full.length) {
+          if (config.htmlOnComplete) live.innerHTML = config.htmlOnComplete;
           live.classList.remove("typing");
           return;
         }
@@ -1589,6 +1598,16 @@
       return String(v ?? "").replace(/[&<>"']/g, (c) => ({
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
       }[c]));
+    }
+
+    function promptPlainText(v) {
+      return String(v ?? "").replace(/<\/?strong>/gi, "");
+    }
+
+    function promptHtml(v) {
+      return esc(v)
+        .replace(/&lt;strong&gt;/gi, "<strong>")
+        .replace(/&lt;\/strong&gt;/gi, "</strong>");
     }
 
     /* Event delegation */

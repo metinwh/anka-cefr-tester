@@ -197,7 +197,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "skill_tags": [
         "recognition"
       ],
-      "prompt": "boş",
+      "prompt": "Cümledeki anlamı seç: “Kutunun içi <strong>boş</strong>.”",
       "prompt_lang": "tr",
       "instruction_tr": "Anlamı seç.",
       "options": [
@@ -421,7 +421,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "skill_tags": [
         "recognition"
       ],
-      "prompt": "sonra",
+      "prompt": "Cümledeki anlamı seç: “Yemekten <strong>sonra</strong> yürüyüşe çıktık.”",
       "prompt_lang": "tr",
       "instruction_tr": "Anlamı seç.",
       "options": [
@@ -757,7 +757,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "skill_tags": [
         "recognition"
       ],
-      "prompt": "yakın",
+      "prompt": "Cümledeki anlamı seç: “Okul eve çok <strong>yakın</strong>.”",
       "prompt_lang": "tr",
       "instruction_tr": "Anlamı seç.",
       "options": [
@@ -925,7 +925,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "skill_tags": [
         "recognition"
       ],
-      "prompt": "geç",
+      "prompt": "Cümledeki anlamı seç: “Toplantıya <strong>geç</strong> kaldım.”",
       "prompt_lang": "tr",
       "instruction_tr": "Anlamı seç.",
       "options": [
@@ -1093,7 +1093,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "skill_tags": [
         "recognition"
       ],
-      "prompt": "yalnız",
+      "prompt": "Cümledeki anlamı seç: “Bu akşam evde <strong>yalnız</strong> kalacağım.”",
       "prompt_lang": "tr",
       "instruction_tr": "Anlamı seç.",
       "options": [
@@ -1150,7 +1150,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "Aç olduğunu söylüyorsun; doğal cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1217,7 +1217,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi soru doğal?",
+      "prompt": "Birine nereli olduğunu soruyorsun; doğal soruyu seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1284,7 +1284,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "Birini kız kardeşin olarak tanıtıyorsun; doğal cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1351,7 +1351,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "Okula gittiğini söylüyorsun; doğal cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1418,7 +1418,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "Çantanın sana ait olduğunu gösteriyorsun; doğal cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1485,7 +1485,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "Çayı sevmediğini söylüyorsun; doğal cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1552,7 +1552,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "Bir sandalyeye oturmak için izin istiyorsun; doğal soruyu seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1619,7 +1619,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "Havanın çok soğuk olduğunu söylüyorsun; doğal cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1686,7 +1686,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "İki erkek kardeşin olduğunu söylüyorsun; doğal cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -1753,7 +1753,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Hangi cümle doğal?",
+      "prompt": "Yarın görüşeceğin birine veda ediyorsun; doğal ifadeyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4168,7 +4168,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Arkadaşına plan soruyorsun. Hangisi doğal?",
+      "prompt": "Arkadaşına bugün daha sonra ne yapacağını soruyorsun; gündelik ve doğal bir soru seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4235,7 +4235,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Restoranda söylüyorsun. Hangisi doğal?",
+      "prompt": "Restoranda garsona su istemek istiyorsun; kibar ama basit bir cümle seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4302,7 +4302,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Geç kaldığını söylüyorsun. Hangisi doğal?",
+      "prompt": "Arkadaşınla buluşmaya birkaç dakika geç kaldın; doğal bir özür cümlesi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4369,7 +4369,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Yardım teklif ediyorsun. Hangisi doğal?",
+      "prompt": "Birinin zorlandığını görüyorsun ve yardım teklif ediyorsun; doğal bir soru seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4436,7 +4436,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Bir yeri tarif ediyorsun. Hangisi doğal?",
+      "prompt": "Birine bankanın konumunu tarif ediyorsun; bankanın hemen yanında olduğunu söyleyen doğal cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4503,7 +4503,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Bir alışkanlığı anlatıyorsun. Hangisi doğal?",
+      "prompt": "İşe çoğu gün yürüyerek gittiğini söylüyorsun; kelime sırası doğal olan cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4570,7 +4570,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Telefonla cevap veriyorsun. Hangisi doğal?",
+      "prompt": "Telefonda karşı tarafı iyi duymadın; tekrar etmesini kibarca istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4637,7 +4637,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Bir şey seçiyorsun. Hangisi doğal?",
+      "prompt": "İki renk arasında seçim yapıyorsun ve maviyi tercih ettiğini söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4704,7 +4704,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Arkadaşına öneri veriyorsun. Hangisi doğal?",
+      "prompt": "Arkadaşın kendini iyi hissetmiyor; doktora gitmesini doğal bir şekilde öneriyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -4771,7 +4771,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Deneyim anlatıyorsun. Hangisi doğal?",
+      "prompt": "Daha önce o yere bir kez gittiğini söylüyorsun; deneyimi doğal anlatan cümleyi seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7256,7 +7256,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "E-posta cümlesi. Hangisi doğal?",
+      "prompt": "Bir e-postaya cevap geldi; karşı tarafa geri döndüğü için teşekkür ediyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7323,7 +7323,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Kibar rica. Hangisi doğal?",
+      "prompt": "Odada hava ağır; birinden pencereyi açmasını kibarca istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7390,7 +7390,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Bir problemi açıklıyorsun. Hangisi doğal?",
+      "prompt": "Bir dosyanın sistemde görünmediğini teknik destek konuşmasında açıklıyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7457,7 +7457,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Toplantıda söz alıyorsun. Hangisi doğal?",
+      "prompt": "Toplantıda konuşmaya kısa bir nokta eklemek istiyorsun; sözü nazikçe alıyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7524,7 +7524,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Sebep veriyorsun. Hangisi doğal?",
+      "prompt": "Dün gelemediğini açıklıyorsun; nedeninin hasta olman olduğunu doğal şekilde söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7591,7 +7591,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Bir deneyimi anlatıyorsun. Hangisi doğal?",
+      "prompt": "Hayatında hiç sushi denemediğini söylüyorsun; doğal deneyim cümlesini seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7658,7 +7658,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Karşılaştırma yapıyorsun. Hangisi doğal?",
+      "prompt": "İki seçenek arasında fiyat karşılaştırması yapıyorsun; birinin biraz daha ucuz olduğunu söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7725,7 +7725,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Plan değiştiriyorsun. Hangisi doğal?",
+      "prompt": "Toplantıyı daha sonraya ertelemek istiyorsun; doğal plan değişikliği cümlesini seç.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7792,7 +7792,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Açıklama istiyorsun. Hangisi doğal?",
+      "prompt": "Karşı tarafın ne demek istediğini tam anlamadın; açıklama istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -14037,7 +14037,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Akademik sunumda sınırlılık söylüyorsun.",
+      "prompt": "Akademik sunumda çalışmanın kapsamını açıklıyorsun: bulgunun her durumu temsil etmediğini, ama ana eğilimi gösterdiğini söylemek istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -14104,7 +14104,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Bir iddiayı yumuşatmak istiyorsun.",
+      "prompt": "Bir toplantıda bir iddianın fazla kesin söylendiğini düşünüyorsun; doğrudan reddetmeden daha temkinli ifade öneriyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -14305,7 +14305,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Eleştiriyi diplomatik veriyorsun.",
+      "prompt": "Bir rapor taslağına üst düzey geri bildirim veriyorsun: mantığın güçlü olduğunu, fakat bazı adımların eksik kaldığını diplomatik biçimde söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [

@@ -211,6 +211,9 @@
       const repeatPenalty = sameFamilyAlreadySeen(item, this.state) ? -999 : repeatedSurfacePenalty(item, this.state);
       const discrimination = Number.isFinite(item.estimated_discrimination) ? item.estimated_discrimination : 0;
       const tieBreak = hashToUnit(`${this.settings.seed}|${turn}|${item.id}`);
+      const openingVariety = this.state.items_asked === 0
+        ? hashToUnit(`${this.settings.seed}|opening_item|${item.id}`) * 1.4
+        : 0;
       // Rapid-confirm bias: prefer short vocab items, push everything else down.
       // Effect: the 2 verification questions feel snappy and lexical.
       const rapidConfirmBias = this.state.rapid_confirm
@@ -227,7 +230,7 @@
         if (vocabSeen >= hard) vocabCapPenalty = -12;
         else if (vocabSeen >= soft) vocabCapPenalty = -5;
       }
-      return exactBoundary + focusPenalty + lemmaPenalty + recentLemmaPenalty + modeBonus + distanceBonus + difficultyBonus + coldStartBonus + mixBonus + roleBonus + readingBonus + mixedBonus + repeatPenalty + discrimination + tieBreak + rapidConfirmBias + vocabCapPenalty;
+      return exactBoundary + focusPenalty + lemmaPenalty + recentLemmaPenalty + modeBonus + distanceBonus + difficultyBonus + coldStartBonus + mixBonus + roleBonus + readingBonus + mixedBonus + repeatPenalty + discrimination + tieBreak + openingVariety + rapidConfirmBias + vocabCapPenalty;
     }
 
     answer(optionId, responseMs) {
@@ -1126,8 +1129,12 @@
     }
 
     let score = 0;
-    if (state.items_asked === 0 && item.type === "vocab") score += 2.2;
-    else if (state.items_asked < 2 && item.type === "vocab") score += 0.25;
+    if (state.items_asked === 0) {
+      const openingTypes = ["vocab", "naturalness_judgment", "pragmatic_choice"];
+      const preferredType = openingTypes[Math.floor(hashToUnit(`${settings.seed}|opening_type`) * openingTypes.length) % openingTypes.length];
+      if (item.type === preferredType) score += 1.35;
+      if (item.type === "vocab") score += 0.35;
+    } else if (state.items_asked < 2 && item.type === "vocab") score += 0.25;
     if (["A2/B1", "B1/B2"].includes(state.current_boundary) && item.type === "grammar") score += 0.45;
     if (state.current_boundary === "B2/C1" && ["collocation", "idiom", "phrasal_verb", "function", "natural_speech", "spoken_chunk", "discourse_marker", "naturalness_judgment", "pragmatic_choice"].includes(item.type)) score += 0.45;
     if (state.consecutive_wrong >= 1 && ["grammar", "function"].includes(item.type)) score += 0.25;
