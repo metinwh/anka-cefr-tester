@@ -6,28 +6,37 @@ import { put } from "@vercel/blob";
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
-  if (req.method !== "POST") {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  if (req.method === "OPTIONS") { res.status(204).end(); return; }
+  // Accept POST (preferred) AND GET (fallback when POST is blocked by mobile
+  // content filters / Private Relay). GET payload comes via ?d=<urlEncodedJson>.
+  const isGet = req.method === "GET";
+  if (req.method !== "POST" && !isGet) {
     res.status(405).json({ error: "method_not_allowed" });
     return;
   }
 
   try {
-    // Body parsing — handle every shape Vercel might give us:
-    // (a) already-parsed object (when content-type is application/json)
-    // (b) raw string (sendBeacon often sends as text/plain or application/json)
-    // (c) Buffer
-    let body = req.body;
-    if (Buffer.isBuffer(body)) body = body.toString("utf8");
-    if (typeof body === "string") {
-      const s = body.trim();
-      if (!s) body = {};
-      else {
-        try { body = JSON.parse(s); }
-        catch (parseErr) {
-          // sendBeacon-from-Blob sometimes has BOM or weird wrapping — strip and retry
-          const stripped = s.replace(/^﻿/, "").trim();
-          try { body = JSON.parse(stripped); }
-          catch { body = { _parse_error: String(parseErr.message), _raw_preview: s.slice(0, 200) }; }
+    let body;
+    if (isGet) {
+      const raw = req.query?.d || "";
+      try { body = raw ? JSON.parse(decodeURIComponent(raw)) : {}; }
+      catch (e) { body = { _parse_error: String(e.message), _raw_preview: String(raw).slice(0, 200) }; }
+    } else {
+      // POST path: handle Buffer / string / parsed object
+      body = req.body;
+      if (Buffer.isBuffer(body)) body = body.toString("utf8");
+      if (typeof body === "string") {
+        const s = body.trim();
+        if (!s) body = {};
+        else {
+          try { body = JSON.parse(s); }
+          catch (parseErr) {
+            const stripped = s.replace(/^﻿/, "").trim();
+            try { body = JSON.parse(stripped); }
+            catch { body = { _parse_error: String(parseErr.message), _raw_preview: s.slice(0, 200) }; }
+          }
         }
       }
     }
