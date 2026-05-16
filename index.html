@@ -863,7 +863,10 @@
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v5-2026-05-16-status-race";
+    const LOG_BUILD = "v6-2026-05-16-record-endpoint";
+    // Endpoint URL — content blockers (1Blocker, AdGuard) often kill anything
+    // matching "/log" patterns. Use a neutral name.
+    const LOG_ENDPOINT = "/api/record";
     // Latest log status — stored so the indicator survives the render race
     // between transition→result screens.
     let lastLogStatus = "waiting";
@@ -909,12 +912,12 @@
       try {
         if (navigator.sendBeacon) {
           const blob = new Blob([body], { type: "application/json" });
-          beaconQueued = navigator.sendBeacon("/api/log", blob);
+          beaconQueued = navigator.sendBeacon(LOG_ENDPOINT, blob);
           console.log("[log] beacon queued?", beaconQueued);
         }
       } catch (e) { console.warn("[log] sendBeacon threw:", e); }
 
-      fetch("/api/log", {
+      fetch(LOG_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body,
