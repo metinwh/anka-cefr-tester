@@ -33,8 +33,9 @@ export default async function handler(req, res) {
       cursor = page.cursor;
     } while (cursor);
 
-    // Sort newest-first
-    blobs.sort((a, b) => (b.uploadedAt || "").localeCompare(a.uploadedAt || ""));
+    // Sort newest-first. v2 SDK returns uploadedAt as Date; coerce to number.
+    const asTime = (v) => (v instanceof Date ? v.getTime() : (v ? new Date(v).getTime() : 0));
+    blobs.sort((a, b) => asTime(b.uploadedAt) - asTime(a.uploadedAt));
 
     // Fetch each blob's content. For private stores, the URL requires the
     // BLOB_READ_WRITE_TOKEN as a Bearer Authorization header.
