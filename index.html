@@ -861,6 +861,9 @@
       syncTrajectory();
     }
 
+    // Logging build tag — bump this to force cache busting on the phone.
+    const LOG_BUILD = "v3-2026-05-16";
+
     function logCompletedSession() {
       if (!engine || !engine.state.result) return;
       const sid = engine.settings.seed;
@@ -868,6 +871,7 @@
       loggedSessionIds.add(sid);
       const payload = {
         session_id: sid,
+        log_build: LOG_BUILD,
         started_at: new Date(sessionStartedAt || Date.now()).toISOString(),
         ended_at: new Date().toISOString(),
         duration_ms: Date.now() - (sessionStartedAt || Date.now()),
@@ -888,27 +892,32 @@
         trajectory: engine.state.response_log
       };
       const body = JSON.stringify(payload);
-      // Prefer sendBeacon — survives page unload reliably. Fall back to fetch.
-      let sent = false;
+
+      console.log("[log " + LOG_BUILD + "] firing for", sid, "size:", body.length);
+
+      // Fire BOTH channels unconditionally — sendBeacon is the unload-survivor,
+      // fetch is the visible-error reporter. We don't rely on either alone
+      // because mobile Safari has historically lied about sendBeacon success.
+      let beaconQueued = false;
       try {
         if (navigator.sendBeacon) {
           const blob = new Blob([body], { type: "application/json" });
-          sent = navigator.sendBeacon("/api/log", blob);
+          beaconQueued = navigator.sendBeacon("/api/log", blob);
+          console.log("[log] beacon queued?", beaconQueued);
         }
-      } catch (e) { console.warn("[log] sendBeacon failed:", e); }
-      if (!sent) {
-        fetch("/api/log", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body,
-          keepalive: true
-        }).then((r) => {
-          if (!r.ok) console.warn("[log] /api/log returned", r.status);
-          else console.log("[log] session recorded:", sid);
-        }).catch((e) => console.warn("[log] fetch failed:", e));
-      } else {
-        console.log("[log] session beacon sent:", sid);
-      }
+      } catch (e) { console.warn("[log] sendBeacon threw:", e); }
+
+      // Always also fire fetch — it tells us the real server response.
+      fetch("/api/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+        keepalive: true
+      }).then(async (r) => {
+        const text = await r.text().catch(() => "");
+        if (!r.ok) console.warn("[log] /api/log error", r.status, text);
+        else console.log("[log] /api/log OK", r.status, text);
+      }).catch((e) => console.warn("[log] fetch threw:", e));
     }
 
     function answer(optionId) {
