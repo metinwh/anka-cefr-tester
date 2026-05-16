@@ -211,7 +211,7 @@ These are all green:
 | 2 — Partial credit | ✅ Shipped | 24 items got explicit `acceptable` (credit 0.5). Engine also defaults swapped-in `close_competitor` to credit 0.5 — so all 280+ v2 items now have partial credit one way or another. |
 | 3 — Vocab breadth | ✅ Shipped | +48 vocab items (12 lemmas collided with existing words and were skipped). Vocab now 25% of pool. |
 | **4 — Legacy distractor cleanup** | ✅ Shipped | 77 legacy `plc_*` / `gen_*` items flagged by `scripts/find-weak-distractors.cjs`. List persisted in `legacy-retirement-list.json` + `legacy-retirement.js`. Student-core `coreItems()` now filters these IDs out at runtime. Legacy files unchanged (rule honored). |
-| **5 — Short-prompt context audit** | ⏸ **Deferred** | 74 non-vocab items have prompts <25 chars (e.g., "He said he ___ busy"). Adding 1–2 sentences of context would tighten level discrimination. Skipping for now since v2 idioms + new vocab already added substantial context-rich items. |
+| **5 — Short-prompt context audit** | ✅ Shipped (minor touches) | After audit: of 66 short non-vocab prompts, **47 are legacy** (already filtered if weak distractors, or appropriate for their A1 level), and **19 are v2** — of which most are A1/A2 collocations/phrasal verbs where short prompts ARE the test (e.g. "Stand ___, please." → up). Touched only the 3 B1+ phrasal verbs where context genuinely sharpens discrimination: `v2_b1_phr_001`, `v2_b1_phr_002`, `v2_b2_phr_002`. |
 
 When picking up Steps 4 & 5: see Sections 4 and 5 above for the specific items and approach. Validate with the standard test suite after each change.
 

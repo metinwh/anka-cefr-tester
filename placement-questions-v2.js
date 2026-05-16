@@ -8751,7 +8751,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "skill_tags": [
         "recognition"
       ],
-      "prompt": "He turned ___ the offer.",
+      "prompt": "He turned ___ the job offer because the pay was too low.",
       "prompt_lang": "en",
       "instruction_tr": "Cümleyi doğal tamamlayan parçacığı seç.",
       "options": [
@@ -8809,7 +8809,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "skill_tags": [
         "recognition"
       ],
-      "prompt": "The meeting was put ___.",
+      "prompt": "The meeting was put ___ until next Monday because of the storm.",
       "prompt_lang": "en",
       "instruction_tr": "Cümleyi doğal tamamlayan parçacığı seç.",
       "options": [
@@ -11839,7 +11839,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "skill_tags": [
         "recognition"
       ],
-      "prompt": "The plan fell ___.",
+      "prompt": "Their plan fell ___ at the last minute when the funding was cut.",
       "prompt_lang": "en",
       "instruction_tr": "Cümleyi doğal tamamlayan parçacığı seç.",
       "options": [
