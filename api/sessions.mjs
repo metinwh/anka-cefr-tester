@@ -74,18 +74,38 @@ export default async function handler(req, res) {
     }
 
     // Merge chunks into trajectory for sessions that don't have one yet.
+    // Chunked turns use a slimmer shape — expand to the full schema admin expects.
+    const expandTurn = (e) => ({
+      turn: e.turn ?? e.t ?? 0,
+      item_id: e.item_id || "",
+      boundary: e.boundary || "",
+      type: e.type || "",
+      focus: e.focus || [],
+      prompt: e.prompt || "",
+      selected_option_id: e.selected_option_id || "",
+      selected_text: e.selected_text || "",
+      selected_role: e.selected_role || "",
+      correct: !!e.correct,
+      response_ms: e.response_ms ?? 0,
+      engine_action: e.engine_action || "",
+      movement_reason: e.movement_reason || "",
+      state_before: { current_boundary: e.boundary || "" },
+      state_after: {
+        current_boundary: e.state_after_boundary || e.boundary || "",
+        confidence: e.state_after_confidence || ""
+      }
+    });
+
     const sessions = Object.values(groups).map((g) => {
       const session = g.meta || { __chunks_only: true, session_id: g.pathname };
       if (g.chunks.length > 0) {
         const haveFullTrajectory = Array.isArray(session.trajectory) && session.trajectory.length > 0;
         if (!haveFullTrajectory) {
-          // Sort by chunk_index then flatten turns
           const sortedChunks = g.chunks
             .filter((c) => c && Array.isArray(c.turns))
             .sort((a, b) => (a.chunk_index || 0) - (b.chunk_index || 0));
-          session.trajectory = sortedChunks.flatMap((c) => c.turns);
+          session.trajectory = sortedChunks.flatMap((c) => c.turns.map(expandTurn));
           session._trajectory_from_chunks = sortedChunks.length;
-          // Also update items_asked if missing — count of merged turns
           if (!session.items_asked) session.items_asked = session.trajectory.length;
         }
       }

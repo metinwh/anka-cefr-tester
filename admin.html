@@ -439,12 +439,26 @@
       lines.push(`- **User-Agent:** \`${s.user_agent || "—"}\``);
       lines.push(`- **Termination:** ${s.result?.termination_action || "—"} — ${s.result?.termination_reason || ""}`);
       lines.push("");
-      lines.push("## Trajectory");
+      const traj = s.trajectory || [];
+      lines.push(`## Trajectory (${traj.length} turn${traj.length === 1 ? "" : "s"})`);
       lines.push("");
-      lines.push("| T | Boundary | Type | Selected | Role | OK | MS | Action | After | Conf |");
-      lines.push("|---|----------|------|----------|------|----|----|--------|-------|------|");
-      for (const e of (s.trajectory || [])) {
-        lines.push(`| ${e.turn} | ${e.boundary} | ${e.type} | ${e.selected_option_id || "—"} | ${e.selected_role || "—"} | ${e.correct ? "✓" : "✗"} | ${e.response_ms} | ${e.engine_action} | ${e.state_after?.current_boundary || "—"} | ${e.state_after?.confidence || "—"} |`);
+      if (!traj.length) {
+        lines.push("_No trajectory data captured — chunks may have been blocked by the mobile network filter._");
+      } else {
+        // Per-turn detail block: easier to read than a wide table when prompts are included.
+        traj.forEach((e) => {
+          const ok = e.correct ? "✓" : "✗";
+          const arrow = (e.state_before?.current_boundary || e.boundary) + " → " + (e.state_after?.current_boundary || "?");
+          lines.push(`### Turn ${e.turn} · ${e.boundary} · ${ok} · ${e.engine_action || "—"}`);
+          if (e.prompt) lines.push(`- **Prompt:** ${e.prompt}`);
+          lines.push(`- **Type:** ${e.type || "—"}${e.focus && e.focus.length ? "  ·  **Focus:** " + e.focus.join(", ") : ""}`);
+          if (e.selected_text) lines.push(`- **Selected:** _${e.selected_text}_  (id: \`${e.selected_option_id || "—"}\`, role: \`${e.selected_role || "—"}\`)`);
+          else lines.push(`- **Selected option:** \`${e.selected_option_id || "—"}\` (role: ${e.selected_role || "—"})`);
+          lines.push(`- **Response:** ${e.response_ms ?? "—"} ms`);
+          if (e.movement_reason) lines.push(`- **Engine reason:** ${e.movement_reason}`);
+          lines.push(`- **Boundary flow:** ${arrow}  ·  **Confidence after:** ${e.state_after?.confidence || "—"}`);
+          lines.push("");
+        });
       }
       return lines.join("\n");
     }

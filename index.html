@@ -863,7 +863,7 @@
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v11-2026-05-16-chunks";
+    const LOG_BUILD = "v12-2026-05-16-seqchunks-rich";
     // Endpoint URL — content blockers (1Blocker, AdGuard) often kill anything
     // matching "/log" patterns. Use a neutral name.
     const LOG_ENDPOINT = "/api/record";
@@ -971,42 +971,77 @@
         }).catch(() => { /* silent — tiny-GET path is the safety net */ });
       } catch (e) { console.warn("[log] POST setup threw:", e); }
 
-      // --- (4) Trajectory chunks via separate GETs ---
-      // Each chunk gets its own blob path so they don't overwrite each other.
-      // Server appends chunks; /api/sessions merges by session_id.
+      // --- (4) Trajectory chunks via sequential GETs ---
+      // We fire chunks one-at-a-time with a small delay to dodge mobile
+      // rate-limiting/connection-throttling. Each chunk lives in its own
+      // blob path so they never race-overwrite each other.
+      // Each turn carries prompt + selected text so the admin can show the
+      // actual question content and the engine's action.
       const traj = payload.trajectory || [];
-      const CHUNK_SIZE = 3;
-      let chunkSuccess = 0;
-      let chunkTotal = Math.ceil(traj.length / CHUNK_SIZE);
-      for (let i = 0; i < traj.length; i += CHUNK_SIZE) {
-        const idx = Math.floor(i / CHUNK_SIZE);
-        const chunkBody = {
-          session_id: sid,
-          chunk_index: idx,
-          chunk_total: chunkTotal,
-          log_build: LOG_BUILD,
-          turns: traj.slice(i, i + CHUNK_SIZE)
+      const allItems = ((content && content.items) || []).concat((contentV2 && contentV2.items) || []);
+      const itemById = new Map(allItems.map((it) => [it.id, it]));
+      const enrichTurn = (e) => {
+        const it = itemById.get(e.item_id);
+        let promptText = "";
+        let selectedText = "";
+        if (it) {
+          promptText = (it.prompt || "").slice(0, 90);
+          const opt = (it.options || []).find((o) => o.id === e.selected_option_id);
+          if (opt) selectedText = (opt.text || "").slice(0, 60);
+        }
+        return {
+          t: e.turn,
+          item_id: e.item_id,
+          boundary: e.boundary,
+          type: e.type,
+          focus: e.focus || [],
+          prompt: promptText,
+          selected_option_id: e.selected_option_id,
+          selected_text: selectedText,
+          selected_role: e.selected_role,
+          correct: e.correct,
+          response_ms: e.response_ms,
+          engine_action: e.engine_action,
+          movement_reason: (e.movement_reason || "").slice(0, 100),
+          state_after_boundary: e.state_after?.current_boundary,
+          state_after_confidence: e.state_after?.confidence
         };
-        const cBody = JSON.stringify(chunkBody);
-        const cUrl = LOG_ENDPOINT + "?d=" + encodeURIComponent(cBody);
-        // Fire in parallel — each has its own blob path, no race.
-        (function(idx, cUrl) {
-          fetch(cUrl, { method: "GET" })
-            .then((r) => {
-              if (r.ok) {
-                chunkSuccess++;
-                console.log("[log] chunk", idx, "/", chunkTotal, "ok");
-                // Update status to reflect progressive trajectory delivery
-                if (settled && chunkSuccess === chunkTotal) {
-                  showStatus("✓ sent meta + " + chunkSuccess + "/" + chunkTotal + " chunks");
-                }
-              } else {
-                console.warn("[log] chunk", idx, "error", r.status);
-              }
-            })
-            .catch((e) => console.warn("[log] chunk", idx, "failed:", e));
-        })(idx, cUrl);
-      }
+      };
+
+      const CHUNK_SIZE = 2;
+      const chunkTotal = Math.ceil(traj.length / CHUNK_SIZE);
+      let chunkSuccess = 0;
+      (async () => {
+        for (let i = 0; i < traj.length; i += CHUNK_SIZE) {
+          const idx = Math.floor(i / CHUNK_SIZE);
+          const chunkBody = {
+            session_id: sid,
+            chunk_index: idx,
+            chunk_total: chunkTotal,
+            log_build: LOG_BUILD,
+            turns: traj.slice(i, i + CHUNK_SIZE).map(enrichTurn)
+          };
+          const cBody = JSON.stringify(chunkBody);
+          const cUrl = LOG_ENDPOINT + "?d=" + encodeURIComponent(cBody);
+          try {
+            const r = await fetch(cUrl, { method: "GET" });
+            if (r.ok) {
+              chunkSuccess++;
+              console.log("[log] chunk", idx, "/", chunkTotal, "ok (url", cUrl.length, ")");
+              showStatus("✓ meta + " + chunkSuccess + "/" + chunkTotal + " chunks");
+            } else {
+              console.warn("[log] chunk", idx, "error", r.status);
+            }
+          } catch (e) {
+            console.warn("[log] chunk", idx, "failed:", e);
+          }
+          // Tiny delay so we don't trigger carrier-side rate limits.
+          await new Promise((r) => setTimeout(r, 150));
+        }
+        if (chunkSuccess < chunkTotal) {
+          showStatus("✓ meta + " + chunkSuccess + "/" + chunkTotal + " chunks (partial)");
+        }
+      })();
     }
 
     function answer(optionId) {
