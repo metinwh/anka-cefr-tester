@@ -1,7 +1,7 @@
 // GET /api/sessions?token=...
 // Admin-only: lists all stored sessions and returns aggregated JSON.
 // Requires env var ADMIN_TOKEN to match ?token=... or x-admin-token header.
-import { list } from "@vercel/blob";
+import { list, head } from "@vercel/blob";
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
@@ -36,18 +36,28 @@ export default async function handler(req, res) {
     // Sort newest-first
     blobs.sort((a, b) => (b.uploadedAt || "").localeCompare(a.uploadedAt || ""));
 
-    // Fetch each blob in parallel (capped)
-    const concurrency = 16;
+    // Fetch each blob in parallel (capped). For private stores we must go
+    // through head() to get a signed downloadUrl (b.url alone won't work).
+    const concurrency = 8;
     const sessions = new Array(blobs.length);
     let i = 0;
     async function worker() {
       while (i < blobs.length) {
         const idx = i++;
+        const b = blobs[idx];
         try {
-          const r = await fetch(blobs[idx].url);
+          // Try the direct URL first (works for public blobs).
+          let r = await fetch(b.url);
+          if (!r.ok && b.downloadUrl) r = await fetch(b.downloadUrl);
+          if (!r.ok) {
+            // Last resort: ask the SDK for a fresh signed URL via head().
+            const meta = await head(b.url).catch(() => null);
+            if (meta?.downloadUrl) r = await fetch(meta.downloadUrl);
+          }
+          if (!r.ok) throw new Error("blob_fetch_failed_" + r.status);
           sessions[idx] = await r.json();
         } catch (e) {
-          sessions[idx] = { __error: String(e?.message || e), __blob: blobs[idx].pathname };
+          sessions[idx] = { __error: String(e?.message || e), __blob: b.pathname };
         }
       }
     }
