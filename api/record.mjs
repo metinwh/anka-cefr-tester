@@ -20,9 +20,15 @@ export default async function handler(req, res) {
   try {
     let body;
     if (isGet) {
+      // Vercel already URL-decodes req.query. Do NOT decode again.
       const raw = req.query?.d || "";
-      try { body = raw ? JSON.parse(decodeURIComponent(raw)) : {}; }
-      catch (e) { body = { _parse_error: String(e.message), _raw_preview: String(raw).slice(0, 200) }; }
+      try { body = raw ? JSON.parse(raw) : {}; }
+      catch (e) {
+        // If parse failed, try ONCE more with explicit decode (in case client
+        // sent raw URL-encoded string somehow).
+        try { body = JSON.parse(decodeURIComponent(raw)); }
+        catch (e2) { body = { _parse_error: String(e.message), _raw_preview: String(raw).slice(0, 200) }; }
+      }
     } else {
       // POST path: handle Buffer / string / parsed object
       body = req.body;
