@@ -862,7 +862,7 @@
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v3-2026-05-16";
+    const LOG_BUILD = "v4-2026-05-16-status";
 
     function logCompletedSession() {
       if (!engine || !engine.state.result) return;
@@ -894,10 +894,13 @@
       const body = JSON.stringify(payload);
 
       console.log("[log " + LOG_BUILD + "] firing for", sid, "size:", body.length);
+      // Defer the visible status update until the result screen is in the DOM.
+      const showStatus = (m) => { try { setLogStatus(m); } catch {} };
+      setTimeout(() => showStatus("sending…"), 100);
 
-      // Fire BOTH channels unconditionally — sendBeacon is the unload-survivor,
-      // fetch is the visible-error reporter. We don't rely on either alone
-      // because mobile Safari has historically lied about sendBeacon success.
+      // Fire BOTH channels — sendBeacon is unload-survivor, fetch is the
+      // visible-error reporter. We don't rely on either alone because mobile
+      // Safari has historically lied about sendBeacon success.
       let beaconQueued = false;
       try {
         if (navigator.sendBeacon) {
@@ -907,7 +910,6 @@
         }
       } catch (e) { console.warn("[log] sendBeacon threw:", e); }
 
-      // Always also fire fetch — it tells us the real server response.
       fetch("/api/log", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -915,9 +917,17 @@
         keepalive: true
       }).then(async (r) => {
         const text = await r.text().catch(() => "");
-        if (!r.ok) console.warn("[log] /api/log error", r.status, text);
-        else console.log("[log] /api/log OK", r.status, text);
-      }).catch((e) => console.warn("[log] fetch threw:", e));
+        if (!r.ok) {
+          console.warn("[log] /api/log error", r.status, text);
+          showStatus("error " + r.status + " — " + text.slice(0, 60));
+        } else {
+          console.log("[log] /api/log OK", r.status, text);
+          showStatus("✓ sent (" + body.length + "B)");
+        }
+      }).catch((e) => {
+        console.warn("[log] fetch threw:", e);
+        showStatus("network failed: " + String(e?.message || e).slice(0, 60));
+      });
     }
 
     function answer(optionId) {
@@ -1036,9 +1046,14 @@
           </div>
           <div class="level">${esc(result.estimated_level)}</div>
           <p>Bu test daha çok tanıma becerini ölçer. Konuşma ve yazma ilk günlerde biraz daha düşük hissedebilir.</p>
+          <div id="log-status" style="margin-top:6px;font-size:11px;color:rgba(255,255,255,0.35);font-family:SFMono-Regular,Consolas,Menlo,monospace;letter-spacing:0.02em;">build: ${LOG_BUILD} · log: …</div>
         </div>
         <button class="primary" data-action="reset" type="button">Tekrar test et</button>
       `;
+    }
+    function setLogStatus(msg) {
+      const el = document.getElementById("log-status");
+      if (el) el.textContent = `build: ${LOG_BUILD} · log: ${msg}`;
     }
 
     function syncTrajectory() {
