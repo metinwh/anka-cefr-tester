@@ -7189,7 +7189,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "İş yerinde hangisi doğal?",
+      "prompt": "İş yerinde raporu göndermeden önce ayrıntıları kontrol etmen gerektiğini söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -7859,7 +7859,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "İş arkadaşından yardım istiyorsun.",
+      "prompt": "İş arkadaşından üzerinde çalıştığın bir konuda yardım istiyorsun; doğal ve kibar bir rica seç.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -7926,7 +7926,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Toplantıya geç kalacaksın.",
+      "prompt": "Toplantıya birkaç dakika geç kalacaksın; gruba kısa ve doğal bir mesaj yaz.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -7993,7 +7993,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Bir öneriye kısmen katılıyorsun.",
+      "prompt": "Bir önerinin işe yarayabileceğini düşünüyorsun, ama tam emin değilsin; kısmi onayı doğal ifade et.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -8060,7 +8060,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Müşteriye problemi anlatıyorsun.",
+      "prompt": "Müşteri bir sorun bildirdi; ekibin konuyu incelediğini güven veren bir dille söyle.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -8127,7 +8127,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Birinden açıklama istiyorsun.",
+      "prompt": "Toplantıda son noktayı tam anlamadın; karşı taraftan kibarca açıklama istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -8194,7 +8194,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Nazikçe aynı fikirde değilsin.",
+      "prompt": "Bir fikre tamamen katılmıyorsun, ama konuşmayı sertleştirmeden itiraz etmek istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -8261,7 +8261,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Bir hatayı kibarca söylüyorsun.",
+      "prompt": "Bir belgede küçük bir hata fark ettin; kişiyi suçlamadan kibarca belirt.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -8328,7 +8328,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Geri bildirim için teşekkür ediyorsun.",
+      "prompt": "Birisi çalışman hakkında geri bildirim verdi; kısa ve doğal bir teşekkür seç.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -11016,7 +11016,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "E-postada gecikmeyi açıklıyorsun.",
+      "prompt": "Bir e-postaya geç döndün; profesyonel bir tonda gecikme için özür dile.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -11150,7 +11150,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Toplantıda sözü toparlıyorsun.",
+      "prompt": "Toplantıda uzun konuşmayı iki seçenek halinde toparlamak istiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -11217,7 +11217,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Bir riskten kibarca bahsediyorsun.",
+      "prompt": "Bir önerinin ileride sorun yaratabileceğini abartmadan dile getiriyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -11284,7 +11284,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Meslektaşının önerisini geliştiriyorsun.",
+      "prompt": "Meslektaşının fikrini reddetmeden, fikrin üstüne birlikte ekleme yapmayı öneriyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -14171,7 +14171,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Kıdemli bir kişinin fikrine alternatif bir çerçeve sunuyorsun.",
+      "prompt": "Kıdemli bir kişinin çerçevesine doğrudan karşı çıkmadan alternatif bir bakış açısı sunuyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -14238,7 +14238,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Belirsiz sonucu raporluyorsun.",
+      "prompt": "Ön analiz olumlu görünüyor, ama veri sınırlı ve sonucu kesin söylemek istemiyorsun; bulguyu temkinli raporla.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [
@@ -14372,7 +14372,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "register"
       ],
-      "prompt": "Kararın aceleye gelmemesi gerektiğini profesyonelce söylüyorsun.",
+      "prompt": "Ekip bugün karar vermek istiyor, ama önemli bilgi eksik; kararı ertelemeyi profesyonelce öner.",
       "prompt_lang": "tr",
       "instruction_tr": "Duruma en uygun cevabı seç.",
       "options": [

@@ -10,7 +10,7 @@
   <style>
     :root {
       /* Warm academic palette — parchment + ink + ember orange */
-      --bg:           #f3ecdc;            /* warm cream paper */
+      --bg:           #f4ecdc;            /* warm cream paper */
       --bg-soft:      #faf5e9;            /* lighter paper for inner zones */
       --panel:        #ffffff;            /* card surface */
       --panel-soft:   #fbf5ea;            /* secondary card surface */
@@ -18,8 +18,8 @@
       --text:         #1d1a14;
       --muted:        #6b665a;            /* warm gray */
       --soft:         #a39d8d;            /* lighter warm gray */
-      --accent:       #cc4f00;            /* deeper warm ember (less neon than before) */
-      --accent-hot:   #e86510;            /* slight pop for highlights */
+      --accent:       #b84408;            /* deeper warm ember */
+      --accent-hot:   #f06f18;            /* slight pop for highlights */
       --accent-soft:  #f4a26b;
       --accent-bg:    #fdefe2;            /* very faint orange wash */
       --success:      #4a7a3b;
@@ -28,7 +28,7 @@
       --border-strong:rgba(29, 26, 20, 0.16);
       --shadow-sm:    0 1px 3px rgba(29,26,20,0.05);
       --shadow-md:    0 6px 18px rgba(29,26,20,0.07);
-      --shadow-lg:    0 18px 45px rgba(29,26,20,0.10);
+      --shadow-lg:    0 22px 60px rgba(41,31,19,0.14);
       --radius-sm:    10px;
       --radius:       18px;
       --radius-lg:    24px;
@@ -55,8 +55,11 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       background-image:
-        radial-gradient(circle at 15% 12%, rgba(204,79,0,0.05) 0%, transparent 35%),
-        radial-gradient(circle at 88% 88%, rgba(75,52,30,0.05) 0%, transparent 40%);
+        linear-gradient(135deg, rgba(29,26,20,0.035) 0 1px, transparent 1px),
+        radial-gradient(circle at 14% 10%, rgba(184,68,8,0.12) 0%, transparent 28%),
+        radial-gradient(circle at 86% 82%, rgba(64,50,32,0.08) 0%, transparent 36%),
+        linear-gradient(180deg, #fbf3e4 0%, var(--bg) 48%, #eadbc4 100%);
+      background-size: 26px 26px, auto, auto, auto;
     }
 
     /* ── Background orbs (legacy — hidden in academic theme) ── */
@@ -151,10 +154,12 @@
       gap: 20px;
       padding: 32px 26px;
       border-radius: var(--radius-lg);
-      background: var(--panel);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-lg);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(252,247,238,0.96));
+      border: 1px solid rgba(88,62,34,0.16);
+      box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.84);
       overflow: hidden;
+      isolation: isolate;
     }
 
     /* subtle warm tint in the corner — feels like paper texture */
@@ -163,13 +168,30 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: radial-gradient(ellipse at 0% -5%, rgba(204,79,0,0.045), transparent 50%);
+      background:
+        radial-gradient(ellipse at 0% -5%, rgba(184,68,8,0.075), transparent 48%),
+        linear-gradient(90deg, rgba(184,68,8,0.08), transparent 18%, transparent 82%, rgba(29,26,20,0.035));
       pointer-events: none;
     }
 
     .screen.question { align-content: start; }
 
     .screen.fade { animation: fadeUp 320ms cubic-bezier(0.22,1,0.36,1) both; }
+
+    .screen::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: calc(var(--radius-lg) - 10px);
+      border: 1px solid rgba(184,68,8,0.07);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .screen > * {
+      position: relative;
+      z-index: 1;
+    }
 
     /* ── Topline ─────────────────────────────────────────── */
     .topline {
@@ -270,7 +292,7 @@
     .progress-bar {
       height: 100%;
       border-radius: inherit;
-      background: var(--accent);
+      background: linear-gradient(90deg, var(--accent), var(--accent-hot));
       transition: width 420ms cubic-bezier(0.22,1,0.36,1);
     }
 
@@ -415,8 +437,11 @@
       align-items: center;
       padding: var(--prompt-pad-y) var(--prompt-pad-x);
       border-radius: var(--radius);
-      background: var(--panel-soft);
-      border-left: 4px solid var(--accent);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.74), rgba(253,239,226,0.72));
+      border: 1px solid rgba(184,68,8,0.13);
+      border-left: 5px solid var(--accent);
+      box-shadow: 0 12px 30px rgba(41,31,19,0.07);
       color: var(--ink);
       font-family: var(--font-serif);
       font-size: 22px;
@@ -469,10 +494,11 @@
       text-align: left;
       padding: 14px 16px;
       border-radius: 14px;
-      border: 1.5px solid var(--border);
-      background: #ffffff;
+      border: 1.5px solid rgba(29,26,20,0.11);
+      background:
+        linear-gradient(180deg, #ffffff, #fffaf1);
       color: var(--ink);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 3px 12px rgba(41,31,19,0.055);
       transition:
         border-color 180ms ease,
         background 180ms ease,
@@ -483,7 +509,25 @@
       overflow: hidden;
     }
 
-    /* Tap-only feedback (no hover). */
+    .choice::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(184,68,8,0.10), transparent 52%);
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    @media (hover: hover) {
+      .choice:hover {
+        border-color: rgba(184,68,8,0.42);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 22px rgba(41,31,19,0.08);
+      }
+      .choice:hover::before { opacity: 1; }
+    }
+
+    /* Tap-only feedback. */
     .choice:active {
       transform: scale(0.99);
       border-color: var(--accent);
@@ -495,8 +539,9 @@
       display: grid;
       place-items: center;
       border-radius: 999px;
-      background: var(--accent-bg);
+      background: linear-gradient(180deg, var(--accent-bg), #fff);
       color: var(--accent);
+      border: 1px solid rgba(184,68,8,0.18);
       font-family: var(--font-serif);
       font-size: 15px;
       font-weight: 600;
@@ -523,7 +568,7 @@
       font-family: var(--font-sans);
       font-weight: 700;
       font-size: 15px;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-hot));
       color: #ffffff;
       letter-spacing: 0.01em;
       transition:
