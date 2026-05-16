@@ -1,1168 +1,880 @@
-﻿<!doctype html>
-<html lang="en">
+<!doctype html>
+<html lang="tr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ANKA CEFR Tester — Nektar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Syne:wght@600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,500;1,9..144,600&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Warm academic palette — parchment + ink + ember orange */
-      --bg:           #f4ecdc;            /* warm cream paper */
-      --bg-soft:      #faf5e9;            /* lighter paper for inner zones */
-      --panel:        #ffffff;            /* card surface */
-      --panel-soft:   #fbf5ea;            /* secondary card surface */
-      --ink:          #1d1a14;            /* near-black, warm */
-      --text:         #1d1a14;
-      --muted:        #6b665a;            /* warm gray */
-      --soft:         #a39d8d;            /* lighter warm gray */
-      --accent:       #b84408;            /* deeper warm ember */
-      --accent-hot:   #f06f18;            /* slight pop for highlights */
-      --accent-soft:  #f4a26b;
-      --accent-bg:    #fdefe2;            /* very faint orange wash */
-      --success:      #4a7a3b;
+      /* Painterly watercolor palette — ported from Claude Design TC_A */
+      --phone-bg:     #fbf3e3;
+      --art-bg:       #e8dfcd;
+      --ink:          #1d1a14;
+      --muted:        rgba(29,26,20,0.6);
+      --accent:       #b84408;
+      --accent-hot:   #f06f18;
+      --panel-bg:     rgba(255,255,255,0.78);
+      --panel-border: rgba(184,68,8,0.12);
+      --border-color: rgba(29,26,20,0.10);
       --error:        #b94a2a;
-      --border:       rgba(29, 26, 20, 0.10);
-      --border-strong:rgba(29, 26, 20, 0.16);
-      --shadow-sm:    0 1px 3px rgba(29,26,20,0.05);
-      --shadow-md:    0 6px 18px rgba(29,26,20,0.07);
-      --shadow-lg:    0 22px 60px rgba(41,31,19,0.14);
-      --radius-sm:    10px;
-      --radius:       18px;
-      --radius-lg:    24px;
+
       --safe-top:     env(safe-area-inset-top, 0px);
       --safe-bottom:  env(safe-area-inset-bottom, 0px);
 
-      /* Fonts */
       --font-sans:    "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
       --font-serif:   "Fraunces", Georgia, "Times New Roman", serif;
-      --font-display: "Bricolage Grotesque", "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --font-display: "Bricolage Grotesque", "DM Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { height: 100%; }
-
+    html, body { height: 100%; }
     body {
-      min-height: 100%;
-      min-height: 100dvh;
-      background: var(--bg);
-      color: var(--text);
+      background: var(--phone-bg);
+      color: var(--ink);
       font-family: var(--font-sans);
-      font-feature-settings: "ss01", "cv11";
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-      background-image:
-        linear-gradient(135deg, rgba(29,26,20,0.035) 0 1px, transparent 1px),
-        radial-gradient(circle at 14% 10%, rgba(184,68,8,0.12) 0%, transparent 28%),
-        radial-gradient(circle at 86% 82%, rgba(64,50,32,0.08) 0%, transparent 36%),
-        linear-gradient(180deg, #fbf3e4 0%, var(--bg) 48%, #eadbc4 100%);
-      background-size: 26px 26px, auto, auto, auto;
     }
-
-    /* ── Background orbs (legacy — hidden in academic theme) ── */
-    .bg-orbs { display: none; }
-    .bg-orbs-legacy {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .bg-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      will-change: transform;
-    }
-
-    .bg-orb:nth-child(1) {
-      width: 560px; height: 560px;
-      background: radial-gradient(circle, rgba(255,122,26,0.22), transparent 70%);
-      top: -180px; left: -120px;
-      animation: orb1 20s ease-in-out infinite;
-    }
-    .bg-orb:nth-child(2) {
-      width: 440px; height: 440px;
-      background: radial-gradient(circle, rgba(255,68,0,0.15), transparent 70%);
-      bottom: 10%; right: -100px;
-      animation: orb2 26s ease-in-out infinite;
-    }
-    .bg-orb:nth-child(3) {
-      width: 320px; height: 320px;
-      background: radial-gradient(circle, rgba(255,160,60,0.1), transparent 70%);
-      top: 45%; left: 35%;
-      animation: orb3 32s ease-in-out infinite;
-    }
-
-    @keyframes orb1 {
-      0%,100% { transform: translate(0,0) scale(1); }
-      33% { transform: translate(40px,50px) scale(1.1); }
-      66% { transform: translate(-25px,25px) scale(0.93); }
-    }
-    @keyframes orb2 {
-      0%,100% { transform: translate(0,0) scale(1); }
-      40% { transform: translate(-50px,-35px) scale(1.12); }
-      70% { transform: translate(25px,-55px) scale(0.9); }
-    }
-    @keyframes orb3 {
-      0%,100% { transform: translate(-50%,-50%) scale(1); }
-      50% { transform: translate(-50%,calc(-50% - 35px)) scale(1.18); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .bg-orb { animation: none; }
-      .typing-live.typing::after { display: none; }
-    }
-
-    /* ── Layout ──────────────────────────────────────────── */
-    .layout {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100dvh;
-    }
-
-    .app-area {
-      width: 100%;
-      max-width: 480px;
-      padding: calc(28px + var(--safe-top)) 16px 8px;
-      display: grid;
-      align-content: start;
-    }
-
     button {
       font: inherit;
       cursor: pointer;
       border: 0;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+      color: inherit;
     }
 
-    /* ── Screen card ─────────────────────────────────────── */
-    .screen {
-      position: relative;
-      display: grid;
-      align-content: start;
-      gap: 20px;
-      padding: 32px 26px;
-      border-radius: var(--radius-lg);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(252,247,238,0.96));
-      border: 1px solid rgba(88,62,34,0.16);
-      box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.84);
-      overflow: hidden;
-      isolation: isolate;
+    /* ── Keyframes ─────────────────────────────────────────── */
+    @keyframes fadeUp     { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeDown   { from { opacity: 0; transform: translateY(-9px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes screenIn   { from { opacity: 0; transform: translateY(14px) scale(0.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes wordIn     { from { opacity: 0; transform: translateY(20px); filter: blur(3px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+    @keyframes cursorBlink{ 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes dotPulse   { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.6); } }
+    @keyframes choiceIn   { from { opacity: 0; transform: translateX(-9px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes glowPulse  {
+      0%, 100% { box-shadow: 0 5px 20px rgba(184,68,8,0.32); }
+      50%      { box-shadow: 0 6px 32px rgba(184,68,8,0.55), 0 0 0 6px rgba(184,68,8,0.09); }
+    }
+    @keyframes dropExpand { from { opacity: 0; transform: translateY(-4px); max-height: 0; } to { opacity: 1; transform: translateY(0); max-height: 240px; } }
+    @keyframes penDraw    { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+    @keyframes slideUp    { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    @keyframes triDot     { 0%, 100% { opacity: 0.25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-4px); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
     }
 
-    /* subtle warm tint in the corner — feels like paper texture */
-    .screen::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background:
-        radial-gradient(ellipse at 0% -5%, rgba(184,68,8,0.075), transparent 48%),
-        linear-gradient(90deg, rgba(184,68,8,0.08), transparent 18%, transparent 82%, rgba(29,26,20,0.035));
-      pointer-events: none;
-    }
-
-    .screen.question { align-content: start; min-height: 560px; }
-
-    .screen.fade { animation: fadeUp 320ms cubic-bezier(0.22,1,0.36,1) both; }
-
-    .screen::after {
-      content: "";
-      position: absolute;
-      inset: 10px;
-      border-radius: calc(var(--radius-lg) - 10px);
-      border: 1px solid rgba(184,68,8,0.07);
+    /* ── Watercolor backdrop (fixed, fills viewport) ────────── */
+    .watercolor-bg {
+      position: fixed; inset: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       z-index: 0;
+      transition: opacity 300ms ease;
     }
+    .watercolor-grain {
+      position: fixed; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: multiply;
+      opacity: 0.55;
+      transition: opacity 300ms ease;
+    }
+    body.solid-bg .watercolor-bg { opacity: 0; }
+    body.solid-bg .watercolor-grain { opacity: 0; }
 
-    .screen > * {
+    /* ── Layout ────────────────────────────────────────────── */
+    .layout {
       position: relative;
       z-index: 1;
-    }
-
-    /* ── Topline ─────────────────────────────────────────── */
-    .topline {
+      max-width: 460px;
+      margin: 0 auto;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      flex-direction: column;
+      padding: 0 22px calc(24px + var(--safe-bottom));
+      padding-top: calc(28px + var(--safe-top));
     }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      height: 30px;
-      padding: 0 14px;
+    .screen-stage {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* exit animation when swapping screens */
+    .screen-stage.exiting > .screen-content {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.985);
+    }
+    .screen-content {
+      display: flex;
+      flex-direction: column;
+      transition: opacity 200ms ease, transform 200ms cubic-bezier(0.22,1,0.36,1);
+    }
+
+    /* ── Topbar (logo + chip) ───────────────────────────────── */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 22px;
+      animation: fadeDown 420ms cubic-bezier(0.22,1,0.36,1) 60ms both;
+    }
+    .nektar-logo {
+      height: 36px; width: auto; display: block;
+      filter: brightness(0) sepia(1) saturate(4) hue-rotate(352deg);
+      opacity: 0.82;
+    }
+    .nektar-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px 5px 8px;
       border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent-bg), #fff6ec);
-      border: 1px solid rgba(204, 79, 0, 0.20);
+      background: rgba(184,68,8,0.055);
+      border: 1px solid rgba(184,68,8,0.165);
       color: var(--accent);
-      font-family: var(--font-sans);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 4px 12px rgba(204,79,0,0.06);
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.09em;
     }
-
-    .chip::before {
-      content: "";
-      width: 6px; height: 6px;
-      border-radius: 50%;
+    .nektar-chip .dot {
+      width: 5px; height: 5px; border-radius: 50%;
       background: var(--accent);
-      animation: dotPulse 2.2s ease-in-out infinite;
-      flex-shrink: 0;
+      animation: dotPulse 2s ease infinite;
     }
 
-    @keyframes dotPulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(0.65); }
+    /* ── Welcome ───────────────────────────────────────────── */
+    .welcome {
+      display: flex; flex-direction: column;
+      gap: 4px;
+    }
+    .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      color: rgba(184,68,8,0.75); text-transform: uppercase;
+      margin-bottom: 10px;
+      animation: fadeUp 380ms ease 140ms both;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 44px; line-height: 0.95;
+      font-weight: 800; color: var(--ink);
+      letter-spacing: -0.035em;
+      margin-bottom: 10px;
+    }
+    .hero-word {
+      display: inline-block;
+      margin-right: 10px;
+      position: relative;
+      animation: wordIn 460ms cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .hero-word:last-child { margin-right: 0; }
+    .hero-word.accent {
+      color: var(--accent);
+      font-style: italic;
+    }
+    .hero-brush {
+      position: absolute;
+      left: -3%;
+      bottom: -6px;
+      width: 108%;
+      height: 16px;
+      pointer-events: none;
+    }
+    .tagline {
+      font-size: 15px; line-height: 1.55;
+      color: rgba(29,26,20,0.78);
+      margin-top: 8px;
+      margin-bottom: 12px;
+      animation: fadeUp 380ms ease 380ms both;
+    }
+    .typing-cursor {
+      display: inline-block; width: 2px; height: 1.05em;
+      margin-left: 2px; border-radius: 1px;
+      background: var(--accent);
+      vertical-align: -0.12em;
+      animation: cursorBlink 500ms steps(1,end) infinite;
     }
 
-    /* Confidence pill: label + value rendered together */
-    .confidence-pill {
-      gap: 0;
-      padding: 0;
-      height: auto;
+    /* ── Info dropdowns ────────────────────────────────────── */
+    .info-stack {
+      display: flex; flex-direction: column; gap: 7px;
+      animation: fadeUp 440ms cubic-bezier(0.22,1,0.36,1) 700ms both;
+    }
+    .info-drop {
+      border-radius: 12px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      overflow: hidden;
+      transition: border-color 200ms ease;
+    }
+    .info-drop.open {
+      border-color: rgba(184,68,8,0.25);
+    }
+    .info-toggle {
+      width: 100%;
+      display: grid; grid-template-columns: 36px 1fr 16px;
+      gap: 10px; align-items: center;
+      padding: 9px 12px;
       background: transparent;
-      border: 0;
-      color: var(--accent-soft);
+      color: var(--ink);
+      text-align: left;
     }
-    .confidence-pill::before { display: none; }
-    .confidence-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      height: 28px;
-      padding: 0 12px;
-      border-radius: 999px 0 0 999px;
-      background: var(--accent-bg);
-      border: 1px solid rgba(204, 79, 0, 0.18);
-      border-right: 0;
+    .info-icon {
+      width: 34px; height: 34px;
+      display: grid; place-items: center;
+      border-radius: 10px;
+      background: rgba(184,68,8,0.07);
+      border: 1px solid rgba(184,68,8,0.16);
       color: var(--accent);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
     }
-    .confidence-label::before {
-      content: "";
-      width: 6px; height: 6px;
-      border-radius: 50%;
+    .info-icon svg { display: block; }
+    .info-label {
+      font-size: 12.5px; line-height: 1.4; font-weight: 600;
+      color: var(--ink);
+    }
+    .info-chev {
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: transform 220ms cubic-bezier(0.22,1,0.36,1);
+      color: var(--accent);
+    }
+    .info-drop.open .info-chev { transform: rotate(180deg); }
+    .info-body {
+      padding: 2px 14px 13px 62px;
+      font-size: 12.5px; line-height: 1.5;
+      color: var(--muted);
+      font-family: var(--font-serif);
+      font-style: italic;
+      animation: dropExpand 220ms cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* ── Primary CTA ───────────────────────────────────────── */
+    .primary {
+      margin-top: 12px;
+      min-height: 52px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hot));
+      color: #fff;
+      font-size: 15px; font-weight: 700; letter-spacing: 0.01em;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 0 18px;
+    }
+    .welcome .primary {
+      animation: fadeUp 400ms ease 880ms both, glowPulse 3s ease-in-out 1280ms infinite;
+    }
+    .primary:active { transform: scale(0.99); }
+    .primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* ── Question screen ───────────────────────────────────── */
+    .question-screen {
+      display: flex; flex-direction: column; gap: 12px;
+      padding-top: 4px;
+      min-height: 520px;
+      animation: screenIn 320ms cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .q-topline {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .confidence-pill {
+      display: inline-flex; align-items: center; gap: 0;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(184,68,8,0.18);
+    }
+    .confidence-pill .label {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 10px;
+      background: rgba(184,68,8,0.07);
+      color: var(--accent);
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em;
+    }
+    .confidence-pill .dot {
+      width: 5px; height: 5px; border-radius: 50%;
       background: var(--accent);
-      animation: dotPulse 2.2s ease-in-out infinite;
-      flex-shrink: 0;
+      animation: dotPulse 2s ease infinite;
     }
-    .confidence-value {
-      display: inline-flex;
-      align-items: center;
-      height: 28px;
-      padding: 0 13px;
-      border-radius: 0 999px 999px 0;
+    .confidence-pill .value {
+      padding: 5px 10px;
       background: var(--accent);
       color: #fff;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.03em;
+      font-size: 11px; font-weight: 800;
     }
-
-    /* ── Progress ────────────────────────────────────────── */
-    .progress {
-      height: 5px;
+    .boundary-tag {
+      font-size: 9.5px; font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .progress-rail {
+      height: 4px;
       border-radius: 999px;
       background: rgba(29,26,20,0.06);
       overflow: hidden;
     }
-
-    .progress-bar {
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hot));
-      transition: width 420ms cubic-bezier(0.22,1,0.36,1);
+    .progress-fill {
+      height: 100%; border-radius: inherit;
+      background: var(--accent);
+      transition: width 600ms cubic-bezier(0.22,1,0.36,1);
     }
-
-    /* ── Typography ──────────────────────────────────────── */
-    h1 {
-      font-family: var(--font-display);
-      font-size: 48px;
-      line-height: 0.96;
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      color: var(--ink);
-      font-optical-sizing: auto;
-      font-variation-settings: "opsz" 72;
-    }
-
-    /* Hero title accent — subtle highlight stroke under the words. */
-    .shimmer-text {
-      position: relative;
-      display: inline;
-      color: var(--ink);
-      font-style: normal;
-      font-weight: 700;
-      background-image: linear-gradient(to top, rgba(204,79,0,0.16) 0%, rgba(204,79,0,0.16) 24%, transparent 24%);
-      padding: 0 0.06em;
-      border-radius: 2px;
-    }
-    /* Editorial ornament rule below the hero — small ember mark. */
-    .welcome-head::after {
-      content: "";
-      display: block;
-      width: 44px;
-      height: 3px;
-      margin-top: 4px;
-      background: linear-gradient(90deg, var(--accent), rgba(204,79,0,0.25));
-      border-radius: 2px;
-      animation: fadeUp 600ms ease 220ms both;
-    }
-
-    @keyframes caretBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 15px;
-    }
-
-    /* ── Welcome ─────────────────────────────────────────── */
-    .welcome { display: grid; gap: 28px; }
-    .welcome-head { display: grid; gap: 14px; }
-    .welcome-head > p {
-      font-size: 16px;
-      line-height: 1.55;
-      max-width: 36ch;
-      color: rgba(29, 26, 20, 0.66);
-    }
-
-    .how-details {
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(252,247,238,0.75));
-      border: 1px solid rgba(29,26,20,0.10);
-      box-shadow:
-        0 14px 36px rgba(29,26,20,0.06),
-        inset 0 1px 0 rgba(255,255,255,0.75);
-      overflow: hidden;
-    }
-
-    .how-details summary {
-      min-height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 0 20px;
-      color: var(--ink);
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      cursor: pointer;
-      list-style: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .how-details summary::-webkit-details-marker { display: none; }
-
-    .how-details summary::after {
-      content: "";
-      width: 9px;
-      height: 9px;
-      border-right: 2px solid var(--accent);
-      border-bottom: 2px solid var(--accent);
-      transform: rotate(45deg) translateY(-2px);
-      transition: transform 180ms ease;
-      flex-shrink: 0;
-    }
-
-    .how-details[open] summary::after {
-      transform: rotate(225deg) translateY(-2px);
-    }
-
-    .info-list {
-      display: grid;
-      gap: 14px;
-      padding: 0 12px 12px;
-    }
-
-    .info-item {
-      display: grid;
-      grid-template-columns: 46px 1fr;
-      gap: 16px;
-      align-items: center;
-      padding: 16px 18px 16px 16px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(251,245,234,0.85));
-      border: 1px solid rgba(29,26,20,0.07);
-      color: var(--ink);
-      font-size: 14.5px;
-      line-height: 1.55;
-      box-shadow:
-        0 6px 18px rgba(29,26,20,0.045),
-        inset 0 1px 0 rgba(255,255,255,0.7);
-      transition: border-color 200ms ease, background 200ms ease, transform 180ms ease;
-      animation: fadeUp 460ms cubic-bezier(0.22,1,0.36,1) both;
-      animation-delay: calc(var(--i,0) * 90ms + 120ms);
-    }
-    .info-item strong {
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .info-icon {
-      width: 44px; height: 44px;
-      display: grid;
-      place-items: center;
-      border-radius: 13px;
-      background: linear-gradient(160deg, #ffffff 0%, #fef4ec 100%);
-      border: 1px solid rgba(204,79,0,0.20);
-      color: var(--accent);
-      box-shadow:
-        0 8px 18px rgba(204,79,0,0.10),
-        inset 0 1px 0 rgba(255,255,255,0.8);
-      flex-shrink: 0;
-      position: relative;
-    }
-    .info-icon::after {
-      content: "";
-      position: absolute;
-      inset: 5px;
-      border-radius: 9px;
-      border: 1px dashed rgba(204,79,0,0.10);
-      pointer-events: none;
-    }
-
-    .info-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke-width: 1.85;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── Instruction ─────────────────────────────────────── */
     .instruction {
+      font-size: 12px; font-style: italic;
       color: var(--muted);
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0;
-      text-transform: none;
-      font-style: italic;
     }
-
-    /* ── Prompt ──────────────────────────────────────────── */
-    .prompt {
-      --prompt-pad-y: 22px;
-      --prompt-pad-x: 24px;
-      position: relative;
-      min-height: 80px;
-      display: grid;
-      align-items: center;
-      padding: var(--prompt-pad-y) var(--prompt-pad-x);
-      border-radius: var(--radius);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.74), rgba(253,239,226,0.72));
+    .prompt-card {
+      padding: 22px 22px;
+      border-radius: 14px;
+      background: var(--panel-bg);
       border: 1px solid rgba(184,68,8,0.13);
-      border-left: 5px solid var(--accent);
-      box-shadow: 0 12px 30px rgba(41,31,19,0.07);
-      color: var(--ink);
+      border-left: 4px solid var(--accent);
       font-family: var(--font-serif);
-      font-size: 22px;
-      line-height: 1.4;
-      font-weight: 500;
-      font-feature-settings: "ss01";
-      animation: fadeUp 320ms cubic-bezier(0.22,1,0.36,1) both;
+      font-size: 21px; line-height: 1.4; font-weight: 500;
+      color: var(--ink);
+      min-height: 108px;
+      box-shadow: 0 6px 18px rgba(184,68,8,0.05);
     }
-
-    .prompt.typewriter-prompt {
-      display: block;
-    }
-
-    .prompt-ghost {
-      display: block;
-      visibility: hidden;
-    }
-
-    .prompt-live {
-      position: absolute;
-      inset: var(--prompt-pad-y) var(--prompt-pad-x);
-      display: block;
-      overflow-wrap: anywhere;
-      white-space: pre-wrap;
-      pointer-events: none;
-    }
-
-    .typing-live.typing::after {
+    .prompt-card .typing-live::after {
       content: "";
       display: inline-block;
-      width: 2px;
-      height: 1em;
-      margin-left: 3px;
-      border-radius: 99px;
-      background: var(--accent-hot);
+      width: 2px; height: 1.05em;
+      margin-left: 2px; border-radius: 1px;
+      background: var(--accent);
       vertical-align: -0.12em;
-      animation: caretBlink 520ms steps(1, end) infinite;
+      animation: cursorBlink 500ms steps(1,end) infinite;
     }
+    .prompt-card .typing-live:not(.typing)::after { display: none; }
+    .prompt-card strong { color: var(--accent); font-weight: 700; }
+    .prompt-ghost { display: none; }
 
-    /* ── Choices ─────────────────────────────────────────── */
-    .choices { display: grid; gap: 9px; }
-
+    .choices {
+      display: flex; flex-direction: column; gap: 8px;
+    }
     .choice {
-      position: relative;
-      min-height: 62px;
       display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 12px;
-      align-items: center;
+      grid-template-columns: 30px 1fr;
+      gap: 12px; align-items: center;
       text-align: left;
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1.5px solid rgba(29,26,20,0.11);
-      background:
-        linear-gradient(180deg, #ffffff, #fffaf1);
-      color: var(--ink);
-      box-shadow: 0 3px 12px rgba(41,31,19,0.055);
-      transition:
-        border-color 180ms ease,
-        background 180ms ease,
-        transform 120ms cubic-bezier(0.22,1,0.36,1),
-        box-shadow 180ms ease;
-      animation: choiceIn 320ms cubic-bezier(0.22,1,0.36,1) both;
-      animation-delay: calc(var(--i) * 55ms);
-      overflow: hidden;
-    }
-
-    .choice::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(184,68,8,0.10), transparent 52%);
-      opacity: 0;
-      transition: opacity 180ms ease;
-    }
-
-    @media (hover: hover) {
-      .choice:hover {
-        border-color: rgba(184,68,8,0.42);
-        transform: translateY(-1px);
-        box-shadow: 0 8px 22px rgba(41,31,19,0.08);
-      }
-      .choice:hover::before { opacity: 1; }
-    }
-
-    /* Tap-only feedback. */
-    .choice:active {
-      transform: scale(0.99);
-      border-color: var(--accent);
-      background: var(--accent-bg);
-    }
-
-    .letter {
-      width: 28px; height: 28px;
-      display: grid;
-      place-items: center;
-      border-radius: 999px;
-      background: linear-gradient(180deg, var(--accent-bg), #fff);
-      color: var(--accent);
-      border: 1px solid rgba(184,68,8,0.18);
-      font-family: var(--font-serif);
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    .choice-text {
-      display: block;
-      font-size: 16px;
-      line-height: 1.4;
-      font-weight: 500;
-      color: var(--ink);
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── Buttons ─────────────────────────────────────────── */
-    .primary {
-      min-height: 54px;
-      border-radius: 14px;
-      font-family: var(--font-sans);
-      font-weight: 700;
-      font-size: 15px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-hot));
-      color: #ffffff;
-      letter-spacing: 0.01em;
-      transition:
-        transform 120ms cubic-bezier(0.22,1,0.36,1),
-        box-shadow 180ms ease,
-        background 180ms ease;
-      box-shadow: var(--shadow-sm), 0 4px 12px rgba(204,79,0,0.18);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .primary:active {
-      transform: scale(0.985);
-      background: var(--accent-hot);
-    }
-
-    .primary.pulse {
-      animation: btnPulse 2.8s ease-in-out infinite;
-    }
-
-    @keyframes btnPulse {
-      0%,100% { box-shadow: var(--shadow-sm), 0 4px 12px rgba(204,79,0,0.18); }
-      50%     { box-shadow: var(--shadow-sm), 0 6px 18px rgba(204,79,0,0.32), 0 0 0 5px rgba(204,79,0,0.06); }
-    }
-
-    .unknown {
-      min-height: 46px;
+      padding: 14px;
       border-radius: 12px;
-      font-family: var(--font-sans);
-      font-weight: 600;
-      font-size: 14px;
+      min-height: 58px;
+      border: 1.5px solid var(--border-color);
+      background: var(--panel-bg);
+      color: var(--ink);
+      transition: all 180ms ease;
+      animation: choiceIn 280ms cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .choice .letter {
+      width: 28px; height: 28px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: rgba(184,68,8,0.08);
+      color: var(--accent);
+      font-family: var(--font-serif);
+      font-size: 13px; font-weight: 600;
+      border: 1px solid rgba(184,68,8,0.13);
+      transition: all 180ms ease;
+    }
+    .choice .choice-text {
+      font-size: 15.5px; font-weight: 500;
+    }
+    .choice.selected {
+      border-color: var(--accent);
+      background: rgba(184,68,8,0.07);
+      transform: scale(0.99);
+    }
+    .choice.selected .letter {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .unknown-btn {
+      padding: 11px;
+      border-radius: 11px;
+      border: 1.5px solid var(--border-color);
       background: transparent;
       color: var(--muted);
-      border: 1.5px solid var(--border);
-      transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+      font-size: 13px; font-weight: 600;
+      animation: choiceIn 280ms ease 700ms both;
     }
-    .unknown:active {
-      background: var(--panel-soft);
-      color: var(--ink);
-      border-color: var(--border-strong);
+    .unknown-btn:disabled { opacity: 0.5; }
+
+    .cancel-row {
+      margin-top: auto;
+      padding-top: 12px;
+      display: flex; justify-content: center;
+    }
+    .cancel-btn {
+      color: var(--error);
+      border: 1px solid rgba(185,74,42,0.3);
+      border-radius: 10px;
+      min-height: 34px;
+      padding: 0 22px;
+      font-size: 11.5px; font-weight: 600; letter-spacing: 0.04em;
+      background: transparent;
     }
 
-    /* ── Transition screen ───────────────────────────────── */
+    /* ── Transition ────────────────────────────────────────── */
     .transition-screen {
-      min-height: 520px;
-      display: grid;
-      place-items: center;
+      padding: 100px 0 40px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 24px;
       text-align: center;
+      min-height: 300px;
+      animation: screenIn 280ms cubic-bezier(0.22,1,0.36,1) both;
     }
-
-    .thinking-card {
-      display: grid;
-      gap: 22px;
-      justify-items: center;
-      padding: 36px 24px;
+    .transition-pen svg path {
+      stroke-dasharray: 200;
+      animation: penDraw 1.4s ease-in-out infinite;
     }
-
-    .thinking-bars {
-      display: flex;
-      align-items: end;
-      gap: 7px;
-      height: 52px;
-    }
-
-    .thinking-bars span {
-      width: 6px;
-      border-radius: 999px;
-      background: var(--accent);
-      animation: barPulse 920ms cubic-bezier(0.45,0.05,0.55,0.95) infinite;
-      animation-delay: calc(var(--i) * 115ms);
-    }
-
-    .thinking-bars span:nth-child(1) { height: 18px; }
-    .thinking-bars span:nth-child(2) { height: 34px; }
-    .thinking-bars span:nth-child(3) { height: 26px; }
-    .thinking-bars span:nth-child(4) { height: 44px; }
-    .thinking-bars span:nth-child(5) { height: 16px; }
-
     .transition-text {
-      max-width: 22ch;
-      color: var(--ink);
+      max-width: 24ch;
       font-family: var(--font-serif);
-      font-size: 24px;
-      line-height: 1.22;
-      font-weight: 500;
+      font-size: 22px; line-height: 1.25;
+      font-weight: 500; color: var(--ink);
+      animation: fadeUp 320ms ease 120ms both;
     }
-
     .transition-sub {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 500;
-      font-style: italic;
-    }
-
-    /* ── Result screen ───────────────────────────────────── */
-    .result-screen { display: grid; gap: 14px; }
-
-    .result-eyebrow {
-      color: var(--muted);
       font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      color: rgba(29,26,20,0.6);
+      font-style: italic;
+      animation: fadeUp 320ms ease 220ms both;
     }
 
+    /* ── Result ────────────────────────────────────────────── */
+    .result-screen {
+      display: flex; flex-direction: column; gap: 14px;
+      padding-top: 4px;
+      animation: screenIn 360ms cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .result-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--muted);
+      text-transform: uppercase;
+      animation: fadeUp 400ms ease 80ms both;
+    }
+    .level-glyph {
+      font-family: var(--font-serif);
+      font-size: 108px; line-height: 0.92;
+      font-weight: 600; color: var(--accent);
+      letter-spacing: -0.01em;
+      animation: fadeUp 480ms cubic-bezier(0.22,1,0.36,1) 180ms both;
+    }
+    .level-rule {
+      width: 56px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-top: -4px;
+      animation: fadeUp 400ms ease 280ms both;
+    }
+    .result-screen p {
+      font-size: 14.5px; line-height: 1.55;
+      color: var(--muted);
+      margin-top: 4px;
+      animation: fadeUp 400ms ease 320ms both;
+    }
     .result-caveat {
       margin-top: 4px;
       padding: 12px 14px;
       border-radius: 12px;
-      background: var(--accent-bg);
+      background: rgba(184,68,8,0.06);
       border-left: 3px solid var(--accent);
+      font-size: 13px; line-height: 1.5;
       color: var(--ink);
-      font-size: 13px;
-      line-height: 1.5;
       font-style: italic;
+      animation: fadeUp 400ms ease 380ms both;
     }
-    .result-caveat strong { color: var(--accent); font-style: normal; font-weight: 700; }
-    .result-caveat.soft {
-      background: rgba(75,52,30,0.04);
-      border-left-color: var(--soft);
-      color: var(--muted);
-    }
+    .result-caveat strong { font-style: normal; font-weight: 700; color: var(--accent); }
 
-    .level {
-      font-family: var(--font-serif);
-      font-size: 108px;
-      line-height: 0.92;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--accent);
-      font-feature-settings: "ss01";
-      animation: levelReveal 600ms cubic-bezier(0.22,1,0.36,1) both;
-      position: relative;
-      display: inline-block;
-    }
-
-    /* Small accent underline beneath the level letter — feels editorial */
-    .level::after {
-      content: "";
-      display: block;
-      width: 56px;
-      height: 3px;
-      margin-top: 10px;
-      background: var(--accent);
-      border-radius: 2px;
-      animation: fadeUp 600ms ease 300ms both;
-    }
-
-    @keyframes levelReveal {
-      from { opacity: 0; transform: scale(0.85) translateY(8px); }
-      to   { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    /* ── Feedback card ──────────────────────────────────── */
     .feedback-card {
-      margin-top: 10px;
-      padding: 20px 18px;
-      border-radius: var(--radius);
-      background: var(--panel-soft);
-      border: 1px solid var(--border);
-      display: grid;
-      gap: 14px;
+      margin-top: 4px;
+      padding: 16px;
+      border-radius: 13px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      display: flex; flex-direction: column; gap: 10px;
+      animation: fadeUp 400ms ease 460ms both;
     }
     .feedback-q {
-      color: var(--ink);
       font-family: var(--font-serif);
-      font-size: 17px;
-      font-weight: 500;
-      line-height: 1.35;
+      font-size: 15px; font-weight: 500;
+      color: var(--ink); line-height: 1.35;
     }
     .feedback-opts {
-      display: grid;
-      gap: 8px;
+      display: flex; flex-direction: column; gap: 6px;
     }
     .feedback-opt {
-      min-height: 46px;
-      padding: 11px 14px;
-      border-radius: 10px;
-      border: 1.5px solid var(--border);
-      background: #ffffff;
+      padding: 10px 12px;
+      border-radius: 9px;
+      border: 1.5px solid var(--border-color);
+      background: #fff;
       color: var(--ink);
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 13px; font-weight: 500;
       text-align: left;
-      line-height: 1.35;
-      transition: border-color 160ms ease, background 160ms ease;
-    }
-    .feedback-opt:active {
-      border-color: var(--accent);
-      background: var(--accent-bg);
+      transition: all 160ms ease;
     }
     .feedback-opt.selected {
       border-color: var(--accent);
-      background: var(--accent-bg);
+      background: rgba(184,68,8,0.06);
       color: var(--accent);
       font-weight: 600;
     }
     .feedback-label {
-      font-size: 13px;
-      color: var(--muted);
-      letter-spacing: 0;
-      font-style: italic;
+      font-size: 12px; color: var(--muted);
+      font-style: italic; margin-top: 2px;
     }
     .feedback-input {
-      width: 100%;
-      min-height: 76px;
-      max-height: 200px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1.5px solid var(--border);
-      background: #ffffff;
+      width: 100%; min-height: 64px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      border: 1.5px solid var(--border-color);
+      background: #fff;
       color: var(--ink);
-      font: inherit;
-      font-size: 14px;
-      line-height: 1.5;
-      resize: vertical;
-      box-sizing: border-box;
+      font: inherit; font-size: 13px; line-height: 1.5;
+      resize: none; outline: none;
     }
     .feedback-input:focus {
-      outline: none;
-      border-color: var(--accent);
+      border-color: rgba(184,68,8,0.35);
     }
     .feedback-submit {
-      min-height: 44px !important;
-      font-size: 14px !important;
+      min-height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hot));
+      color: #fff;
+      font-size: 13px; font-weight: 700;
     }
-    .feedback-submit:disabled {
-      opacity: 0.6;
-      filter: grayscale(0.3);
-      cursor: not-allowed;
-    }
+    .feedback-submit:disabled { opacity: 0.55; cursor: not-allowed; }
     .feedback-status {
-      min-height: 16px;
-      font-size: 13px;
+      font-size: 11px;
       color: var(--muted);
-      text-align: center;
+      font-family: SFMono-Regular, Consolas, Menlo, monospace;
+      letter-spacing: 0.02em;
+      min-height: 14px;
     }
-    .feedback-status.ok  { color: var(--success); }
+    .feedback-status.ok  { color: #3f7a3c; }
     .feedback-status.err { color: var(--error); }
-    .feedback-card.submitted .feedback-opt:not(.selected) { opacity: 0.35; }
     .feedback-card.submitted .feedback-opt,
     .feedback-card.submitted .feedback-input,
-    .feedback-card.submitted .feedback-submit {
-      pointer-events: none;
+    .feedback-card.submitted .feedback-submit { opacity: 0.6; pointer-events: none; }
+
+    .restart-btn {
+      margin-top: auto;
+      min-height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-hot));
+      color: #fff;
+      font-size: 15px; font-weight: 700;
+      animation: fadeUp 400ms ease 600ms both;
     }
 
-    /* ── Core keyframes ──────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes choiceIn {
-      from { opacity: 0; transform: translateY(9px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes barPulse {
-      0%,100% { transform: scaleY(0.5); opacity: 0.45; }
-      50%     { transform: scaleY(1);   opacity: 1; }
-    }
-
-    /* ── Mobile ──────────────────────────────────────────── */
-    @media (max-width: 500px) {
-      .app-area {
-        padding: calc(var(--safe-top) + 14px) 12px 0;
-      }
-      .screen {
-        margin: 0 0 14px 0;
-        border-radius: var(--radius-lg);
-        padding: 24px 22px 26px;
-      }
-      /* Question screen still wants to feel "full-card" — give it a sensible floor */
-      .screen.question { min-height: calc(100dvh - 120px); }
-      .footer-logo { height: 48px; }
-      h1 { font-size: 32px; }
-      .prompt {
-        --prompt-pad-y: 20px;
-        --prompt-pad-x: 20px;
-        font-size: 19px;
-      }
-      .choice-text { font-size: 15px; }
-      .level { font-size: 88px; }
-    }
-
-    /* ── Trajectory console ──────────────────────────────── */
-    .console-wrapper {
-      width: 100%;
-      max-width: 1100px;
-      padding: 16px 16px 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .console-toggle-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--muted);
-      font-family: var(--font-sans);
+    .log-status-line {
+      margin-top: 6px;
       font-size: 11px;
-      font-weight: 600;
-      padding: 9px 18px;
-      letter-spacing: 0.06em;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(4px);
-      transition: all 180ms ease;
-      box-shadow: var(--shadow-sm);
+      color: rgba(29,26,20,0.35);
+      font-family: SFMono-Regular, Consolas, Menlo, monospace;
+      letter-spacing: 0.02em;
     }
 
-    .console-toggle-btn:active {
-      border-color: var(--border-strong);
-      color: var(--ink);
-      background: #ffffff;
-      transform: scale(0.98);
+    /* ── Trajectory toggle pill (sticky) ───────────────────── */
+    .traj-pill-wrap {
+      display: flex; justify-content: center;
+      pointer-events: none;
+      z-index: 50;
+      padding: 18px 0 6px;
     }
-
-    .console-toggle-btn svg {
-      flex-shrink: 0;
-      transition: transform 240ms cubic-bezier(0.22,1,0.36,1);
-    }
-
-    .console-toggle-btn.open svg { transform: rotate(180deg); }
-
-    /* The console intentionally stays dark/code-y — it's a power-user
-       debug surface, and the contrast against the warm light app helps
-       visually classify it as "tool" vs "test". */
-    .console-panel {
-      width: 100%;
-      background: #1a1814;
-      border: 1px solid #2b2620;
-      border-radius: 14px;
-      overflow: hidden;
-      display: none;
-      box-shadow: var(--shadow-md);
-    }
-
-    .console-panel.visible {
-      display: block;
-      animation: fadeUp 240ms ease both;
-    }
-
-    .console-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      border-bottom: 1px solid #2b2620;
-    }
-
-    .console-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: #e8e2d2;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .turn-pill {
-      display: inline-flex;
-      align-items: center;
-      height: 22px;
-      padding: 0 10px;
+    .traj-pill {
+      pointer-events: all;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px 6px 11px;
       border-radius: 999px;
-      background: rgba(255,165,75,0.12);
-      border: 1px solid rgba(255,165,75,0.28);
-      color: #ffb36f;
-      font-size: 10px;
-      font-weight: 700;
+      background: rgba(251,243,227,0.94);
+      border: 1px solid var(--border-color);
+      color: var(--muted);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.05em;
+      box-shadow: 0 2px 12px rgba(29,26,20,0.18);
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+      transition: all 200ms ease;
+    }
+    .traj-pill.open {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .traj-pill .count {
+      background: var(--accent);
+      color: #fff;
+      border-radius: 999px;
+      padding: 1px 6px;
+      font-size: 9px; font-weight: 800;
+      margin-left: 2px;
+    }
+    .traj-pill.open .count {
+      background: rgba(255,255,255,0.28);
+    }
+    .traj-pill svg { flex-shrink: 0; }
+
+    /* ── Trajectory slide-up panel ─────────────────────────── */
+    .traj-overlay {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      max-height: 62dvh;
+      display: none;
+      flex-direction: column;
+      background: rgba(251,243,227,0.97);
+      border-top: 2px solid var(--accent);
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 -8px 32px rgba(29,26,20,0.14);
+      z-index: 40;
+      animation: slideUp 280ms cubic-bezier(0.22,1,0.36,1) both;
+      backdrop-filter: blur(8px);
+    }
+    .traj-overlay.visible { display: flex; }
+    .traj-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 18px 10px;
+      border-bottom: 1px solid rgba(184,68,8,0.1);
+    }
+    .traj-title {
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 800; color: var(--ink);
+      letter-spacing: 0.09em; text-transform: uppercase;
+    }
+    .traj-turns {
+      font-size: 10px; font-weight: 700;
+      color: var(--accent);
+      padding: 2px 9px; border-radius: 999px;
+      background: rgba(184,68,8,0.07);
+      border: 1px solid rgba(184,68,8,0.16);
+    }
+    .traj-list {
+      overflow-y: auto;
+      padding: 10px 14px calc(24px + var(--safe-bottom));
+      display: flex; flex-direction: column; gap: 7px;
+    }
+    .traj-empty {
+      text-align: center;
+      padding: 22px 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .traj-row {
+      padding: 10px 12px;
+      border-radius: 11px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(184,68,8,0.08);
+      animation: fadeUp 280ms cubic-bezier(0.22,1,0.36,1) both;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .traj-r1 { display: flex; align-items: center; gap: 6px; }
+    .traj-turn-bubble {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(184,68,8,0.08);
+      border: 1px solid rgba(184,68,8,0.16);
+      display: grid; place-items: center; flex-shrink: 0;
+      font-family: var(--font-serif);
+      font-size: 10px; font-weight: 600;
+      color: var(--accent);
+    }
+    .traj-action-code {
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.04em;
+      color: var(--accent);
+      padding: 2px 7px; border-radius: 5px;
+      background: rgba(184,68,8,0.07);
+      border: 1px solid rgba(184,68,8,0.13);
+      font-family: SFMono-Regular, Menlo, monospace;
+    }
+    .traj-tag {
+      font-size: 9px; font-weight: 700;
+      color: rgba(29,26,20,0.4);
+      padding: 2px 6px; border-radius: 4px;
+      background: rgba(29,26,20,0.05);
+      font-family: SFMono-Regular, Menlo, monospace;
       letter-spacing: 0.04em;
     }
-
-    .table-scroll {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .console-table {
-      width: 100%;
-      border-collapse: collapse;
-      white-space: nowrap;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-      font-size: 11px;
-    }
-
-    .console-table td {
-      padding: 7px 10px;
-      color: rgba(232,226,210,0.78);
-      border-bottom: 1px solid rgba(232,226,210,0.06);
-      font-size: 10px;
-    }
-
-    .console-table th {
-      padding: 8px 10px;
-      text-align: left;
-      color: rgba(232,226,210,0.5);
-      font-weight: 700;
+    .traj-ms {
+      margin-left: auto;
       font-size: 9px;
-      letter-spacing: 0.06em;
+      color: rgba(29,26,20,0.32);
+      font-family: SFMono-Regular, Menlo, monospace;
+    }
+    .traj-r2 {
+      display: flex; align-items: center; gap: 6px;
+      padding-left: 26px;
+      flex-wrap: wrap;
+    }
+    .traj-boundary {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.07em;
+      color: var(--accent);
       text-transform: uppercase;
-      border-bottom: 1px solid rgba(232,226,210,0.08);
+      padding: 1px 6px; border-radius: 4px;
+      background: rgba(184,68,8,0.06);
     }
-
-    .console-table tr:last-child td { border-bottom: 0; }
-
-    .console-table code {
-      background: rgba(255,165,75,0.08);
-      color: #ffb36f;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 10px;
+    .traj-role {
+      font-size: 9px; font-weight: 600;
+      color: rgba(29,26,20,0.45);
+      padding: 1px 6px; border-radius: 4px;
+      background: rgba(29,26,20,0.05);
+      letter-spacing: 0.04em;
     }
-
-    .console-empty {
-      padding: 22px;
-      text-align: center;
-      color: rgba(232,226,210,0.5);
+    .traj-selected {
+      font-size: 11px; color: var(--muted);
+      font-weight: 500;
+    }
+    .traj-selected em { font-style: italic; }
+    .traj-r3 {
+      padding-left: 26px;
       font-size: 11px;
-      font-family: inherit;
+      color: rgba(29,26,20,0.45);
+      font-family: var(--font-serif);
+      font-style: italic;
+      line-height: 1.3;
     }
 
-    /* ── Footer ──────────────────────────────────────────── */
-    .footer {
-      margin-top: auto;
-      padding: 22px 16px calc(20px + var(--safe-bottom));
-      text-align: center;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+    .traj-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(29,26,20,0.08);
+      z-index: 39;
+      display: none;
+      animation: fadeUp 200ms ease both;
     }
-    .footer-logo {
-      height: 58px;
-      width: auto;
-      opacity: 0.95;
-      /* The PNG is white-on-transparent (designed for dark backgrounds).
-         Invert turns the marks dark + brightness 0.16 prevents pure black. */
-      filter: invert(1) brightness(0.16) contrast(1.08);
-      margin-bottom: 4px;
+    .traj-backdrop.visible { display: block; }
+
+    /* ── Mobile tweaks ─────────────────────────────────────── */
+    @media (max-width: 380px) {
+      .layout { padding: calc(24px + var(--safe-top)) 16px calc(58px + var(--safe-bottom)); }
+      .hero-title { font-size: 38px; }
+      .level-glyph { font-size: 92px; }
+      .prompt-card { font-size: 19px; padding: 18px 18px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-orbs" aria-hidden="true">
-    <div class="bg-orb"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-orb"></div>
-  </div>
+  <!-- ═══════════════════════════════════════════════════════
+       PAINTERLY WATERCOLOR BACKDROP (Claude Design TC_A)
+       SVG with feTurbulence/feDisplacementMap — fills viewport.
+       ═══════════════════════════════════════════════════════ -->
+  <svg class="watercolor-bg" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <filter id="paint-a" x="-25%" y="-25%" width="150%" height="150%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="5"/>
+        <feDisplacementMap in="SourceGraphic" scale="48"/>
+      </filter>
+      <filter id="paint-b" x="-25%" y="-25%" width="150%" height="150%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="2" seed="11"/>
+        <feDisplacementMap in="SourceGraphic" scale="36"/>
+      </filter>
+    </defs>
+    <g style="mix-blend-mode: multiply;">
+      <ellipse cx="60"  cy="130" rx="175" ry="135" fill="#ff9961" opacity="0.55" filter="url(#paint-a)"/>
+      <ellipse cx="320" cy="110" rx="155" ry="115" fill="#f0c068" opacity="0.55" filter="url(#paint-b)"/>
+      <ellipse cx="60"  cy="480" rx="200" ry="160" fill="#ff8576" opacity="0.40" filter="url(#paint-a)"/>
+      <ellipse cx="340" cy="660" rx="200" ry="160" fill="#ffaa6e" opacity="0.48" filter="url(#paint-b)"/>
+      <ellipse cx="140" cy="780" rx="175" ry="135" fill="#f5be60" opacity="0.45" filter="url(#paint-a)"/>
+    </g>
+  </svg>
+  <svg class="watercolor-grain" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true">
+    <filter id="grain-a">
+      <feTurbulence type="fractalNoise" baseFrequency="0.92" numOctaves="2" stitchTiles="stitch" seed="2"/>
+      <feColorMatrix values="0 0 0 0 0.4  0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0.4 0"/>
+    </filter>
+    <rect width="200" height="200" filter="url(#grain-a)"/>
+  </svg>
 
+  <!-- ═══════════════════════════════════════════════════════
+       LAYOUT — single column, max 460, centered.
+       ═══════════════════════════════════════════════════════ -->
   <div class="layout">
 
-    <div class="app-area">
-      <section id="app" class="screen"></section>
+    <!-- Topbar (logo + chip) — always visible -->
+    <div class="topbar">
+      <img class="nektar-logo" src="./loading_dark.png" alt="Nektar">
+      <div class="nektar-chip"><span class="dot"></span>NEKTAR · ANKA</div>
     </div>
 
-    <div class="console-wrapper">
-      <button class="console-toggle-btn" id="console-toggle" type="button">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="3 5 7 9 11 5"/>
+    <!-- Stage — render() rewrites this -->
+    <div class="screen-stage" id="screen-stage">
+      <div class="screen-content" id="screen-content"></div>
+    </div>
+
+    <!-- Sticky trajectory pill -->
+    <div class="traj-pill-wrap">
+      <button class="traj-pill" id="traj-toggle" type="button" aria-label="Trajectory">
+        <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="3" width="12" height="10" rx="1.5"/>
+          <polyline points="5 7 7 9 5 11"/>
+          <line x1="9" y1="11" x2="11" y2="11"/>
         </svg>
-        <span id="console-label">KAYIT DEFTERİNİ GÖSTER</span>
+        <span id="traj-label">KAYIT DEFTERİNİ GÖSTER</span>
+        <span class="count" id="traj-count" style="display:none;">0</span>
       </button>
-
-      <div class="console-panel" id="console-panel">
-        <div class="console-head">
-          <span class="console-title">TRAJECTORY</span>
-          <span class="turn-pill" id="turn-pill">0 turns</span>
-        </div>
-        <div class="table-scroll">
-          <table class="console-table">
-            <thead>
-              <tr>
-                <th>Turn</th>
-                <th>Item</th>
-                <th>Boundary</th>
-                <th>Type</th>
-                <th>Focus</th>
-                <th>Selected</th>
-                <th>Role</th>
-                <th>Correct</th>
-                <th>MS</th>
-                <th>Action</th>
-                <th>Before</th>
-                <th>After</th>
-                <th>Confidence</th>
-              </tr>
-            </thead>
-            <tbody id="trajectory-body">
-              <tr><td colspan="13" class="console-empty">Henüz veri yok.</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-
-    <footer class="footer">
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-        <img class="footer-logo" src="./loading_dark.png" alt="Nektar Logo">
-        <span>NEKTAR Lab: ANKA CEFR Tester Beta / 2026 all rights reserved</span>
-      </div>
-    </footer>
-
   </div>
 
+  <!-- Trajectory overlay (slide-up) -->
+  <div class="traj-backdrop" id="traj-backdrop"></div>
+  <div class="traj-overlay" id="traj-overlay" aria-hidden="true">
+    <div class="traj-head">
+      <span class="traj-title">TRAJECTORY</span>
+      <span class="traj-turns" id="traj-turns">0 turns</span>
+    </div>
+    <div class="traj-list" id="traj-list">
+      <div class="traj-empty">Henüz veri yok.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ENGINE + CONTENT — script tags resolve relative paths.
+       ═══════════════════════════════════════════════════════ -->
   <script src="./placement-questions.js"></script>
   <script src="./placement-pool.generated.js"></script>
   <script src="./placement-questions-v2.js"></script>
+  <script src="./schema-validator.js"></script>
   <script src="./legacy-retirement.js"></script>
   <script src="./ceiling-probe-engine.js"></script>
+
   <script>
-    const Engine  = window.NektarCeilingProbeEngine;
-    const content = window.NEKTAR_PLACEMENT_CONTENT;
+    // ════════════════════════════════════════════════════════════════════
+    // ANKA student app — Claude Design port (v19)
+    // Keeps every piece of engine + logging wiring; only the renderer changed.
+    // ════════════════════════════════════════════════════════════════════
+
+    const Engine    = window.NektarCeilingProbeEngine;
+    const content   = window.NEKTAR_PLACEMENT_CONTENT;
     const contentV2 = window.NEKTAR_PLACEMENT_CONTENT_V2;
-    const app     = document.getElementById("app");
+    const stage     = document.getElementById("screen-stage");
+    const stageBody = document.getElementById("screen-content");
 
-    /* Console toggle */
-    const consoleToggle = document.getElementById("console-toggle");
-    const consolePanel  = document.getElementById("console-panel");
-    const consoleLabel  = document.getElementById("console-label");
-    const turnPill      = document.getElementById("turn-pill");
-    const tBody         = document.getElementById("trajectory-body");
-    let consoleOpen = true;
+    // ─── Trajectory overlay handles ─────────────────────────────────────
+    const trajToggle   = document.getElementById("traj-toggle");
+    const trajLabel    = document.getElementById("traj-label");
+    const trajCount    = document.getElementById("traj-count");
+    const trajOverlay  = document.getElementById("traj-overlay");
+    const trajBackdrop = document.getElementById("traj-backdrop");
+    const trajTurns    = document.getElementById("traj-turns");
+    const trajList     = document.getElementById("traj-list");
+    let trajOpen = false;
 
-    // Initialize console state
-    if (consoleOpen) {
-      consolePanel.classList.add("visible");
-      consoleToggle.classList.add("open");
-      consoleLabel.textContent = "KAYIT DEFTERİNİ GİZLE";
+    function setTrajOpen(open) {
+      trajOpen = open;
+      trajOverlay.classList.toggle("visible", open);
+      trajBackdrop.classList.toggle("visible", open);
+      trajToggle.classList.toggle("open", open);
+      trajOverlay.setAttribute("aria-hidden", open ? "false" : "true");
+      trajLabel.textContent = open ? "KAYIT DEFTERİNİ GİZLE" : "KAYIT DEFTERİNİ GÖSTER";
     }
+    trajToggle.addEventListener("click", () => setTrajOpen(!trajOpen));
+    trajBackdrop.addEventListener("click", () => setTrajOpen(false));
 
-    consoleToggle.addEventListener("click", () => {
-      consoleOpen = !consoleOpen;
-      consolePanel.classList.toggle("visible", consoleOpen);
-      consoleToggle.classList.toggle("open", consoleOpen);
-      consoleLabel.textContent = consoleOpen ? "KAYIT DEFTERİNİ GİZLE" : "KAYIT DEFTERİNİ GÖSTER";
-    });
-
-    /* Engine state */
-    // LEGACY_CORE_EXCLUDED only filters items WITHOUT source_collection === "diagnostic_v2".
-    // Codex v2 items bypass this filter entirely.
-    //
-    // Audit (CODEX_BRIEF.md context):
-    //  - naturalness_judgment: 7 legacy items, all clean → ENABLED
-    //  - pragmatic_choice: 8 legacy items, all have "You are at..." scaffolding bug → kept off,
-    //    Codex v2 will deliver 40 fresh pragmatic_choice items
-    //  - function / natural_speech / spoken_chunk: design overlap or require audio → kept off
+    // ─── Engine plumbing (unchanged) ────────────────────────────────────
     const LEGACY_CORE_EXCLUDED = new Set([
       "function", "pragmatic_choice", "natural_speech", "spoken_chunk"
     ]);
@@ -1180,19 +892,26 @@
       "Sonucunu netleştirmek için devam ediyoruz."
     ];
 
-    let engine  = null;
-    let shownAt = 0;
-    let transition = null;
-    let transitionTimer = null;
-    let promptTypingTimer = null;
+    let engine             = null;
+    let shownAt            = 0;
+    let transition         = null;
+    let transitionTimer    = null;
+    let promptTypingTimer  = null;
+    let taglineTypingTimer = null;
+    let openInfo           = -1;        // welcome screen dropdown index
+    let sessionStartedAt   = null;
+    let loggedSessionIds   = new Set();
+
+    // Bump on every meaningful client change so we can correlate sessions
+    // to client builds in the admin logs.
+    const LOG_BUILD    = "v20-2026-05-16-ui-engine-polish";
+    const LOG_ENDPOINT = "/api/record";
+    let lastLogStatus = "waiting";
 
     function seed() {
       const s = new URLSearchParams(location.search).get("seed");
       return s || `anka-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     }
-
-    let sessionStartedAt = null;
-    let loggedSessionIds = new Set();
 
     function start(mode = "standard") {
       clearTimer();
@@ -1200,27 +919,21 @@
         seed: seed(),
         mode,
         startBoundary: "A1/A2",
-        standardMinItems: 8,
-        detailedMinItems: 14,
-        maxItems: mode === "detailed" ? 28 : 24
+        standardMinItems: 12,
+        detailedMinItems: 16,
+        maxItems: mode === "detailed" ? 30 : 26,
+        vocabSoftCap: 4,
+        vocabHardCap: 6
       });
       shownAt = Date.now();
       sessionStartedAt = Date.now();
       transition = null;
-      lastLogStatus = "waiting";   // reset for the new session
+      lastLogStatus = "waiting";
       render();
       syncTrajectory();
     }
 
-    // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v17-2026-05-16-layout-fixes";
-    // Endpoint URL — content blockers (1Blocker, AdGuard) often kill anything
-    // matching "/log" patterns. Use a neutral name.
-    const LOG_ENDPOINT = "/api/record";
-    // Latest log status — stored so the indicator survives the render race
-    // between transition→result screens.
-    let lastLogStatus = "waiting";
-
+    // ─── Logging pipeline (unchanged — see DEPLOYMENT_GUIDE.md §6) ──────
     function logCompletedSession() {
       if (!engine || !engine.state.result) return;
       const sid = engine.settings.seed;
@@ -1257,10 +970,7 @@
       let settled = false;
       const finish = (msg) => { if (!settled) { settled = true; showStatus(msg); } };
 
-      // --- MEDIUM-sized GET payload (everything except trajectory) ---
-      // Uses real field names so the admin can render rows properly.
-      // Trajectory is dropped here because it doesn't fit under most mobile
-      // URL filters (~2-4KB). A separate POST attempt may still deliver it.
+      // (1) Tiny GET — meta only, ~300-char URL, survives mobile carrier filters
       const meta = {
         session_id: sid,
         log_build: LOG_BUILD,
@@ -1270,33 +980,22 @@
         mode: payload.mode,
         items_asked: payload.items_asked,
         confidence_at_end: payload.confidence_at_end,
-        result: payload.result,                   // full result object
+        result: payload.result,
         user_agent: (navigator.userAgent || "").slice(0, 300),
-        device: payload.device,                   // full device fingerprint
-        partial: true                              // marker: trajectory missing
+        device: payload.device,
+        partial: true
       };
       const tinyBody = JSON.stringify(meta);
       const tinyUrl = LOG_ENDPOINT + "?d=" + encodeURIComponent(tinyBody);
-      console.log("[log] meta URL length:", tinyUrl.length);
-
-      // --- (1) Tiny GET — should pass any URL-length filter ---
       try {
         const ctrl = new AbortController();
         const t = setTimeout(() => ctrl.abort(), 8000);
         fetch(tinyUrl, { method: "GET", signal: ctrl.signal })
-          .then(async (r) => {
-            clearTimeout(t);
-            if (r.ok) finish("✓ sent via tiny-GET (" + tinyBody.length + "B)");
-            else if (!settled) finish("tiny-GET error " + r.status);
-          })
-          .catch((e) => {
-            clearTimeout(t);
-            console.warn("[log] tiny-GET failed:", e);
-            if (!settled) finish("tiny-GET failed: " + String(e?.message || e).slice(0, 40));
-          });
+          .then((r) => { clearTimeout(t); if (r.ok) finish("✓ sent via tiny-GET (" + tinyBody.length + "B)"); else if (!settled) finish("tiny-GET error " + r.status); })
+          .catch((e) => { clearTimeout(t); if (!settled) finish("tiny-GET failed: " + String(e?.message || e).slice(0, 40)); });
       } catch (e) { console.warn("[log] tiny-GET setup threw:", e); }
 
-      // --- (2) sendBeacon w/ full body (background, best-effort) ---
+      // (2) sendBeacon — fire-and-forget, survives page unload
       try {
         if (navigator.sendBeacon) {
           const blob = new Blob([body], { type: "application/json" });
@@ -1304,46 +1003,31 @@
         }
       } catch (e) { console.warn("[log] sendBeacon threw:", e); }
 
-      // --- (3) Full POST in parallel — if filter doesn't block it, full
-      //         trajectory overwrites the tiny record (same session_id). ---
+      // (3) POST in parallel — replaces meta with full record if it lands
       try {
         const postCtrl = new AbortController();
         const postT = setTimeout(() => postCtrl.abort(), 6000);
         fetch(LOG_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body,
-          keepalive: true,
-          signal: postCtrl.signal
-        }).then(async (r) => {
-          clearTimeout(postT);
-          if (r.ok && !settled) finish("✓ sent via POST (" + body.length + "B)");
-        }).catch(() => { /* silent — tiny-GET path is the safety net */ });
+          body, keepalive: true, signal: postCtrl.signal
+        }).then((r) => { clearTimeout(postT); if (r.ok && !settled) finish("✓ sent via POST (" + body.length + "B)"); })
+          .catch(() => {});
       } catch (e) { console.warn("[log] POST setup threw:", e); }
 
-      // --- (4) Trajectory chunks via sequential GETs ---
-      // We fire chunks one-at-a-time with a small delay to dodge mobile
-      // rate-limiting/connection-throttling. Each chunk lives in its own
-      // blob path so they never race-overwrite each other.
-      // Each turn carries prompt + selected text so the admin can show the
-      // actual question content and the engine's action.
+      // (4) Trajectory chunks — 2 turns per GET, sequential
       const traj = payload.trajectory || [];
       const allItems = ((content && content.items) || []).concat((contentV2 && contentV2.items) || []);
       const itemById = new Map(allItems.map((it) => [it.id, it]));
       const enrichTurn = (e) => {
         const it = itemById.get(e.item_id);
-        let promptText = "";
-        let selectedText = "";
+        let promptText = "", selectedText = "";
         if (it) {
-          // Convert <strong>x</strong> → **x** so the emphasis survives in
-          // markdown exports; strip any other HTML; collapse whitespace.
           promptText = (it.prompt || "")
             .replace(/<\s*strong\s*>/gi, "**")
             .replace(/<\s*\/\s*strong\s*>/gi, "**")
             .replace(/<[^>]*>/g, "")
-            .replace(/\s+/g, " ")
-            .trim()
-            .slice(0, 200);
+            .replace(/\s+/g, " ").trim().slice(0, 200);
           const opt = (it.options || []).find((o) => o.id === e.selected_option_id);
           if (opt) selectedText = (opt.text || "").slice(0, 60);
         }
@@ -1379,21 +1063,11 @@
             log_build: LOG_BUILD,
             turns: traj.slice(i, i + CHUNK_SIZE).map(enrichTurn)
           };
-          const cBody = JSON.stringify(chunkBody);
-          const cUrl = LOG_ENDPOINT + "?d=" + encodeURIComponent(cBody);
+          const cUrl = LOG_ENDPOINT + "?d=" + encodeURIComponent(JSON.stringify(chunkBody));
           try {
             const r = await fetch(cUrl, { method: "GET" });
-            if (r.ok) {
-              chunkSuccess++;
-              console.log("[log] chunk", idx, "/", chunkTotal, "ok (url", cUrl.length, ")");
-              showStatus("✓ meta + " + chunkSuccess + "/" + chunkTotal + " chunks");
-            } else {
-              console.warn("[log] chunk", idx, "error", r.status);
-            }
-          } catch (e) {
-            console.warn("[log] chunk", idx, "failed:", e);
-          }
-          // Tiny delay so we don't trigger carrier-side rate limits.
+            if (r.ok) { chunkSuccess++; showStatus("✓ meta + " + chunkSuccess + "/" + chunkTotal + " chunks"); }
+          } catch {}
           await new Promise((r) => setTimeout(r, 150));
         }
         if (chunkSuccess < chunkTotal) {
@@ -1402,219 +1076,300 @@
       })();
     }
 
-    function answer(optionId) {
-      if (!engine || !engine.currentItem || engine.state.result || transition) return;
-      clearPromptTyping();
-      const step = engine.answer(optionId, Date.now() - shownAt);
-      const done  = Boolean(engine.state.result);
-      transition  = {
-        text: done ? "Sonucunu hazırlıyorum." : pickCopy(step),
-        done
-      };
-      syncTrajectory();
-      render();
-      if (done) logCompletedSession();
-      transitionTimer = window.setTimeout(() => {
-        transition = null;
-        shownAt = Date.now();
-        render();
-      }, done ? 820 : 680);
-    }
-
-    function render() {
-      if (transition) {
-        app.className = "screen fade";
-        app.innerHTML = htmlTransition();
-        return;
-      }
-      if (!engine) {
-        app.className = "screen fade";
-        app.innerHTML = htmlWelcome();
-        return;
-      }
-      if (engine.state.result) {
-        app.className = "screen fade";
-        app.innerHTML = htmlResult(engine.state.result);
-        return;
-      }
-      const item    = engine.currentItem;
-      const opts    = orderedOptions(item);
-      const pct     = Math.min(95, calcProgress());
-      app.className = "screen question fade";
-      app.innerHTML = `
-        <div class="topline">
-          <span class="chip confidence-pill">
-            <span class="confidence-label">EMİN OLMA YÜZDESİ</span>
-            <span class="confidence-value">%${pct}</span>
-          </span>
-        </div>
-        <div class="progress" aria-hidden="true">
-          <div class="progress-bar" style="width:${pct}%"></div>
-        </div>
-        <div class="instruction">${esc(instrFor(item))}</div>
-        <div class="prompt typewriter-prompt" aria-label="${esc(promptPlainText(item.prompt))}">
-          <span class="prompt-ghost" aria-hidden="true">${promptHtml(item.prompt)}</span>
-          <span class="prompt-live typing-live" data-typewriter-prompt aria-hidden="true">${promptHtml(item.prompt)}</span>
-        </div>
-        <div class="choices">
-          ${opts.map((o, i) => `
-            <button class="choice" style="--i:${i}" data-answer="${esc(o.id)}" aria-label="${String.fromCharCode(65 + i)}. ${esc(o.text)}" type="button">
-              <span class="letter">${String.fromCharCode(65 + i)}</span>
-              <span class="choice-text">${esc(o.text)}</span>
-            </button>
-          `).join("")}
-        </div>
-        <button class="unknown" data-answer="unknown" type="button">Bilmiyorum</button>
-        <div style="margin-top: 24px; display: flex; justify-content: center;">
-          <button class="unknown" data-action="reset" style="color: var(--error); border-color: rgba(185,74,42,0.3); min-height: 40px; padding: 0 22px; font-size: 12px; letter-spacing: 0.04em;" type="button">vazgeç</button>
-        </div>
-      `;
-      startPromptTypewriter(item.prompt);
-    }
-
-    function htmlWelcome() {
-      return `
-        <div class="welcome">
-          <span class="chip">ANKA ADAPTIVE ENGINE: CEFR</span>
-          <div class="welcome-head">
-            <h1><span class="shimmer-text">ADAPTİF SEVİYE TESTİ</span></h1>
-            <p>Sadece birkaç dakika sürer. Kişiye göre değişir, seviyenden emin olduğu anda testi bırakır.</p>
-          </div>
-          <details class="how-details">
-            <summary>Nasıl çalışır?</summary>
-            <div class="info-list">
-              <div class="info-item" style="--i:0">
-                <span class="info-icon" aria-hidden="true">
-                  <!-- adaptive: a branching path that splits and rejoins (engine adapts) -->
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="6" cy="6" r="2.2"/>
-                    <circle cx="6" cy="18" r="2.2"/>
-                    <circle cx="18" cy="12" r="2.2"/>
-                    <path d="M8 6c4 0 6 2 8 6"/>
-                    <path d="M8 18c4 0 6 -2 8 -6"/>
-                  </svg>
-                </span>
-                <span>Sorular cevaplarına göre seçilir; bazen kolaylaşır, bazen daha ayırt edici olur.</span>
-              </div>
-              <div class="info-item" style="--i:1">
-                <span class="info-icon" aria-hidden="true">
-                  <!-- "don't know": a help-circle with friendly question mark -->
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="12" cy="12" r="9"/>
-                    <path d="M9.3 9.2a3 3 0 0 1 5.7 1c0 1.8-2.5 2.4-2.5 4"/>
-                    <circle cx="12" cy="17" r="0.6" fill="currentColor"/>
-                  </svg>
-                </span>
-                <span>Emin değilsen <strong>Bilmiyorum</strong> diyebilirsin. Bu da testin sana uyum sağlamasına yardım eder.</span>
-              </div>
-              <div class="info-item" style="--i:2">
-                <span class="info-icon" aria-hidden="true">
-                  <!-- balance scale: weighs right + wrong answers -->
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M12 4v16"/>
-                    <path d="M8 21h8"/>
-                    <path d="M4 6c2.5 0 5-1 8-2 3 1 5.5 2 8 2"/>
-                    <path d="M2 14c0-3 2-6 2-6s2 3 2 6c0 1.2-1 2-2 2s-2-.8-2-2z"/>
-                    <path d="M16 14c0-3 2-6 2-6s2 3 2 6c0 1.2-1 2-2 2s-2-.8-2-2z"/>
-                  </svg>
-                </span>
-                <span>Bazı soruların doğru cevaplarıyla birlikte yanlış cevapları da duruma göre değerlendirir. Soruların seçenekleri sizin vereceğiniz tepkilere göre şekillenir.</span>
-              </div>
-            </div>
-          </details>
-        </div>
-        <button class="primary pulse" data-action="start" type="button">Başla</button>
-      `;
-    }
-
-    function htmlTransition() {
-      return `
-        <div class="transition-screen">
-          <div class="thinking-card">
-            <div class="thinking-bars" aria-hidden="true">
-              <span style="--i:0"></span>
-              <span style="--i:1"></span>
-              <span style="--i:2"></span>
-              <span style="--i:3"></span>
-              <span style="--i:4"></span>
-            </div>
-            <div class="transition-text">${esc(transition.text)}</div>
-            <div class="transition-sub">Kısa test akışı devam ediyor.</div>
-          </div>
-        </div>
-      `;
-    }
-
-    function htmlResult(result) {
-      const conf = result.confidence || "low";
-      const lowNote = (conf === "low")
-        ? `<div class="result-caveat">Sonuç düşük güvenle belirlendi. Daha kesin bir tahmin için <strong>detaylı testi</strong> deneyebilirsin.</div>`
-        : (conf === "medium")
-        ? `<div class="result-caveat soft">Sonuç orta güvenle belirlendi.</div>`
-        : "";
-      return `
-        <div class="result-screen">
-          <div class="topline">
-            <span class="result-eyebrow">ÖNERİLEN BAŞLANGIÇ SEVİYEN</span>
-          </div>
-          <div class="level">${esc(result.estimated_level)}</div>
-          <p>Bu test daha çok tanıma becerini ölçer. Konuşma ve yazma ilk günlerde biraz daha düşük hissedebilir.</p>
-          ${lowNote}
-
-          <div class="feedback-card">
-            <div class="feedback-q">Sizce test ne kadar isabetli tahmin yaptı?</div>
-            <div class="feedback-opts">
-              <button class="feedback-opt" data-feedback="accurate" type="button">Yeterince isabetliydi</button>
-              <button class="feedback-opt" data-feedback="needs_work" type="button">Pek isabetli değildi, geliştirilmeli</button>
-              <button class="feedback-opt" data-feedback="wrong" type="button">Tamamen yanlış bildi</button>
-            </div>
-            <label class="feedback-label" for="feedback-comment">İletmek istediğiniz görüşünüz varsa bize yazın:</label>
-            <textarea id="feedback-comment" class="feedback-input" rows="3" maxlength="800" placeholder="(isteğe bağlı)"></textarea>
-            <button class="primary feedback-submit" id="feedback-submit" type="button">Gönder</button>
-            <div class="feedback-status" id="feedback-status"></div>
-          </div>
-
-          <div id="log-status" style="margin-top:6px;font-size:11px;color:rgba(29,26,20,0.35);font-family:SFMono-Regular,Consolas,Menlo,monospace;letter-spacing:0.02em;">build: ${LOG_BUILD} · log: ${lastLogStatus}</div>
-        </div>
-        <button class="primary" data-action="reset" type="button">Tekrar test et</button>
-      `;
-    }
     function setLogStatus(msg) {
       lastLogStatus = msg;
-      // Try to update the DOM right now. If the indicator isn't mounted yet
-      // (race against the 820ms transition screen), the value lives in
-      // lastLogStatus and will be picked up next time htmlResult renders.
       const el = document.getElementById("log-status");
       if (el) el.textContent = `build: ${LOG_BUILD} · log: ${msg}`;
     }
 
-    function syncTrajectory() {
-      const log = engine?.state?.response_log || [];
-      turnPill.textContent = `${log.length} turns`;
-      if (!log.length) {
-        tBody.innerHTML = `<tr><td colspan="13" class="console-empty">Henüz veri yok.</td></tr>`;
-        return;
-      }
-      tBody.innerHTML = log.map((e) => `
-        <tr>
-          <td>${e.turn}</td>
-          <td><code>${esc(e.item_id)}</code></td>
-          <td>${esc(e.boundary)}</td>
-          <td>${esc(e.type)}</td>
-          <td>${esc(Array.isArray(e.focus) && e.focus.length ? e.focus.join(", ") : "—")}</td>
-          <td>${esc(e.selected_option_id || "—")}</td>
-          <td>${esc(e.selected_role)}</td>
-          <td>${e.correct ? "✓" : "✗"}</td>
-          <td>${e.response_ms}</td>
-          <td>${esc(e.engine_action)}</td>
-          <td>${esc(e.state_before.current_boundary)}</td>
-          <td>${esc(e.state_after.current_boundary)}</td>
-          <td>${esc(e.state_after.confidence)}</td>
-        </tr>
-      `).join("");
+    // ─── Answer flow (unchanged) ────────────────────────────────────────
+    function answer(optionId) {
+      if (!engine || !engine.currentItem || engine.state.result || transition) return;
+      clearPromptTyping();
+      // Soft-fade the picked choice so the user gets feedback before transition
+      const btn = stageBody.querySelector(`[data-answer="${cssEsc(optionId)}"]`);
+      if (btn) btn.classList.add("selected");
+      const step = engine.answer(optionId, Date.now() - shownAt);
+      const done = Boolean(engine.state.result);
+      transition = {
+        text: done ? "Sonucunu hazırlıyorum." : pickCopy(step),
+        done
+      };
+      syncTrajectory();
+      // small delay before swap so the highlight is perceptible
+      setTimeout(() => {
+        softSwap(() => {
+          render();
+          if (done) logCompletedSession();
+        });
+      }, 220);
+      transitionTimer = window.setTimeout(() => {
+        transition = null;
+        shownAt = Date.now();
+        softSwap(render);
+      }, done ? 1020 : 880);
     }
 
-    /* Helpers */
+    function softSwap(fn) {
+      stage.classList.add("exiting");
+      setTimeout(() => {
+        fn();
+        stage.classList.remove("exiting");
+      }, 200);
+    }
+
+    // ─── Renderer ───────────────────────────────────────────────────────
+    function render() {
+      const isWelcome = !transition && !engine;
+      document.body.classList.toggle("solid-bg", !isWelcome);
+      if (transition) { stageBody.innerHTML = htmlTransition(); return; }
+      if (!engine)    { stageBody.innerHTML = htmlWelcome();    wireWelcome(); return; }
+      if (engine.state.result) { stageBody.innerHTML = htmlResult(engine.state.result); return; }
+      stageBody.innerHTML = htmlQuestion();
+      startPromptTypewriter(engine.currentItem.prompt);
+    }
+
+    // ─── Welcome screen ─────────────────────────────────────────────────
+    const INFO_ITEMS = [
+      {
+        short: "Sorular cevaplarına göre seçilir",
+        full:  "Sorular cevaplarına göre seçilir; bazen kolaylaşır, bazen daha ayırt edici olur.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="18" height="18" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M8 6c4 0 6 2 8 6"/><path d="M8 18c4 0 6-2 8-6"/></svg>'
+      },
+      {
+        short: "Emin değilsen Bilmiyorum diyebilirsin",
+        full:  "Emin değilsen Bilmiyorum diyebilirsin. Bu da testin sana uyum sağlamasına yardım eder.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="18" height="18" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.2a3 3 0 0 1 5.7 1c0 1.8-2.5 2.4-2.5 4"/><circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"/></svg>'
+      },
+      {
+        short: "Bazı soruların doğru cevaplarıyla birlikte yanlış cevapları da duruma göre değerlendirir",
+        full:  "Bazı soruların doğru cevaplarıyla birlikte yanlış cevapları da duruma göre değerlendirir. Soruların seçenekleri sizin vereceğiniz tepkilere göre şekillenir.",
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="18" height="18" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="M8 21h8"/><path d="M4 6c2.5 0 5-1 8-2 3 1 5.5 2 8 2"/><path d="M2 14c0-3 2-6 2-6s2 3 2 6c0 1.2-1 2-2 2s-2-.8-2-2z"/><path d="M16 14c0-3 2-6 2-6s2 3 2 6c0 1.2-1 2-2 2s-2-.8-2-2z"/></svg>'
+      }
+    ];
+
+    function htmlWelcome() {
+      const titleWords = ["Adaptif", "Seviye", "Testi"];
+      const titleHtml = titleWords.map((w, i) => `
+        <span class="hero-word ${i === 1 ? "accent" : ""}" style="animation-delay:${180 + i * 90}ms;">
+          ${w}
+          ${i === 1 ? `
+            <svg class="hero-brush" viewBox="0 0 220 18" preserveAspectRatio="none" aria-hidden="true">
+              <defs><filter id="brush-a"><feTurbulence baseFrequency="0.13" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter></defs>
+              <path d="M4,10 Q 30 3, 60 9 T 120 9 T 180 7 T 216 11" stroke="#b84408" stroke-width="8" fill="none" opacity="0.32" stroke-linecap="round" filter="url(#brush-a)"/>
+            </svg>
+          ` : ""}
+        </span>
+      `).join("");
+      const dropdowns = INFO_ITEMS.map((item, i) => `
+        <div class="info-drop ${openInfo === i ? "open" : ""}" data-info-idx="${i}">
+          <button class="info-toggle" type="button">
+            <span class="info-icon">${item.icon}</span>
+            <span class="info-label">${esc(item.short)}</span>
+            <span class="info-chev">
+              <svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 5 6 8 9 5"/></svg>
+            </span>
+          </button>
+          ${openInfo === i ? `<div class="info-body">${esc(item.full)}</div>` : ""}
+        </div>
+      `).join("");
+
+      return `
+        <div class="welcome">
+          <div class="eyebrow">Kişiye özel seviye tespiti</div>
+          <h1 class="hero-title">${titleHtml}</h1>
+          <div class="tagline">
+            <span id="tagline-live" class="typing-live"></span>
+          </div>
+          <div class="info-stack">${dropdowns}</div>
+          <button class="primary" data-action="start" type="button">Başla</button>
+        </div>
+      `;
+    }
+
+    function wireWelcome() {
+      // Info dropdown click → expand/collapse — toggle in place without full re-render
+      stageBody.querySelectorAll("[data-info-idx]").forEach((el) => {
+        el.querySelector(".info-toggle").addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const idx = parseInt(el.dataset.infoIdx, 10);
+          const wasOpen = openInfo === idx;
+          // Close any currently open dropdown
+          stageBody.querySelectorAll(".info-drop.open").forEach((d) => {
+            d.classList.remove("open");
+            const body = d.querySelector(".info-body");
+            if (body) body.remove();
+          });
+          if (wasOpen) {
+            openInfo = -1;
+          } else {
+            openInfo = idx;
+            el.classList.add("open");
+            // Insert the expanded body
+            const bodyDiv = document.createElement("div");
+            bodyDiv.className = "info-body";
+            bodyDiv.textContent = INFO_ITEMS[idx].full;
+            el.appendChild(bodyDiv);
+          }
+        });
+      });
+      startTaglineTypewriter();
+    }
+
+    function startTaglineTypewriter() {
+      const live = document.getElementById("tagline-live");
+      if (!live) return;
+      const text = "Sadece birkaç dakika sürer. Sorular cevaplarına göre değişir, seviyenden emin olduğu anda biter.";
+      const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced) { live.textContent = text; return; }
+      if (taglineTypingTimer) clearTimeout(taglineTypingTimer);
+      live.textContent = "";
+      live.classList.add("typing");
+      let i = 0;
+      const step = () => {
+        i = Math.min(text.length, i + 2);
+        live.textContent = text.slice(0, i);
+        if (i >= text.length) {
+          live.classList.remove("typing");
+          // Append blinking cursor
+          const cur = document.createElement("span");
+          cur.className = "typing-cursor";
+          live.appendChild(cur);
+          // remove cursor after a beat so it doesn't pulse forever during reading
+          setTimeout(() => cur.remove(), 2400);
+          return;
+        }
+        taglineTypingTimer = setTimeout(step, 22);
+      };
+      taglineTypingTimer = setTimeout(step, 800);
+    }
+
+    // ─── Question screen ────────────────────────────────────────────────
+    function htmlQuestion() {
+      const item = engine.currentItem;
+      const opts = orderedOptions(item);
+      const pct  = Math.min(95, calcProgress());
+      const boundary = engine.state.current_boundary || "";
+      const choicesHtml = opts.map((o, i) => `
+        <button class="choice" style="animation-delay:${i * 60 + 420}ms;" data-answer="${esc(o.id)}" type="button"
+          aria-label="${String.fromCharCode(65 + i)}. ${esc(o.text)}">
+          <span class="letter">${String.fromCharCode(65 + i)}</span>
+          <span class="choice-text">${esc(o.text)}</span>
+        </button>
+      `).join("");
+      return `
+        <div class="question-screen">
+          <div class="q-topline">
+            <div class="confidence-pill">
+              <span class="label"><span class="dot"></span>EMİN OLMA YÜZDESİ</span>
+              <span class="value">%${pct}</span>
+            </div>
+          </div>
+          <div class="progress-rail" aria-hidden="true">
+            <div class="progress-fill" style="width:${pct}%;"></div>
+          </div>
+          <div class="instruction">${esc(instrFor(item))}</div>
+          <div class="prompt-card">
+            <span class="prompt-ghost">${promptHtml(item.prompt)}</span>
+            <span class="typing-live typing" data-typewriter-prompt>${promptHtml(item.prompt)}</span>
+          </div>
+          <div class="choices">${choicesHtml}</div>
+          <button class="unknown-btn" data-answer="unknown" type="button">Bilmiyorum</button>
+          <div class="cancel-row">
+            <button class="cancel-btn" data-action="reset" type="button">vazgeç</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // ─── Transition ─────────────────────────────────────────────────────
+    function htmlTransition() {
+      const txt = transition?.text || "";
+      return `
+        <div class="transition-screen">
+          <div class="transition-pen" aria-hidden="true">
+            <svg width="78" height="42" viewBox="0 0 120 60" fill="none">
+              <path d="M5 35 Q 25 8, 60 30 T 115 25" stroke="${"#b84408"}" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="transition-text">${esc(txt)}</div>
+          <div class="transition-sub">Kısa test akışı devam ediyor.</div>
+        </div>
+      `;
+    }
+
+    // ─── Result ─────────────────────────────────────────────────────────
+    function htmlResult(result) {
+      const conf = (result.confidence || "low").toLowerCase();
+      const caveat = (conf === "low")
+        ? `<div class="result-caveat">Sonuç düşük güvenle belirlendi. Daha kesin bir tahmin için <strong>detaylı testi</strong> deneyebilirsin.</div>`
+        : (conf === "medium")
+        ? `<div class="result-caveat">Sonuç orta güvenle belirlendi.</div>`
+        : "";
+      return `
+        <div class="result-screen">
+          <div class="result-eyebrow">ÖNERİLEN BAŞLANGIÇ SEVİYEN</div>
+          <div class="level-glyph">${esc(result.estimated_level)}</div>
+          <div class="level-rule"></div>
+          <p>Bu test daha çok tanıma becerini ölçer. Konuşma ve yazma ilk günlerde biraz daha düşük hissedebilir.</p>
+          ${caveat}
+          <div class="feedback-card">
+            <div class="feedback-q">Sizce test ne kadar isabetli tahmin yaptı?</div>
+            <div class="feedback-opts">
+              <button class="feedback-opt" data-feedback="accurate"  type="button">Yeterince isabetliydi</button>
+              <button class="feedback-opt" data-feedback="needs_work" type="button">Pek isabetli değildi, geliştirilmeli</button>
+              <button class="feedback-opt" data-feedback="wrong"     type="button">Tamamen yanlış bildi</button>
+            </div>
+            <label class="feedback-label" for="feedback-comment">İletmek istediğiniz görüşünüz varsa bize yazın:</label>
+            <textarea id="feedback-comment" class="feedback-input" rows="3" maxlength="800" placeholder="(isteğe bağlı)"></textarea>
+            <button class="feedback-submit" id="feedback-submit" type="button">Gönder</button>
+            <div class="feedback-status" id="feedback-status"></div>
+          </div>
+          <div id="log-status" class="log-status-line">build: ${LOG_BUILD} · log: ${lastLogStatus}</div>
+          <button class="restart-btn" data-action="reset" type="button">Tekrar test et</button>
+        </div>
+      `;
+    }
+
+    // ─── Trajectory sync (writes into slide-up overlay) ─────────────────
+    function syncTrajectory() {
+      const log = engine?.state?.response_log || [];
+      trajTurns.textContent = `${log.length} turns`;
+      if (log.length) {
+        trajCount.textContent = String(log.length);
+        trajCount.style.display = "inline-block";
+      } else {
+        trajCount.style.display = "none";
+      }
+      if (!log.length) {
+        trajList.innerHTML = `<div class="traj-empty">Henüz veri yok.</div>`;
+        return;
+      }
+      trajList.innerHTML = log.map((e) => {
+        const action = e.movement_reason ? esc(e.movement_reason) : esc(e.engine_action || "");
+        const before = e.state_before?.current_boundary || "";
+        const after  = e.state_after?.current_boundary  || "";
+        return `
+          <div class="traj-row">
+            <div class="traj-r1">
+              <div class="traj-turn-bubble">${e.turn}</div>
+              <code class="traj-action-code">${esc(e.engine_action || "step")}</code>
+              <span class="traj-tag">${esc(e.type || "")}</span>
+              <span class="traj-ms">${e.response_ms ?? "—"}ms</span>
+            </div>
+            <div class="traj-r2">
+              <span class="traj-boundary">${esc(before)}${after && after !== before ? " → " + esc(after) : ""}</span>
+              <span class="traj-role">${esc(e.selected_role || "")}</span>
+              <span class="traj-selected">${e.correct ? "✓" : "✗"} <em>${esc(e.selected_option_id || "")}</em></span>
+            </div>
+            <div class="traj-r3">${action}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // ─── Helpers ────────────────────────────────────────────────────────
     function mergedItems() {
       const legacy = content.items || [];
       const diagnostic = (contentV2?.items || []).map((item) => ({
@@ -1623,10 +1378,7 @@
       }));
       return legacy.concat(diagnostic);
     }
-
     function coreItems() {
-      // Retirement filter — legacy items flagged for weak/easy-to-eliminate
-      // distractors (see legacy-retirement.js). v2 items are exempt.
       const retired = new Set((window.NEKTAR_LEGACY_RETIRED_IDS || []));
       const items = mergedItems().filter((i) => {
         if (i.source_collection === "diagnostic_v2") return true;
@@ -1636,73 +1388,48 @@
       });
       return items.length ? items : mergedItems();
     }
-
     function pickCopy(step) {
       const turn = engine?.state?.items_asked || 0;
       const sv   = engine?.settings?.seed || "anka";
       const u    = Engine.hashToUnit(`${sv}|transition|${turn}|${step?.logEntry?.item_id || ""}`);
       return TRANSITION_COPY[Math.floor(u * TRANSITION_COPY.length) % TRANSITION_COPY.length];
     }
-
     function clearTimer() {
       if (transitionTimer) window.clearTimeout(transitionTimer);
       transitionTimer = null;
       clearPromptTyping();
     }
-
     function clearPromptTyping() {
       if (promptTypingTimer) window.clearTimeout(promptTypingTimer);
       promptTypingTimer = null;
     }
-
     function startPromptTypewriter(promptText) {
-      if (promptTypingTimer) window.clearTimeout(promptTypingTimer);
-      promptTypingTimer = null;
-
+      clearPromptTyping();
       const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const promptLive = app.querySelector("[data-typewriter-prompt]");
-      if (promptLive) {
-        typeInto(promptLive, promptPlainText(promptText), {
-          reduced,
-          delay: 80,
-          stepMs: 18,
-          htmlOnComplete: promptHtml(promptText)
-        });
-      }
-    }
-
-    function typeInto(live, text, config = {}) {
+      const live = stageBody.querySelector("[data-typewriter-prompt]");
       if (!live) return;
-
-      const full = String(text ?? "");
-      const reduced = Boolean(config.reduced);
+      const full = promptPlainText(promptText);
       if (reduced || full.length < 2) {
-        if (config.htmlOnComplete) live.innerHTML = config.htmlOnComplete;
-        else live.textContent = full;
+        live.innerHTML = promptHtml(promptText);
         live.classList.remove("typing");
         return;
       }
-
       live.textContent = "";
       live.classList.add("typing");
-
       let i = 0;
-      const stepSize = config.stepSize || (full.length > 150 ? 5 : full.length > 90 ? 4 : 3);
+      const stepSize = full.length > 150 ? 5 : full.length > 90 ? 4 : 3;
       const step = () => {
         i = Math.min(full.length, i + stepSize);
         live.textContent = full.slice(0, i);
         if (i >= full.length) {
-          if (config.htmlOnComplete) live.innerHTML = config.htmlOnComplete;
+          live.innerHTML = promptHtml(promptText);
           live.classList.remove("typing");
           return;
         }
-        const timer = window.setTimeout(step, config.stepMs || 18);
-        promptTypingTimer = timer;
+        promptTypingTimer = setTimeout(step, 18);
       };
-      const timer = window.setTimeout(step, config.delay || 0);
-      promptTypingTimer = timer;
+      promptTypingTimer = setTimeout(step, 80);
     }
-
     function calcProgress() {
       const asked = engine?.state?.items_asked || 0;
       const min   = engine?.settings?.mode === "detailed"
@@ -1712,7 +1439,6 @@
       const boost = conf === "high" ? 18 : conf === "medium" ? 8 : 0;
       return Math.round(Math.min(95, ((asked / Math.max(1, min)) * 72) + boost));
     }
-
     function orderedOptions(item) {
       return item.options
         .map((o, idx) => ({
@@ -1722,10 +1448,7 @@
         .sort((a, b) => a.sort - b.sort)
         .map((x) => x.o);
     }
-
     function instrFor(item) {
-      // Item type wins. The Turkish prompt language alone does NOT mean
-      // it's a vocab/meaning question — naturalness items also have Turkish prompts.
       if (["pragmatic_choice","naturalness_judgment","function","natural_speech","spoken_chunk"].includes(item.type))
         return "En doğal cevabı seç.";
       if (item.type === "discourse_marker") return "Cümledeki ilişkiye uygun bağlacı seç.";
@@ -1734,29 +1457,25 @@
         return "Cümleyi doğal tamamlayan ifadeyi seç.";
       return "Boşluğu tamamla.";
     }
-
-    function listText(v) {
-      return Array.isArray(v) && v.length ? v.join(", ") : "—";
-    }
-
     function esc(v) {
       return String(v ?? "").replace(/[&<>"']/g, (c) => ({
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
       }[c]));
     }
-
+    function cssEsc(v) {
+      // For attribute selectors — same as esc but no entity encoding needed
+      return String(v ?? "").replace(/["\\]/g, "\\$&");
+    }
     function promptPlainText(v) {
       return String(v ?? "").replace(/<\/?strong>/gi, "");
     }
-
     function promptHtml(v) {
       return esc(v)
         .replace(/&lt;strong&gt;/gi, "<strong>")
         .replace(/&lt;\/strong&gt;/gi, "</strong>");
     }
 
-    /* Event delegation */
-    // ── Feedback state + handlers ───────────────────────────────────
+    // ─── Feedback widget ────────────────────────────────────────────────
     let selectedFeedback = null;
     function sendFeedback(sid) {
       const commentEl = document.getElementById("feedback-comment");
@@ -1796,16 +1515,15 @@
         });
     }
 
-    app.addEventListener("click", (e) => {
+    // ─── Event delegation ───────────────────────────────────────────────
+    stageBody.addEventListener("click", (e) => {
       if (transition) return;
-      // Feedback rating buttons
       const fbBtn = e.target.closest("[data-feedback]");
       if (fbBtn) {
         selectedFeedback = fbBtn.dataset.feedback;
-        document.querySelectorAll(".feedback-opt").forEach((b) => b.classList.toggle("selected", b === fbBtn));
+        stageBody.querySelectorAll(".feedback-opt").forEach((b) => b.classList.toggle("selected", b === fbBtn));
         return;
       }
-      // Feedback submit
       if (e.target.closest("#feedback-submit")) {
         const sid = engine?.settings?.seed || "no-session";
         sendFeedback(sid);
@@ -1822,14 +1540,15 @@
         engine = null;
         transition = null;
         selectedFeedback = null;
+        openInfo = -1;
         render();
         syncTrajectory();
       }
     });
 
+    // ─── Boot ───────────────────────────────────────────────────────────
     render();
     syncTrajectory();
   </script>
-
 </body>
 </html>

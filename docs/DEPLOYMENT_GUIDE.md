@@ -4,7 +4,7 @@
 
 **Current live URL:** `https://nektar-cefr.vercel.app`
 **Repo:** `github.com/metinwh/anka-cefr-tester` (deploy root = `claude-v2/`)
-**Last build tag shown in footer:** `v17-2026-05-16-layout-fixes` (`LOG_BUILD` constant in `index.html`)
+**Last build tag shown in footer:** `v19-2026-05-16-layout-logo-fix` (`LOG_BUILD` constant in `index.html`)
 
 ---
 
@@ -25,7 +25,7 @@ The whole thing is plain static HTML/JS + three serverless API routes. It will d
 
 ```
 claude-v2/
-├── index.html                      ← the student app (single page, ~2000 lines)
+├── index.html                      ← the student app (single page, ~1540 lines, Claude Design port)
 ├── admin.html                      ← admin viewer for session logs (token-gated)
 ├── ceiling-probe-engine.js         ← adaptive engine (the brain)
 ├── placement-questions-v2.js       ← curated v2 item pool (328 items)
@@ -34,7 +34,7 @@ claude-v2/
 ├── schema-validator.js             ← validates item shape at load time
 ├── legacy-retirement.js            ← 77 weak legacy IDs filtered out at runtime
 ├── legacy-retirement-list.json     ← human-readable catalog of retired items
-├── loading_dark.png                ← Nektar logo (white-on-transparent PNG)
+├── loading_dark.png                ← Nektar logo (white-on-transparent PNG, CSS-filtered for cream bg)
 ├── package.json                    ← only dep: @vercel/blob ^2.3.3
 ├── vercel.json                     ← cache-control no-cache for HTML
 ├── api/
@@ -333,10 +333,11 @@ When you bump `LOG_BUILD`, the new value flows into every recorded session paylo
 1. **Do NOT edit `placement-questions.js` or `placement-pool.generated.js`.** They're legacy. Retire items via `legacy-retirement.js` instead.
 2. **Do NOT skip the test suite before deploying.** The engine has invariants that surface only via the test runner.
 3. **Do NOT rename `/api/record` back to `/api/log`.** Mobile content blockers nuke it.
-4. **Do NOT set `flex: 1` on `.app-area` again** — it re-introduces the "blank bottom half" + "background slides when dropdown opens" issues. The `margin-top: auto` on `.footer` already handles bottom-pinning.
-5. **Do NOT `--amend` or `--force-push` to master.** Vercel deploys are tied to commit SHAs and `--amend` invalidates the cache.
-6. **Do NOT manually copy the `BLOB_READ_WRITE_TOKEN`.** Always create / connect the Blob store via Vercel dashboard so the token is injected correctly.
-7. **Do NOT use `naturalness-scoring-tests.js` as a template for new tests** — it has hardcoded assumptions about which item types carry the `acceptable` role; broaden the assertion if you add `acceptable` to vocab.
+4. **Do NOT set `flex: 1` on `.screen-stage`, `.screen-content`, or `.welcome`** — it re-introduces the "blank bottom half" + "background slides when dropdown opens" issues. Likewise, do NOT add `min-height: 100%` or `min-height: 100dvh` to `.layout` or `.welcome`. Content should flow naturally.
+5. **Do NOT remove the CSS filter on `.nektar-logo`** — the logo PNG has white text which is invisible on the cream (`#fbf3e3`) background. The `brightness(0) sepia(1) saturate(4) hue-rotate(352deg)` filter converts it to monochrome accent-orange. If you change the background color scheme, you'll need to adjust or remove this filter.
+6. **Do NOT `--amend` or `--force-push` to master.** Vercel deploys are tied to commit SHAs and `--amend` invalidates the cache.
+7. **Do NOT manually copy the `BLOB_READ_WRITE_TOKEN`.** Always create / connect the Blob store via Vercel dashboard so the token is injected correctly.
+8. **Do NOT use `naturalness-scoring-tests.js` as a template for new tests** — it has hardcoded assumptions about which item types carry the `acceptable` role; broaden the assertion if you add `acceptable` to vocab.
 
 ---
 
