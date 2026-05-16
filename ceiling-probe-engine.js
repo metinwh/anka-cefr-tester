@@ -172,8 +172,11 @@
         role: cc.role || "distractor",
         tier: "close"
       };
-      // Preserve any extra fields the close_competitor carried (e.g. credit)
+      // Preserve any explicit credit on the close_competitor.
+      // Default partial credit of 0.5: the close_competitor is by definition a
+      // "defensible near-miss" — picking it shouldn't be treated as a hard fail.
       if (typeof cc.credit === "number") swappedOption.credit = cc.credit;
+      else swappedOption.credit = 0.5;
       options[swapIdx] = swappedOption;
 
       return Object.assign({}, item, {

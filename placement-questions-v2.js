@@ -2488,8 +2488,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "make",
-          "role": "distractor"
+          "text": "get",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -2513,7 +2514,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "take is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -2604,8 +2605,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "do",
-          "role": "distractor"
+          "text": "get",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -2629,7 +2631,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "take is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -2662,8 +2664,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "rides",
-          "role": "distractor"
+          "text": "needs",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -2687,7 +2690,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "takes is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -5506,8 +5509,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "make",
-          "role": "distractor"
+          "text": "use",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -5531,7 +5535,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "spend is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -8411,8 +8415,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "do",
-          "role": "distractor"
+          "text": "have",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -8436,7 +8441,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "hold is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -8469,8 +8474,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "give",
-          "role": "distractor"
+          "text": "create",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -8494,7 +8500,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "cause is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -8643,8 +8649,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "held",
-          "role": "distractor"
+          "text": "got",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -8668,7 +8675,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "took is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -8701,8 +8708,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "do",
-          "role": "distractor"
+          "text": "get",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -8726,7 +8734,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "take is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -9162,8 +9170,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "Support",
-          "role": "distractor"
+          "text": "Keep going",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -9186,7 +9195,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "Sustain targets sustain as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -9218,8 +9227,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "Return",
-          "role": "distractor"
+          "text": "Pull out",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -9242,7 +9252,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "Withdraw targets withdraw as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -9386,8 +9396,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "Value",
-          "role": "distractor"
+          "text": "Judge",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -9410,7 +9421,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "Assess targets assess as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -9442,8 +9453,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "Mean",
-          "role": "distractor"
+          "text": "Suggest",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -9466,7 +9478,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "Imply targets imply as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -9778,8 +9790,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "Decide",
-          "role": "distractor"
+          "text": "Fix",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -9802,7 +9815,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "Resolve targets resolve as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -10170,8 +10183,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "Destroy",
-          "role": "distractor"
+          "text": "Share",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -10194,7 +10208,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "Distribute targets distribute as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -11492,8 +11506,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "throws",
-          "role": "distractor"
+          "text": "shines",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -11517,7 +11532,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "casts is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -11666,8 +11681,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "made",
-          "role": "distractor"
+          "text": "got",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -11691,7 +11707,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "reached is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -12184,8 +12200,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "criticize",
-          "role": "distractor"
+          "text": "check closely",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -12208,7 +12225,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "scrutinize targets scrutinize as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -12240,8 +12257,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "substitute",
-          "role": "distractor"
+          "text": "back up",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -12264,7 +12282,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "substantiate targets substantiate as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -12296,8 +12314,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "circle",
-          "role": "distractor"
+          "text": "go around",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -12320,7 +12339,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "circumvent targets circumvent as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -12744,8 +12763,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "complete",
-          "role": "distractor"
+          "text": "follow rules",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -12768,7 +12788,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "comply targets comply as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -13136,8 +13156,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "decorate",
-          "role": "distractor"
+          "text": "explain more",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -13160,7 +13181,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "elaborate targets elaborate as a level-specific lexical signal.",
       "trap": {
         "lt": "This option is semantically close enough for Turkish learners to overgeneralize, but it is not the target meaning here.",
-        "d": "This option is outside the target meaning area and checks broad recognition."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -14455,8 +14476,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "owns",
-          "role": "distractor"
+          "text": "eats",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -14480,7 +14502,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "has is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -14687,8 +14709,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "makes",
-          "role": "distractor"
+          "text": "brings up",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -14712,7 +14735,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "raises is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
@@ -14745,8 +14768,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "d",
-          "text": "gives",
-          "role": "distractor"
+          "text": "backs",
+          "role": "distractor",
+          "credit": 0.5
         }
       ],
       "correctId": "k",
@@ -14770,7 +14794,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "signal": "supports is the natural collocation in this sentence.",
       "trap": {
         "lt": "This reflects a likely Turkish transfer or do/make/give/take overgeneralization.",
-        "d": "This word does not naturally collocate with the noun in this context."
+        "d": "Defensible near-synonym at a slightly lower precision level; awarded partial credit because it conveys the broad meaning without the target's precision."
       }
     },
     {
