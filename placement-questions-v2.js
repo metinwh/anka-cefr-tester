@@ -10211,7 +10211,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "İş arkadaşıyla konuşuyorsun. Hangisi en doğal?",
+      "prompt": "Yoğun bir iş gününde iş arkadaşından kısa bir yardım istiyorsun; nazik ama fazla resmi olmayan bir ton kullanıyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -10224,10 +10224,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "Would you mind to give me a hand?",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "Could you give me a hand?",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -10240,9 +10240,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "Could you give me a hand?",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "Could you help me with this?",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -10480,7 +10480,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Toplantıda bir fikre kibarca karşı çıkıyorsun.",
+      "prompt": "Toplantıda bir fikre kibarca karşı çıkıyorsun; karşı tarafı küçümsemeden çekinceni belirtiyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13233,7 +13233,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Akademik tartışmada hangisi doğal?",
+      "prompt": "Akademik tartışmada bir iddianın çok genel kaldığını ve daha dikkatli sınırlandırılması gerektiğini söylüyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13246,10 +13246,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "The claim needs more explanation.",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "The claim needs to be qualified.",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13262,9 +13262,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "The claim needs to be qualified.",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "The claim needs further qualification.",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },
@@ -13300,7 +13300,7 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "pragmatic",
         "production"
       ],
-      "prompt": "Yöneticiye kibarca itiraz. Hangisi doğal?",
+      "prompt": "Yöneticinin varsayımlarından emin değilsin; doğrudan karşı çıkmadan onları yeniden değerlendirmeyi öneriyorsun.",
       "prompt_lang": "tr",
       "instruction_tr": "En doğal cümleyi seç.",
       "options": [
@@ -13313,10 +13313,10 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         },
         {
           "id": "w",
-          "text": "Can we look again at assumptions?",
-          "role": "weak",
-          "credit": 0.25,
-          "naturalness": "weak"
+          "text": "Might we revisit those assumptions?",
+          "role": "acceptable",
+          "credit": 0.6,
+          "naturalness": "acceptable"
         },
         {
           "id": "nn",
@@ -13329,9 +13329,9 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
       "correctId": "k",
       "close_competitor": {
         "id": "cc",
-        "text": "Might we revisit those assumptions?",
-        "role": "weak",
-        "credit": 0.25,
+        "text": "Could we look again at those assumptions?",
+        "role": "acceptable",
+        "credit": 0.6,
         "tier": "close",
         "rationale": "This is understandable and near the target, but it is less idiomatic or less precise than the key."
       },

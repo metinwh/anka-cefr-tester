@@ -6,7 +6,7 @@
   <title>ANKA CEFR Tester — Nektar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
   <style>
     :root {
       /* Warm academic palette — parchment + ink + ember orange */
@@ -38,6 +38,7 @@
       /* Fonts */
       --font-sans:    "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
       --font-serif:   "Fraunces", Georgia, "Times New Roman", serif;
+      --font-display: "Bricolage Grotesque", "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -111,6 +112,12 @@
 
     @media (prefers-reduced-motion: reduce) {
       .bg-orb { animation: none; }
+      .shimmer-text,
+      .shimmer-text::after {
+        animation: none;
+      }
+      .shimmer-text { max-width: 100%; }
+      .shimmer-text::after { display: none; }
     }
 
     /* ── Layout ──────────────────────────────────────────── */
@@ -274,20 +281,53 @@
 
     /* ── Typography ──────────────────────────────────────── */
     h1 {
-      font-family: var(--font-serif);
-      font-size: 38px;
-      line-height: 1.04;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      font-family: var(--font-display);
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0;
       color: var(--ink);
-      font-feature-settings: "ss01";
+      font-feature-settings: "ss01", "cv11";
     }
 
-    /* Decorative span — solid color now, no shimmer animation */
+    /* Hero title: crisp display face plus a fast written-on reveal. */
     .shimmer-text {
+      position: relative;
+      display: inline-block;
+      width: max-content;
+      max-width: 100%;
       color: var(--accent);
-      font-style: italic;
-      font-weight: 500;
+      font-style: normal;
+      font-weight: 800;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typeWrite 1.35s steps(20, end) 120ms both;
+    }
+
+    .shimmer-text::after {
+      content: "";
+      position: absolute;
+      top: 0.08em;
+      right: -2px;
+      width: 2px;
+      height: 0.92em;
+      border-radius: 99px;
+      background: var(--accent-hot);
+      animation: caretBlink 520ms steps(1, end) 0s 4, caretFade 180ms ease 2.1s forwards;
+    }
+
+    @keyframes typeWrite {
+      from { max-width: 0; }
+      to { max-width: 20ch; }
+    }
+
+    @keyframes caretBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes caretFade {
+      to { opacity: 0; }
     }
 
     p {
@@ -840,7 +880,12 @@
       font-weight: 500;
       letter-spacing: 0.06em;
     }
-    .footer img { opacity: 0.5; filter: none !important; }
+    .footer-logo {
+      height: 34px;
+      width: auto;
+      opacity: 1;
+      filter: contrast(1.18) saturate(1.08) drop-shadow(0 5px 14px rgba(29,26,20,0.12));
+    }
   </style>
 </head>
 <body>
@@ -899,7 +944,7 @@
 
     <footer class="footer">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
-        <img src="./loading_dark.png" alt="Nektar Logo" style="height: 22px; opacity: 0.55; filter: grayscale(1) brightness(0.4); transition: opacity 0.3s ease;">
+        <img class="footer-logo" src="./loading_dark.png" alt="Nektar Logo">
         <span>NEKTAR Lab: ANKA CEFR Tester Beta / 2026 all rights reserved</span>
       </div>
     </footer>
