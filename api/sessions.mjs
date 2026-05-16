@@ -102,8 +102,12 @@ export default async function handler(req, res) {
       }
     });
 
-    const sessions = Object.values(groups).map((g) => {
-      const session = g.meta || { __chunks_only: true, session_id: g.pathname };
+    const sessions = Object.entries(groups).map(([baseId, g]) => {
+      // If we have no meta blob (only chunks or only feedback arrived), still
+      // synthesize a minimal session so the row shows up in admin.
+      const session = g.meta || { session_id: baseId, __meta_missing: true };
+      // Always ensure session_id is set
+      if (!session.session_id) session.session_id = baseId;
       if (g.chunks.length > 0) {
         const haveFullTrajectory = Array.isArray(session.trajectory) && session.trajectory.length > 0;
         if (!haveFullTrajectory) {
