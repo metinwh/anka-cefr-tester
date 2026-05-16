@@ -544,7 +544,10 @@
 
       const cap = boundaryItemCap(boundary, this.settings);
       const boundaryCount = this.state.boundary_item_counts[boundary] || 0;
-      const confirmLimit = this.settings.mode === "detailed" ? 6 : 4;
+      // +1 confirm chance before the engine is forced to decide at non-floor
+       // boundaries (May 2026 — was 4/6, now 5/7). Learners felt B1/B2 collapsed
+       // too quickly after the early hit-the-cap probe_down.
+      const confirmLimit = this.settings.mode === "detailed" ? 7 : 5;
       const confirmCount = this.state.confirm_count_by_boundary[boundary] || 0;
       const pass = ev.pass || 0;
       const resistance = boundaryResistance(ev);
