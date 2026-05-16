@@ -673,6 +673,15 @@
         return this.movementDecision(stepBoundary(boundary, 1), "fast_track_up", `${boundary} has fast correct answers across independent focuses; advancing one step.`, "higher boundary check");
       }
       if (hasCleanPass(boundary, this.state)) {
+        // Slow the early climb: a single correct answer at a non-floor
+        // boundary should not vault the learner to the next boundary.
+        // Require >=2 items seen at this boundary first (regardless of speed).
+        // The fast_track_up path above already handles legitimately fast climbers
+        // (it requires 2 fast-correct across independent focuses).
+        const seenAtBoundary = this.state.boundary_item_counts?.[boundary] || 0;
+        if (boundary !== "A1/A2" && seenAtBoundary < 2) {
+          return this.movementDecision(boundary, "confirm_boundary", `${boundary} has a clean first pass; staying for a second item before stepping up.`, "same boundary, second confirmation");
+        }
         return this.movementDecision(stepBoundary(boundary, 1), "step_up", `${boundary} has a clean pass signal with no prior resistance; probing the next boundary.`, "next boundary probe");
       }
       return this.movementDecision(boundary, "confirm_boundary", `${boundary} has a useful pass signal but not enough independent evidence to treat it as passed.`, "same boundary confirmation");

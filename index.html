@@ -674,6 +674,24 @@
       text-transform: uppercase;
     }
 
+    .result-caveat {
+      margin-top: 4px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--accent-bg);
+      border-left: 3px solid var(--accent);
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .result-caveat strong { color: var(--accent); font-style: normal; font-weight: 700; }
+    .result-caveat.soft {
+      background: rgba(75,52,30,0.04);
+      border-left-color: var(--soft);
+      color: var(--muted);
+    }
+
     .level {
       font-family: var(--font-serif);
       font-size: 108px;
@@ -1147,7 +1165,7 @@
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v14-2026-05-16-academic-theme";
+    const LOG_BUILD = "v15-2026-05-16-engine-tuning";
     // Endpoint URL — content blockers (1Blocker, AdGuard) often kill anything
     // matching "/log" patterns. Use a neutral name.
     const LOG_ENDPOINT = "/api/record";
@@ -1269,7 +1287,12 @@
         let promptText = "";
         let selectedText = "";
         if (it) {
-          promptText = (it.prompt || "").slice(0, 90);
+          // Strip HTML tags + collapse whitespace, then truncate
+          promptText = (it.prompt || "")
+            .replace(/<[^>]*>/g, "")
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, 200);
           const opt = (it.options || []).find((o) => o.id === e.selected_option_id);
           if (opt) selectedText = (opt.text || "").slice(0, 60);
         }
@@ -1459,6 +1482,12 @@
     }
 
     function htmlResult(result) {
+      const conf = result.confidence || "low";
+      const lowNote = (conf === "low")
+        ? `<div class="result-caveat">Sonuç düşük güvenle belirlendi. Daha kesin bir tahmin için <strong>detaylı testi</strong> deneyebilirsin.</div>`
+        : (conf === "medium")
+        ? `<div class="result-caveat soft">Sonuç orta güvenle belirlendi.</div>`
+        : "";
       return `
         <div class="result-screen">
           <div class="topline">
@@ -1466,6 +1495,7 @@
           </div>
           <div class="level">${esc(result.estimated_level)}</div>
           <p>Bu test daha çok tanıma becerini ölçer. Konuşma ve yazma ilk günlerde biraz daha düşük hissedebilir.</p>
+          ${lowNote}
 
           <div class="feedback-card">
             <div class="feedback-q">Sizce test ne kadar isabetli tahmin yaptı?</div>
