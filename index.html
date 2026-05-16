@@ -307,39 +307,42 @@
     }
 
     /* ── Welcome ─────────────────────────────────────────── */
-    .welcome { display: grid; gap: 20px; }
-    .welcome-head { display: grid; gap: 10px; }
+    .welcome { display: grid; gap: 28px; }
+    .welcome-head { display: grid; gap: 14px; }
 
-    .info-list { display: grid; gap: 9px; }
+    .info-list { display: grid; gap: 12px; }
 
     .info-item {
       display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 14px 16px;
+      grid-template-columns: 36px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 18px;
       border-radius: var(--radius);
       background: var(--panel-soft);
       border: 1px solid var(--border);
       color: var(--text);
       font-size: 14px;
-      line-height: 1.55;
+      line-height: 1.45;
       transition: border-color 200ms ease, background 200ms ease;
       animation: fadeUp 400ms cubic-bezier(0.22,1,0.36,1) both;
       animation-delay: calc(var(--i,0) * 80ms + 80ms);
     }
 
-    .info-dot {
-      width: 28px; height: 28px;
+    .info-icon {
+      width: 34px; height: 34px;
       display: grid;
       place-items: center;
-      border-radius: 999px;
+      border-radius: 12px;
       background: var(--accent-bg);
       color: var(--accent);
-      font-family: var(--font-serif);
-      font-weight: 600;
-      font-size: 14px;
       flex-shrink: 0;
+    }
+
+    .info-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
     }
 
     /* ── Instruction ─────────────────────────────────────── */
@@ -461,24 +464,6 @@
       color: var(--ink);
       position: relative;
       z-index: 1;
-    }
-
-    .choice-text.typewriter-choice {
-      min-width: 0;
-    }
-
-    .choice-ghost {
-      display: block;
-      visibility: hidden;
-    }
-
-    .choice-live {
-      position: absolute;
-      inset: 0;
-      display: block;
-      overflow-wrap: anywhere;
-      white-space: pre-wrap;
-      pointer-events: none;
     }
 
     /* ── Buttons ─────────────────────────────────────────── */
@@ -1039,7 +1024,6 @@
     let transition = null;
     let transitionTimer = null;
     let promptTypingTimer = null;
-    let choiceTypingTimers = [];
 
     function seed() {
       const s = new URLSearchParams(location.search).get("seed");
@@ -1307,10 +1291,7 @@
           ${opts.map((o, i) => `
             <button class="choice" style="--i:${i}" data-answer="${esc(o.id)}" aria-label="${String.fromCharCode(65 + i)}. ${esc(o.text)}" type="button">
               <span class="letter">${String.fromCharCode(65 + i)}</span>
-              <span class="choice-text typewriter-choice">
-                <span class="choice-ghost" aria-hidden="true">${esc(o.text)}</span>
-                <span class="choice-live typing-live" data-typewriter-choice aria-hidden="true">${esc(o.text)}</span>
-              </span>
+              <span class="choice-text">${esc(o.text)}</span>
             </button>
           `).join("")}
         </div>
@@ -1319,7 +1300,7 @@
           <button class="unknown" data-action="reset" style="color: var(--error); border-color: rgba(185,74,42,0.3); min-height: 40px; padding: 0 22px; font-size: 12px; letter-spacing: 0.04em;" type="button">vazgeç</button>
         </div>
       `;
-      startTypewriters(item.prompt);
+      startPromptTypewriter(item.prompt);
     }
 
     function htmlWelcome() {
@@ -1332,16 +1313,28 @@
           </div>
           <div class="info-list">
             <div class="info-item" style="--i:0">
-              <span class="info-dot">1</span>
-              <span>Sorular cevaplarına göre seçilir; bazen kolaylaşır, bazen daha ayırt edici olur.</span>
+              <span class="info-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 7h10"></path><path d="M4 17h16"></path><path d="M14 7l3 3 3-3"></path>
+                </svg>
+              </span>
+              <span>Sorular cevaplarına göre akışı değiştirir.</span>
             </div>
             <div class="info-item" style="--i:1">
-              <span class="info-dot">2</span>
-              <span>Emin değilsen <strong>Bilmiyorum</strong> diyebilirsin. Bu da testin sana uyum sağlamasına yardım eder.</span>
+              <span class="info-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="8"></circle><path d="M9.5 9.5a2.6 2.6 0 0 1 5 1c0 2-2.5 2.2-2.5 4"></path><path d="M12 17h.01"></path>
+                </svg>
+              </span>
+              <span>Emin değilsen <strong>Bilmiyorum</strong> seçebilirsin.</span>
             </div>
             <div class="info-item" style="--i:2">
-              <span class="info-dot">3</span>
-              <span>Bazı soruların doğru cevaplarıyla birlikte yanlış cevapları da duruma göre değerlendirir. Soruların seçenekleri sizin vereceğiniz tepkilere göre şekillenir.</span>
+              <span class="info-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12l4 4L19 6"></path><path d="M6 19h12"></path>
+                </svg>
+              </span>
+              <span>Bazı yakın cevaplar kısmi kredi alır.</span>
             </div>
           </div>
         </div>
@@ -1462,31 +1455,15 @@
     function clearPromptTyping() {
       if (promptTypingTimer) window.clearTimeout(promptTypingTimer);
       promptTypingTimer = null;
-      choiceTypingTimers.forEach((timer) => window.clearTimeout(timer));
-      choiceTypingTimers = [];
     }
 
-    function startTypewriters(promptText) {
+    function startPromptTypewriter(promptText) {
       if (promptTypingTimer) window.clearTimeout(promptTypingTimer);
       promptTypingTimer = null;
-      choiceTypingTimers.forEach((timer) => window.clearTimeout(timer));
-      choiceTypingTimers = [];
 
       const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const promptLive = app.querySelector("[data-typewriter-prompt]");
       if (promptLive) typeInto(promptLive, promptText, { reduced, delay: 80, stepMs: 18 });
-
-      app.querySelectorAll("[data-typewriter-choice]").forEach((live, idx) => {
-        const text = live.textContent || "";
-        if (reduced) {
-          typeInto(live, text, { reduced });
-          return;
-        }
-        const timer = window.setTimeout(() => {
-          typeInto(live, text, { reduced, delay: 0, stepMs: 15, stepSize: text.length > 80 ? 4 : 3 });
-        }, 180 + idx * 70);
-        choiceTypingTimers.push(timer);
-      });
     }
 
     function typeInto(live, text, config = {}) {
@@ -1513,12 +1490,10 @@
           return;
         }
         const timer = window.setTimeout(step, config.stepMs || 18);
-        if (live.matches("[data-typewriter-prompt]")) promptTypingTimer = timer;
-        else choiceTypingTimers.push(timer);
+        promptTypingTimer = timer;
       };
       const timer = window.setTimeout(step, config.delay || 0);
-      if (live.matches("[data-typewriter-prompt]")) promptTypingTimer = timer;
-      else choiceTypingTimers.push(timer);
+      promptTypingTimer = timer;
     }
 
     function calcProgress() {
