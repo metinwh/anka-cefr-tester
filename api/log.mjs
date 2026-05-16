@@ -58,15 +58,24 @@ export default async function handler(req, res) {
     const day = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
     const pathname = `sessions/${day}/${sid}.json`;
 
-    // @vercel/blob v2 supports private stores natively. The store's own
-    // privacy setting is the source of truth; we still must pass access:"public"
-    // (it's a required field for the SDK call), but the store enforces privacy.
-    await put(pathname, JSON.stringify(record, null, 2), {
-      access: "public",
-      contentType: "application/json",
-      addRandomSuffix: false,
-      allowOverwrite: true
-    });
+    // Try multiple shapes for compatibility with the private store.
+    // v2 SDK + private store: omit access; v2 SDK + public store: access:"public".
+    const tryWrite = async (opts) => put(pathname, JSON.stringify(record, null, 2), opts);
+    try {
+      await tryWrite({ access: "private", contentType: "application/json", addRandomSuffix: false, allowOverwrite: true });
+    } catch (e1) {
+      const msg = String(e1?.message || "");
+      if (/access must be|access.*public/i.test(msg)) {
+        // SDK insists on "public" — store may still reject. Caught below.
+        try { await tryWrite({ access: "public", contentType: "application/json", addRandomSuffix: false, allowOverwrite: true }); }
+        catch (e2) { throw e2; }
+      } else if (/private store|public access/i.test(msg)) {
+        // Store rejects public — try with no access flag at all
+        await tryWrite({ contentType: "application/json", addRandomSuffix: false, allowOverwrite: true });
+      } else {
+        throw e1;
+      }
+    }
 
     res.status(200).json({ ok: true });
   } catch (e) {
