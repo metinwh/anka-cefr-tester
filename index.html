@@ -1302,9 +1302,7 @@
     // ─── Result ─────────────────────────────────────────────────────────
     function htmlResult(result) {
       const conf = (result.confidence || "low").toLowerCase();
-      const caveat = (conf === "low")
-        ? `<div class="result-caveat">Sonuç düşük güvenle belirlendi. Daha kesin bir tahmin için <strong>detaylı testi</strong> deneyebilirsin.</div>`
-        : (conf === "medium")
+      const caveat = (conf === "medium")
         ? `<div class="result-caveat">Sonuç orta güvenle belirlendi.</div>`
         : "";
       return `
