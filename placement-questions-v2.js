@@ -16932,6 +16932,2742 @@ window.NEKTAR_PLACEMENT_CONTENT_V2 = {
         "a": "Defensible non-idiomatic paraphrase; awarded partial credit because it conveys the meaning but loses the idiomatic register.",
         "w": "This option is structurally or lexically wrong and reveals non-target recognition of the idiom."
       }
+    },
+    {
+      "id": "v2_a2_vocab_021",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "bahsetmek (bir konudan)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Mention",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Talk about",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Say",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Bring up",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Defensible but lacks the brief-reference nuance of 'mention'."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "mention"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: mention"
+      ],
+      "signal": "Mention targets mention as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_022",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "hak etmek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Deserve",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Earn",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Want",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Merit",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More formal synonym; A2/B1 learner would naturally pick 'deserve'."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "deserve"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: deserve"
+      ],
+      "signal": "Deserve targets deserve as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_023",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "uzanmak (yataktan)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Lie down",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Rest",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Sit",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Stretch out",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Captures the action but loses 'horizontal' nuance."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "lie"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: lie"
+      ],
+      "signal": "Lie down targets lie as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_024",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "bağırmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Shout",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Yell",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Call",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Scream",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Stronger and more emotional than 'shout'."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "shout"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: shout"
+      ],
+      "signal": "Shout targets shout as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_025",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "şaşırmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Be surprised",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Be amazed",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Be afraid",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Be shocked",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Stronger emotion than 'surprised'."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "surprise"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: surprise"
+      ],
+      "signal": "Be surprised targets surprise as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_026",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "kaybolmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Get lost",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Lose the way",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Lose",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Be lost",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Stative rather than the action of becoming lost."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "lost"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: lost"
+      ],
+      "signal": "Get lost targets lost as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_027",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "alışmak (yeni şeye)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Get used to",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Adapt to",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Learn",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Adjust to",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More formal but means the same thing."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "used"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: used"
+      ],
+      "signal": "Get used to targets used as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_028",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "hatırlatmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Remind",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Tell again",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Remember",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Refresh",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Suggests memory but loses the 'someone telling you' aspect."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "remind"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: remind"
+      ],
+      "signal": "Remind targets remind as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_029",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "güvenmek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Trust",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Believe",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Like",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Rely on",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Defensible — 'rely on' is close but more practical/functional."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "trust"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: trust"
+      ],
+      "signal": "Trust targets trust as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_030",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "dinlenmek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Rest",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Relax",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Sleep",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Take a break",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable but slightly different connotation."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "rest"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: rest"
+      ],
+      "signal": "Rest targets rest as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_a2_vocab_031",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "A2",
+      "boundary": "A1/A2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "fark",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Difference",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Change",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Distance",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Gap",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Slightly different meaning — gap is spatial/temporal."
+      },
+      "estimated_difficulty": 0.22,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "difference"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: difference"
+      ],
+      "signal": "Difference targets difference as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_021",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "başvurmak (işe)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Apply",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Ask for",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Request",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Submit",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Slightly more formal; means 'send in' which is close."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "apply"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: apply"
+      ],
+      "signal": "Apply targets apply as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_022",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "belirtmek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Indicate",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Say",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Show",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "State",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Defensible — direct verbal expression, slightly different angle."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "indicate"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: indicate"
+      ],
+      "signal": "Indicate targets indicate as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_023",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "dikkat çekmek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Stand out",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Be different",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Be seen",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Catch attention",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Means 'attract attention' but uses different metaphor."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "stand"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: stand"
+      ],
+      "signal": "Stand out targets stand as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_024",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "ortaya çıkmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Come up",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Appear",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Happen",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Emerge",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More formal synonym; B1 learner picks it confidently."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "come"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: come"
+      ],
+      "signal": "Come up targets come as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_025",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "güvenilir",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Reliable",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Honest",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Strong",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Trustworthy",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Closely related but emphasizes personal trust vs. consistent performance."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "reliable"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: reliable"
+      ],
+      "signal": "Reliable targets reliable as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_026",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "sürdürmek (faaliyeti)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Keep up",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Continue",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Keep",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Maintain",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More formal; B1 learner often picks it but loses informal everyday register."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "keep"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: keep"
+      ],
+      "signal": "Keep up targets keep as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_027",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "belirlemek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Identify",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Find",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Mark",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Determine",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More formal — used in technical/scientific writing."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "identify"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: identify"
+      ],
+      "signal": "Identify targets identify as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_028",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "değişmek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Change",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Become different",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Turn",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Alter",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More formal/abstract synonym."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "change"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: change"
+      ],
+      "signal": "Change targets change as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_029",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "yaklaşmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Approach",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Come near",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Reach",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Get close",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Defensible casual paraphrase."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "approach"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: approach"
+      ],
+      "signal": "Approach targets approach as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_030",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "ihtiyaç duymak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Need",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Want",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Use",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Require",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More formal version of 'need'."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "need"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: need"
+      ],
+      "signal": "Need targets need as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b1_vocab_031",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B1",
+      "boundary": "A2/B1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "yapı (bina/kuruluş)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Structure",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Building",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "System",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Framework",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More abstract; means the organizing skeleton rather than the building."
+      },
+      "estimated_difficulty": 0.34,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "structure"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_3000: structure"
+      ],
+      "signal": "Structure targets structure as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_021",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "öne çıkarmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Emphasize",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Show",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Tell",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Stress",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Synonym but slightly different register."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "emphasize"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: emphasize"
+      ],
+      "signal": "Emphasize targets emphasize as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_022",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "temel almak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Be based on",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Use",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Start from",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Rely on",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable but suggests dependency more than foundation."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "base"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: base"
+      ],
+      "signal": "Be based on targets base as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_023",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "üzerinde durmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Focus on",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Look at",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Think about",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Concentrate on",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Means the same thing but slightly more formal."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "focus"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: focus"
+      ],
+      "signal": "Focus on targets focus as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_024",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "sınırlamak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Restrict",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Stop",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Limit",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Constrain",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Closely related — both convey limitation."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "restrict"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: restrict"
+      ],
+      "signal": "Restrict targets restrict as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_025",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "uygulamak (yasayı)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Enforce",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Use",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Apply",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Implement",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Defensible — 'implement' is broader, less coercive."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "enforce"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: enforce"
+      ],
+      "signal": "Enforce targets enforce as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_026",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "dayanak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Basis",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Reason",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Start",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Foundation",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More architectural metaphor; basis is more abstract."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "basis"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: basis"
+      ],
+      "signal": "Basis targets basis as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_027",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "belirli",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Particular",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Special",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "One",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Specific",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Both work; 'specific' is slightly less precise here."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "particular"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: particular"
+      ],
+      "signal": "Particular targets particular as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_028",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "öneri sunmak (resmi)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Propose",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Say",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Suggest",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Recommend",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Acceptable but suggests advice rather than formal proposal."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "propose"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: propose"
+      ],
+      "signal": "Propose targets propose as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_029",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "değerlendirmek (eleştirel)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Evaluate",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Look at",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Judge",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Appraise",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "More formal synonym."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "evaluate"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: evaluate"
+      ],
+      "signal": "Evaluate targets evaluate as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_030",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "geçerli",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Valid",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "True",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Right",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Legitimate",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Closely related but legal/social rather than logical."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "valid"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: valid"
+      ],
+      "signal": "Valid targets valid as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_031",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "kapsamlı",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Comprehensive",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Big",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Full",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Thorough",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Covers detail rather than breadth."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "comprehensive"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: comprehensive"
+      ],
+      "signal": "Comprehensive targets comprehensive as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_032",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "aşmak (engeli)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Overcome",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Pass",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Beat",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Surpass",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Implies going beyond rather than defeating an obstacle."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "overcome"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: overcome"
+      ],
+      "signal": "Overcome targets overcome as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_033",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "belirsiz",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Vague",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Unclear",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Not sure",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Ambiguous",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Suggests two-interpretations vs. just unclear."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "vague"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: vague"
+      ],
+      "signal": "Vague targets vague as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_b2_vocab_034",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "B2",
+      "boundary": "B1/B2",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "sürdürülebilir",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Sustainable",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Long",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Strong",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Lasting",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Loses environmental/systemic nuance."
+      },
+      "estimated_difficulty": 0.52,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "sustainable"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: sustainable"
+      ],
+      "signal": "Sustainable targets sustainable as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_021",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "geri çekilmek (görüş ya da iddia)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Retract",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Take back",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Refuse",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Withdraw",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Closely related — 'withdraw' is broader and slightly less formal."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "retract"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: retract"
+      ],
+      "signal": "Retract targets retract as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_022",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "zedelemek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Tarnish",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Hurt",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Spoil",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Damage",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Broader synonym; 'tarnish' specifically applies to reputation."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "tarnish"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: tarnish"
+      ],
+      "signal": "Tarnish targets tarnish as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_023",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "ima yoluyla anlatmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Insinuate",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Suggest",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Say",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Hint",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Less formal; 'insinuate' carries a negative connotation 'hint' doesn't."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "insinuate"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: insinuate"
+      ],
+      "signal": "Insinuate targets insinuate as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_024",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "öne çıkıp baskın olmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Predominate",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Be common",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Win",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Prevail",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Closely related — prevail is more dynamic/contested."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "predominate"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: predominate"
+      ],
+      "signal": "Predominate targets predominate as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_025",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "değişen koşullara uyum sağlamak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Adapt",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Change",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Use",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Adjust",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Closely related but suggests fine-tuning rather than full adaptation."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "adapt"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: adapt"
+      ],
+      "signal": "Adapt targets adapt as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_026",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "doğrulamak (kanıtla)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Corroborate",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Show",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Tell",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Confirm",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Less specific to evidence-based confirmation."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "corroborate"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: corroborate"
+      ],
+      "signal": "Corroborate targets corroborate as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_027",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "dolaylı yoldan etkilemek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Influence",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Change",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Push",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Sway",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Slightly more emotional/manipulative connotation."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "influence"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: influence"
+      ],
+      "signal": "Influence targets influence as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_028",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "belirsiz hale getirmek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Obscure",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Hide",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Cover",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Blur",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Visual metaphor; 'obscure' is conceptual."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "obscure"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: obscure"
+      ],
+      "signal": "Obscure targets obscure as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_029",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "aşırıya kaçmak",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Exaggerate",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Lie",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Make big",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Overstate",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Closely related but 'overstate' is more formal/quantitative."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "exaggerate"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: exaggerate"
+      ],
+      "signal": "Exaggerate targets exaggerate as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_030",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "yaymak (söylenti)",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Disseminate",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Spread",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Tell",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Circulate",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Slightly less formal/technical."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "disseminate"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: disseminate"
+      ],
+      "signal": "Disseminate targets disseminate as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_031",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "belirgin",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Conspicuous",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Big",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Clear",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Noticeable",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Slightly less strong; conspicuous suggests stands out dramatically."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "conspicuous"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: conspicuous"
+      ],
+      "signal": "Conspicuous targets conspicuous as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
+    },
+    {
+      "id": "v2_c1_vocab_032",
+      "source_collection": "diagnostic_v2",
+      "cefr_level": "C1",
+      "boundary": "B2/C1",
+      "type": "vocab",
+      "format": "meaning_tr_en",
+      "focus": [
+        "lexical_breadth"
+      ],
+      "skill_tags": [
+        "recognition"
+      ],
+      "prompt": "azalan ivmeyle düşmek",
+      "prompt_lang": "tr",
+      "instruction_tr": "Anlamı seç.",
+      "options": [
+        {
+          "id": "k",
+          "text": "Dwindle",
+          "role": "key"
+        },
+        {
+          "id": "a",
+          "text": "Get less",
+          "role": "distractor",
+          "credit": 0.5
+        },
+        {
+          "id": "lt",
+          "text": "Lose",
+          "role": "l1_trap"
+        }
+      ],
+      "correctId": "k",
+      "close_competitor": {
+        "id": "cc",
+        "text": "Diminish",
+        "role": "distractor",
+        "tier": "close",
+        "rationale": "Closely related but 'diminish' is more general."
+      },
+      "estimated_difficulty": 0.66,
+      "estimated_discrimination": 0.78,
+      "lexicon": [
+        "dwindle"
+      ],
+      "distractor_distance": "tight",
+      "source_grounding": [
+        "Oxford_5000: dwindle"
+      ],
+      "signal": "Dwindle targets dwindle as a level-specific lexical signal.",
+      "trap": {
+        "lt": "Turkish-speaker overgeneralization; semantically adjacent but not the target.",
+        "a": "Defensible near-synonym one level lower; partial credit because meaning is broadly conveyed without the target's precision."
+      }
     }
   ]
 };

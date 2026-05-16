@@ -12,16 +12,21 @@ const legacy = global.window.NEKTAR_PLACEMENT_CONTENT;
 const contentV2 = global.window.NEKTAR_PLACEMENT_CONTENT_V2;
 const items = contentV2.items;
 
-// Per-level expected mix. May 2026 update — idiom items added at B1+ via daily-phrase pack.
+// Per-level expected mix. May 2026 updates:
+//   • Step A: idiom items added at B1+ (daily-phrase pack)
+//   • Step C: +15 vocab per level except A1 (breadth pack)
+// Per-level expected counts after Steps A + C. Vocab counts vary because
+// some Step C candidates collided with existing lemmas and were skipped
+// (validator forbids cross-level lemma reuse).
 const expectedMix = {
   A1: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 0 },
-  A2: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 0 },
-  B1: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 },
-  B2: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 },
-  C1: { vocab: 20, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 }
+  A2: { vocab: 31, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 0 },
+  B1: { vocab: 31, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 },
+  B2: { vocab: 34, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 },
+  C1: { vocab: 32, naturalness_judgment: 10, pragmatic_choice: 8, collocation: 6, phrasal_verb: 6, idiom: 10 }
 };
-const expectedLevelTotals = { A1: 50, A2: 50, B1: 60, B2: 60, C1: 60 };
-const expectedTotal = Object.values(expectedLevelTotals).reduce((a, b) => a + b, 0); // 280
+const expectedLevelTotals = { A1: 50, A2: 61, B1: 71, B2: 74, C1: 72 };
+const expectedTotal = Object.values(expectedLevelTotals).reduce((a, b) => a + b, 0); // 328
 
 const report = Validator.validatePayload(contentV2, { sourceLabel: "diagnostic-v2-tests" });
 assert.equal(report.summary.errorCount, 0, JSON.stringify(report.issues.filter((issue) => issue.severity === "error"), null, 2));
