@@ -41,9 +41,13 @@
     rapidConfirmTolerance: 1,    // wrongs allowed in rapid mode before bailing
     // Force-lock fallback: after this many items, if recent N at current boundary
     // are mostly correct, lock without waiting for strict evidence gates.
+    // Force-lock fallback gates the "stop grinding" path. Tightened May 2026
+    // (was 4-of-6 → 67% threshold; now requires 5+ correct of at least 5 items
+    // at the current boundary, i.e. ≥83% recent accuracy at that level).
     forceLockMinItems: 10,
     forceLockWindow: 6,
-    forceLockMinCorrect: 4,
+    forceLockMinCorrect: 5,
+    forceLockMinWindow:  5,
     // Vocab cap: stop the engine from grinding "Anlamı seç" Q's after this many.
     vocabSoftCap: 2,
     vocabHardCap: 4
@@ -772,29 +776,39 @@
         return { action: "terminate_max_items", lock: this.bestAvailableLock(), reason: "Maximum item count reached." };
       }
       // Rapid-confirm exit: vocab streak verified the level — lock now.
+      // Mark as strong evidence so finish() can upgrade confidence to "high".
       if (this.state.rapid_confirm && this.state.rapid_confirm_remaining <= 0) {
         const lock = this.adjacentLock() || this.bestAvailableLock();
-        return { action: "terminate_high_confidence", lock, reason: "Rapid-confirm complete (vocab streak verified)." };
+        return {
+          action: "terminate_high_confidence",
+          lock,
+          reason: "Rapid-confirm complete (vocab streak verified).",
+          rapid_confirm_strong: true
+        };
       }
 
       // Force-lock fallback: if the learner has clearly demonstrated the current
-      // boundary (≥ minCorrect of last `window` items at this boundary), lock.
-      // Stops endless "step_up" grinding at the ceiling.
-      const flMin    = this.settings.forceLockMinItems   ?? 10;
-      const flWindow = this.settings.forceLockWindow     ?? 6;
-      const flNeeded = this.settings.forceLockMinCorrect ?? 4;
+      // boundary, lock and stop grinding. May 2026: tightened to require both
+      //   • at least `forceLockMinCorrect` correct (default 5)
+      //   • a window of at least `forceLockMinWindow` items at the boundary (5)
+      // Together this enforces ≥83% recent accuracy at the boundary.
+      const flMin       = this.settings.forceLockMinItems   ?? 10;
+      const flWindow    = this.settings.forceLockWindow     ?? 6;
+      const flNeeded    = this.settings.forceLockMinCorrect ?? 5;
+      const flMinWindow = this.settings.forceLockMinWindow  ?? 5;
       if (this.state.items_asked >= flMin) {
         const recentAtCurrent = this.state.response_log
           .slice(-flWindow)
           .filter((e) => e.boundary === this.state.current_boundary);
-        if (recentAtCurrent.length >= flNeeded) {
+        if (recentAtCurrent.length >= flMinWindow) {
           const correctCount = recentAtCurrent.filter((e) => e.correct).length;
           if (correctCount >= flNeeded) {
             const lock = this.adjacentLock() || this.bestAvailableLock();
             return {
               action: "terminate_high_confidence",
               lock,
-              reason: `Force-lock: ${correctCount}/${recentAtCurrent.length} correct at ${this.state.current_boundary}.`
+              reason: `Force-lock: ${correctCount}/${recentAtCurrent.length} correct at ${this.state.current_boundary}.`,
+              force_lock_ratio: { correct: correctCount, total: recentAtCurrent.length }
             };
           }
         }
@@ -937,14 +951,37 @@
           lock.accuracy_adjusted_reason = `Session accuracy ${Math.round(accuracy * 100)}% caps at ${ceiling}; original lock was ${order[lockIdx]}.`;
         }
       }
+      // ── Confidence override based on actual termination evidence ──
+      // computeConfidence() is conservative — it returns "low" when the formal
+      // adjacent-lock pattern isn't perfect, even after a force-lock or rapid-
+      // confirm exit. Upgrade based on the real evidence carried in `decision`.
+      let confidence = this.computeConfidence();
+      const hasPingPongOrContradiction = hasBoundaryPingPong(this.state)
+        || hasContradiction(this.state)
+        || hasUnresolvedContradiction(this.state);
+
+      // Strong evidence sources:
+      //   • Rapid-confirm exit: the learner just passed a fresh vocab streak.
+      //   • Force-lock with high ratio: ≥5/6 (83%) at the current boundary.
+      if (!hasPingPongOrContradiction) {
+        if (decision.rapid_confirm_strong) {
+          confidence = "high";
+        } else if (decision.force_lock_ratio) {
+          const { correct, total } = decision.force_lock_ratio;
+          const ratio = total > 0 ? correct / total : 0;
+          if (ratio >= 0.95 && total >= 5)        confidence = "high";    // 5/5, 6/6, etc.
+          else if (ratio >= 0.80 && total >= 5)   confidence = upgradeConfidence(confidence, "medium"); // 5/6, 6/7
+        }
+      }
+
       const result = {
         estimated_level: estimatedLevel,
-        confidence: this.computeConfidence(),
+        confidence,
         termination_action: decision.action,
         termination_reason: decision.reason,
         productive_receptive_hedge: "This short test mostly measures recognition. Speaking and writing may feel slightly lower at first.",
-        recommended_next_action: decision.action === "terminate_max_items" || this.computeConfidence() === "low" ? "offer_detailed_test" : "start_here",
-        offer_detailed_test: this.computeConfidence() !== "high",
+        recommended_next_action: decision.action === "terminate_max_items" || confidence === "low" ? "offer_detailed_test" : "start_here",
+        offer_detailed_test: confidence !== "high",
         skill_profile: buildSkillProfile(this.state.response_log)
       };
       this.state.result = result;
@@ -1582,6 +1619,12 @@
 
   function hashToUnit(value) {
     return hashString(value) / 4294967296;
+  }
+
+  // Return the stronger of two confidence labels.
+  function upgradeConfidence(current, target) {
+    const rank = { low: 0, medium: 1, high: 2 };
+    return (rank[target] ?? 0) > (rank[current] ?? 0) ? target : current;
   }
 
   return {
