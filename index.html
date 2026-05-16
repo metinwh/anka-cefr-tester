@@ -863,7 +863,7 @@
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v8-2026-05-16-decode-fix";
+    const LOG_BUILD = "v9-2026-05-16-parallel";
     // Endpoint URL — content blockers (1Blocker, AdGuard) often kill anything
     // matching "/log" patterns. Use a neutral name.
     const LOG_ENDPOINT = "/api/record";
@@ -904,41 +904,12 @@
       const showStatus = (m) => { try { setLogStatus(m); } catch {} };
       setTimeout(() => showStatus("sending…"), 100);
 
-      // Strategy: race a GET (most reliable on filtered networks) and a POST.
-      // Whichever succeeds first wins; the other becomes a no-op.
+      // Strategy: fire THREE transports in parallel at t=0. Whichever
+      // succeeds first wins. Don't wait for one to fail before trying another.
       let settled = false;
       const finish = (msg) => { if (!settled) { settled = true; showStatus(msg); } };
 
-      // --- GET fallback (payload via ?d=...) ---
-      // Why GET first: many mobile filters/proxies block POST with JSON body
-      // outright but allow GET. URL length limit ~80KB in iOS Safari which
-      // is more than enough for a session.
-      const tryGet = () => {
-        try {
-          const encoded = encodeURIComponent(body);
-          // If too long for query string, fall back to image-style POST.
-          if (encoded.length > 60000) {
-            console.warn("[log] body too big for GET fallback:", encoded.length);
-            return;
-          }
-          const url = LOG_ENDPOINT + "?d=" + encoded;
-          const ctrl = new AbortController();
-          const t = setTimeout(() => ctrl.abort(), 8000);
-          fetch(url, { method: "GET", signal: ctrl.signal })
-            .then(async (r) => {
-              clearTimeout(t);
-              if (r.ok) finish("✓ sent via GET (" + body.length + "B)");
-              else finish("GET error " + r.status);
-            })
-            .catch((e) => {
-              clearTimeout(t);
-              console.warn("[log] GET failed:", e);
-              if (!settled) finish("GET failed: " + String(e?.message || e).slice(0, 40));
-            });
-        } catch (e) { console.warn("[log] tryGet threw:", e); }
-      };
-
-      // --- POST primary ---
+      // --- (1) sendBeacon (POST) — survives unload, may be silently blocked ---
       try {
         if (navigator.sendBeacon) {
           const blob = new Blob([body], { type: "application/json" });
@@ -947,29 +918,48 @@
         }
       } catch (e) { console.warn("[log] sendBeacon threw:", e); }
 
-      const postCtrl = new AbortController();
-      const postT = setTimeout(() => postCtrl.abort(), 6000);
-      fetch(LOG_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body,
-        keepalive: true,
-        signal: postCtrl.signal
-      }).then(async (r) => {
-        clearTimeout(postT);
-        if (r.ok) finish("✓ sent via POST (" + body.length + "B)");
-        else finish("POST error " + r.status);
-      }).catch((e) => {
-        clearTimeout(postT);
-        console.warn("[log] POST failed:", e);
-        // If POST failed, ALWAYS try GET as backup.
-        tryGet();
-      });
+      // --- (2) GET fired IMMEDIATELY (most reliable on filtered networks) ---
+      try {
+        const encoded = encodeURIComponent(body);
+        if (encoded.length < 60000) {
+          const url = LOG_ENDPOINT + "?d=" + encoded;
+          const ctrl = new AbortController();
+          const t = setTimeout(() => ctrl.abort(), 8000);
+          fetch(url, { method: "GET", signal: ctrl.signal })
+            .then(async (r) => {
+              clearTimeout(t);
+              if (r.ok) finish("✓ sent via GET (" + body.length + "B)");
+              else if (!settled) finish("GET error " + r.status);
+            })
+            .catch((e) => {
+              clearTimeout(t);
+              console.warn("[log] GET failed:", e);
+              if (!settled) finish("GET failed: " + String(e?.message || e).slice(0, 40));
+            });
+        } else {
+          console.warn("[log] body too big for GET:", encoded.length);
+        }
+      } catch (e) { console.warn("[log] GET setup threw:", e); }
 
-      // Also fire GET on a small delay regardless (belt + suspenders).
-      // If POST already won, this is a harmless duplicate write (blob path
-      // includes session_id so it just overwrites the same key).
-      setTimeout(() => { if (!settled) tryGet(); }, 2500);
+      // --- (3) POST fired in parallel ---
+      try {
+        const postCtrl = new AbortController();
+        const postT = setTimeout(() => postCtrl.abort(), 6000);
+        fetch(LOG_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body,
+          keepalive: true,
+          signal: postCtrl.signal
+        }).then(async (r) => {
+          clearTimeout(postT);
+          if (r.ok) finish("✓ sent via POST (" + body.length + "B)");
+          else if (!settled) finish("POST error " + r.status);
+        }).catch((e) => {
+          clearTimeout(postT);
+          console.warn("[log] POST failed:", e);
+        });
+      } catch (e) { console.warn("[log] POST setup threw:", e); }
     }
 
     function answer(optionId) {
