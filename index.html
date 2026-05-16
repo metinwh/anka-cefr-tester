@@ -863,7 +863,7 @@
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v9-2026-05-16-parallel";
+    const LOG_BUILD = "v10-2026-05-16-tinyGET";
     // Endpoint URL — content blockers (1Blocker, AdGuard) often kill anything
     // matching "/log" patterns. Use a neutral name.
     const LOG_ENDPOINT = "/api/record";
@@ -904,44 +904,56 @@
       const showStatus = (m) => { try { setLogStatus(m); } catch {} };
       setTimeout(() => showStatus("sending…"), 100);
 
-      // Strategy: fire THREE transports in parallel at t=0. Whichever
-      // succeeds first wins. Don't wait for one to fail before trying another.
       let settled = false;
       const finish = (msg) => { if (!settled) { settled = true; showStatus(msg); } };
 
-      // --- (1) sendBeacon (POST) — survives unload, may be silently blocked ---
+      // --- TINY ping payload (< 300 chars URL) for filtered mobile networks ---
+      const tiny = {
+        session_id: sid,
+        log_build: LOG_BUILD,
+        ended_at: payload.ended_at,
+        duration_ms: payload.duration_ms,
+        items_asked: payload.items_asked,
+        confidence_at_end: payload.confidence_at_end,
+        result: {
+          estimated_level: payload.result?.estimated_level,
+          confidence: payload.result?.confidence,
+          termination_action: payload.result?.termination_action
+        },
+        ua_short: (navigator.userAgent || "").slice(0, 80),
+        partial: true
+      };
+      const tinyBody = JSON.stringify(tiny);
+      const tinyUrl = LOG_ENDPOINT + "?d=" + encodeURIComponent(tinyBody);
+      console.log("[log] tiny URL length:", tinyUrl.length);
+
+      // --- (1) Tiny GET — should pass any URL-length filter ---
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 8000);
+        fetch(tinyUrl, { method: "GET", signal: ctrl.signal })
+          .then(async (r) => {
+            clearTimeout(t);
+            if (r.ok) finish("✓ sent via tiny-GET (" + tinyBody.length + "B)");
+            else if (!settled) finish("tiny-GET error " + r.status);
+          })
+          .catch((e) => {
+            clearTimeout(t);
+            console.warn("[log] tiny-GET failed:", e);
+            if (!settled) finish("tiny-GET failed: " + String(e?.message || e).slice(0, 40));
+          });
+      } catch (e) { console.warn("[log] tiny-GET setup threw:", e); }
+
+      // --- (2) sendBeacon w/ full body (background, best-effort) ---
       try {
         if (navigator.sendBeacon) {
           const blob = new Blob([body], { type: "application/json" });
-          const queued = navigator.sendBeacon(LOG_ENDPOINT, blob);
-          console.log("[log] beacon queued?", queued);
+          navigator.sendBeacon(LOG_ENDPOINT, blob);
         }
       } catch (e) { console.warn("[log] sendBeacon threw:", e); }
 
-      // --- (2) GET fired IMMEDIATELY (most reliable on filtered networks) ---
-      try {
-        const encoded = encodeURIComponent(body);
-        if (encoded.length < 60000) {
-          const url = LOG_ENDPOINT + "?d=" + encoded;
-          const ctrl = new AbortController();
-          const t = setTimeout(() => ctrl.abort(), 8000);
-          fetch(url, { method: "GET", signal: ctrl.signal })
-            .then(async (r) => {
-              clearTimeout(t);
-              if (r.ok) finish("✓ sent via GET (" + body.length + "B)");
-              else if (!settled) finish("GET error " + r.status);
-            })
-            .catch((e) => {
-              clearTimeout(t);
-              console.warn("[log] GET failed:", e);
-              if (!settled) finish("GET failed: " + String(e?.message || e).slice(0, 40));
-            });
-        } else {
-          console.warn("[log] body too big for GET:", encoded.length);
-        }
-      } catch (e) { console.warn("[log] GET setup threw:", e); }
-
-      // --- (3) POST fired in parallel ---
+      // --- (3) Full POST in parallel — if filter doesn't block it, full
+      //         trajectory overwrites the tiny record (same session_id). ---
       try {
         const postCtrl = new AbortController();
         const postT = setTimeout(() => postCtrl.abort(), 6000);
@@ -953,12 +965,8 @@
           signal: postCtrl.signal
         }).then(async (r) => {
           clearTimeout(postT);
-          if (r.ok) finish("✓ sent via POST (" + body.length + "B)");
-          else if (!settled) finish("POST error " + r.status);
-        }).catch((e) => {
-          clearTimeout(postT);
-          console.warn("[log] POST failed:", e);
-        });
+          if (r.ok && !settled) finish("✓ sent via POST (" + body.length + "B)");
+        }).catch(() => { /* silent — tiny-GET path is the safety net */ });
       } catch (e) { console.warn("[log] POST setup threw:", e); }
     }
 
