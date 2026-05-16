@@ -1287,8 +1287,11 @@
         let promptText = "";
         let selectedText = "";
         if (it) {
-          // Strip HTML tags + collapse whitespace, then truncate
+          // Convert <strong>x</strong> → **x** so the emphasis survives in
+          // markdown exports; strip any other HTML; collapse whitespace.
           promptText = (it.prompt || "")
+            .replace(/<\s*strong\s*>/gi, "**")
+            .replace(/<\s*\/\s*strong\s*>/gi, "**")
             .replace(/<[^>]*>/g, "")
             .replace(/\s+/g, " ")
             .trim()
