@@ -6,7 +6,7 @@
   <title>ANKA CEFR Tester — Nektar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&display=swap" rel="stylesheet">
   <style>
     :root {
       /* Warm academic palette — parchment + ink + ember orange */
@@ -38,7 +38,6 @@
       /* Fonts */
       --font-sans:    "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
       --font-serif:   "Fraunces", Georgia, "Times New Roman", serif;
-      --font-display: "Bricolage Grotesque", "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -112,12 +111,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       .bg-orb { animation: none; }
-      .shimmer-text,
-      .shimmer-text::after {
-        animation: none;
-      }
-      .shimmer-text { max-width: 100%; }
-      .shimmer-text::after { display: none; }
+      .prompt-live.typing::after { display: none; }
     }
 
     /* ── Layout ──────────────────────────────────────────── */
@@ -281,53 +275,25 @@
 
     /* ── Typography ──────────────────────────────────────── */
     h1 {
-      font-family: var(--font-display);
-      font-size: 40px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: 0;
+      font-family: var(--font-serif);
+      font-size: 38px;
+      line-height: 1.04;
+      font-weight: 600;
+      letter-spacing: -0.02em;
       color: var(--ink);
-      font-feature-settings: "ss01", "cv11";
+      font-feature-settings: "ss01";
     }
 
-    /* Hero title: crisp display face plus a fast written-on reveal. */
+    /* Decorative span — solid color now, no shimmer animation */
     .shimmer-text {
-      position: relative;
-      display: inline-block;
-      width: max-content;
-      max-width: 100%;
       color: var(--accent);
-      font-style: normal;
-      font-weight: 800;
-      overflow: hidden;
-      white-space: nowrap;
-      animation: typeWrite 1.35s steps(20, end) 120ms both;
-    }
-
-    .shimmer-text::after {
-      content: "";
-      position: absolute;
-      top: 0.08em;
-      right: -2px;
-      width: 2px;
-      height: 0.92em;
-      border-radius: 99px;
-      background: var(--accent-hot);
-      animation: caretBlink 520ms steps(1, end) 0s 4, caretFade 180ms ease 2.1s forwards;
-    }
-
-    @keyframes typeWrite {
-      from { max-width: 0; }
-      to { max-width: 20ch; }
+      font-style: italic;
+      font-weight: 500;
     }
 
     @keyframes caretBlink {
       0%, 100% { opacity: 1; }
       50% { opacity: 0; }
-    }
-
-    @keyframes caretFade {
-      to { opacity: 0; }
     }
 
     p {
@@ -384,11 +350,13 @@
 
     /* ── Prompt ──────────────────────────────────────────── */
     .prompt {
+      --prompt-pad-y: 22px;
+      --prompt-pad-x: 24px;
       position: relative;
       min-height: 80px;
       display: grid;
       align-items: center;
-      padding: 22px 24px;
+      padding: var(--prompt-pad-y) var(--prompt-pad-x);
       border-radius: var(--radius);
       background: var(--panel-soft);
       border-left: 4px solid var(--accent);
@@ -399,6 +367,36 @@
       font-weight: 500;
       font-feature-settings: "ss01";
       animation: fadeUp 320ms cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .prompt.typewriter-prompt {
+      display: block;
+    }
+
+    .prompt-ghost {
+      display: block;
+      visibility: hidden;
+    }
+
+    .prompt-live {
+      position: absolute;
+      inset: var(--prompt-pad-y) var(--prompt-pad-x);
+      display: block;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+      pointer-events: none;
+    }
+
+    .prompt-live.typing::after {
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      margin-left: 3px;
+      border-radius: 99px;
+      background: var(--accent-hot);
+      vertical-align: -0.12em;
+      animation: caretBlink 520ms steps(1, end) infinite;
     }
 
     /* ── Choices ─────────────────────────────────────────── */
@@ -726,7 +724,11 @@
         padding: 28px 22px;
       }
       h1 { font-size: 32px; }
-      .prompt { font-size: 19px; padding: 20px; }
+      .prompt {
+        --prompt-pad-y: 20px;
+        --prompt-pad-x: 20px;
+        font-size: 19px;
+      }
       .choice-text { font-size: 15px; }
       .level { font-size: 88px; }
     }
@@ -1013,6 +1015,7 @@
     let shownAt = 0;
     let transition = null;
     let transitionTimer = null;
+    let promptTypingTimer = null;
 
     function seed() {
       const s = new URLSearchParams(location.search).get("seed");
@@ -1224,6 +1227,7 @@
 
     function answer(optionId) {
       if (!engine || !engine.currentItem || engine.state.result || transition) return;
+      clearPromptTyping();
       const step = engine.answer(optionId, Date.now() - shownAt);
       const done  = Boolean(engine.state.result);
       transition  = {
@@ -1271,7 +1275,10 @@
           <div class="progress-bar" style="width:${pct}%"></div>
         </div>
         <div class="instruction">${esc(instrFor(item))}</div>
-        <div class="prompt">${esc(item.prompt)}</div>
+        <div class="prompt typewriter-prompt" aria-label="${esc(item.prompt)}">
+          <span class="prompt-ghost" aria-hidden="true">${esc(item.prompt)}</span>
+          <span class="prompt-live" data-typewriter-prompt aria-hidden="true">${esc(item.prompt)}</span>
+        </div>
         <div class="choices">
           ${opts.map((o, i) => `
             <button class="choice" style="--i:${i}" data-answer="${esc(o.id)}" type="button">
@@ -1285,6 +1292,7 @@
           <button class="unknown" data-action="reset" style="color: var(--error); border-color: rgba(185,74,42,0.3); min-height: 40px; padding: 0 22px; font-size: 12px; letter-spacing: 0.04em;" type="button">vazgeç</button>
         </div>
       `;
+      startPromptTypewriter(item.prompt);
     }
 
     function htmlWelcome() {
@@ -1421,6 +1429,45 @@
     function clearTimer() {
       if (transitionTimer) window.clearTimeout(transitionTimer);
       transitionTimer = null;
+      clearPromptTyping();
+    }
+
+    function clearPromptTyping() {
+      if (promptTypingTimer) window.clearTimeout(promptTypingTimer);
+      promptTypingTimer = null;
+    }
+
+    function startPromptTypewriter(text) {
+      if (promptTypingTimer) window.clearTimeout(promptTypingTimer);
+      promptTypingTimer = null;
+
+      const live = app.querySelector("[data-typewriter-prompt]");
+      if (!live) return;
+
+      const full = String(text ?? "");
+      const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced || full.length < 2) {
+        live.textContent = full;
+        live.classList.remove("typing");
+        return;
+      }
+
+      live.textContent = "";
+      live.classList.add("typing");
+
+      let i = 0;
+      const stepSize = full.length > 150 ? 5 : full.length > 90 ? 4 : 3;
+      const step = () => {
+        i = Math.min(full.length, i + stepSize);
+        live.textContent = full.slice(0, i);
+        if (i >= full.length) {
+          live.classList.remove("typing");
+          promptTypingTimer = null;
+          return;
+        }
+        promptTypingTimer = window.setTimeout(step, 18);
+      };
+      promptTypingTimer = window.setTimeout(step, 80);
     }
 
     function calcProgress() {
