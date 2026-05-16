@@ -6,7 +6,7 @@
   <title>ANKA CEFR Tester — Nektar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       /* Warm academic palette — parchment + ink + ember orange */
@@ -38,6 +38,7 @@
       /* Fonts */
       --font-sans:    "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
       --font-serif:   "Fraunces", Georgia, "Times New Roman", serif;
+      --font-display: "Space Grotesk", "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -111,7 +112,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       .bg-orb { animation: none; }
-      .prompt-live.typing::after { display: none; }
+      .typing-live.typing::after { display: none; }
     }
 
     /* ── Layout ──────────────────────────────────────────── */
@@ -275,20 +276,23 @@
 
     /* ── Typography ──────────────────────────────────────── */
     h1 {
-      font-family: var(--font-serif);
-      font-size: 38px;
-      line-height: 1.04;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      font-family: var(--font-display);
+      font-size: 37px;
+      line-height: 1.02;
+      font-weight: 700;
+      letter-spacing: 0;
       color: var(--ink);
-      font-feature-settings: "ss01";
+      font-feature-settings: "ss01", "cv11";
     }
 
-    /* Decorative span — solid color now, no shimmer animation */
+    /* Hero title: geometric, steady, and deliberately not animated. */
     .shimmer-text {
-      color: var(--accent);
-      font-style: italic;
-      font-weight: 500;
+      position: relative;
+      display: inline;
+      color: var(--ink);
+      font-style: normal;
+      font-weight: 700;
+      box-shadow: inset 0 -0.22em rgba(204,79,0,0.20);
     }
 
     @keyframes caretBlink {
@@ -387,7 +391,7 @@
       pointer-events: none;
     }
 
-    .prompt-live.typing::after {
+    .typing-live.typing::after {
       content: "";
       display: inline-block;
       width: 2px;
@@ -450,12 +454,31 @@
     }
 
     .choice-text {
+      display: block;
       font-size: 16px;
       line-height: 1.4;
       font-weight: 500;
       color: var(--ink);
       position: relative;
       z-index: 1;
+    }
+
+    .choice-text.typewriter-choice {
+      min-width: 0;
+    }
+
+    .choice-ghost {
+      display: block;
+      visibility: hidden;
+    }
+
+    .choice-live {
+      position: absolute;
+      inset: 0;
+      display: block;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+      pointer-events: none;
     }
 
     /* ── Buttons ─────────────────────────────────────────── */
@@ -1016,6 +1039,7 @@
     let transition = null;
     let transitionTimer = null;
     let promptTypingTimer = null;
+    let choiceTypingTimers = [];
 
     function seed() {
       const s = new URLSearchParams(location.search).get("seed");
@@ -1277,13 +1301,16 @@
         <div class="instruction">${esc(instrFor(item))}</div>
         <div class="prompt typewriter-prompt" aria-label="${esc(item.prompt)}">
           <span class="prompt-ghost" aria-hidden="true">${esc(item.prompt)}</span>
-          <span class="prompt-live" data-typewriter-prompt aria-hidden="true">${esc(item.prompt)}</span>
+          <span class="prompt-live typing-live" data-typewriter-prompt aria-hidden="true">${esc(item.prompt)}</span>
         </div>
         <div class="choices">
           ${opts.map((o, i) => `
-            <button class="choice" style="--i:${i}" data-answer="${esc(o.id)}" type="button">
+            <button class="choice" style="--i:${i}" data-answer="${esc(o.id)}" aria-label="${String.fromCharCode(65 + i)}. ${esc(o.text)}" type="button">
               <span class="letter">${String.fromCharCode(65 + i)}</span>
-              <span class="choice-text">${esc(o.text)}</span>
+              <span class="choice-text typewriter-choice">
+                <span class="choice-ghost" aria-hidden="true">${esc(o.text)}</span>
+                <span class="choice-live typing-live" data-typewriter-choice aria-hidden="true">${esc(o.text)}</span>
+              </span>
             </button>
           `).join("")}
         </div>
@@ -1292,7 +1319,7 @@
           <button class="unknown" data-action="reset" style="color: var(--error); border-color: rgba(185,74,42,0.3); min-height: 40px; padding: 0 22px; font-size: 12px; letter-spacing: 0.04em;" type="button">vazgeç</button>
         </div>
       `;
-      startPromptTypewriter(item.prompt);
+      startTypewriters(item.prompt);
     }
 
     function htmlWelcome() {
@@ -1435,17 +1462,38 @@
     function clearPromptTyping() {
       if (promptTypingTimer) window.clearTimeout(promptTypingTimer);
       promptTypingTimer = null;
+      choiceTypingTimers.forEach((timer) => window.clearTimeout(timer));
+      choiceTypingTimers = [];
     }
 
-    function startPromptTypewriter(text) {
+    function startTypewriters(promptText) {
       if (promptTypingTimer) window.clearTimeout(promptTypingTimer);
       promptTypingTimer = null;
+      choiceTypingTimers.forEach((timer) => window.clearTimeout(timer));
+      choiceTypingTimers = [];
 
-      const live = app.querySelector("[data-typewriter-prompt]");
+      const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const promptLive = app.querySelector("[data-typewriter-prompt]");
+      if (promptLive) typeInto(promptLive, promptText, { reduced, delay: 80, stepMs: 18 });
+
+      app.querySelectorAll("[data-typewriter-choice]").forEach((live, idx) => {
+        const text = live.textContent || "";
+        if (reduced) {
+          typeInto(live, text, { reduced });
+          return;
+        }
+        const timer = window.setTimeout(() => {
+          typeInto(live, text, { reduced, delay: 0, stepMs: 15, stepSize: text.length > 80 ? 4 : 3 });
+        }, 180 + idx * 70);
+        choiceTypingTimers.push(timer);
+      });
+    }
+
+    function typeInto(live, text, config = {}) {
       if (!live) return;
 
       const full = String(text ?? "");
-      const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reduced = Boolean(config.reduced);
       if (reduced || full.length < 2) {
         live.textContent = full;
         live.classList.remove("typing");
@@ -1456,18 +1504,21 @@
       live.classList.add("typing");
 
       let i = 0;
-      const stepSize = full.length > 150 ? 5 : full.length > 90 ? 4 : 3;
+      const stepSize = config.stepSize || (full.length > 150 ? 5 : full.length > 90 ? 4 : 3);
       const step = () => {
         i = Math.min(full.length, i + stepSize);
         live.textContent = full.slice(0, i);
         if (i >= full.length) {
           live.classList.remove("typing");
-          promptTypingTimer = null;
           return;
         }
-        promptTypingTimer = window.setTimeout(step, 18);
+        const timer = window.setTimeout(step, config.stepMs || 18);
+        if (live.matches("[data-typewriter-prompt]")) promptTypingTimer = timer;
+        else choiceTypingTimers.push(timer);
       };
-      promptTypingTimer = window.setTimeout(step, 80);
+      const timer = window.setTimeout(step, config.delay || 0);
+      if (live.matches("[data-typewriter-prompt]")) promptTypingTimer = timer;
+      else choiceTypingTimers.push(timer);
     }
 
     function calcProgress() {
