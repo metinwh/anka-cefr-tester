@@ -1121,6 +1121,7 @@
   <script src="./placement-questions.js"></script>
   <script src="./placement-pool.generated.js"></script>
   <script src="./placement-questions-v2.js"></script>
+  <script src="./legacy-retirement.js"></script>
   <script src="./ceiling-probe-engine.js"></script>
   <script>
     const Engine  = window.NektarCeilingProbeEngine;
@@ -1621,9 +1622,15 @@
     }
 
     function coreItems() {
-      const items = mergedItems().filter((i) =>
-        i.source_collection === "diagnostic_v2" || !LEGACY_CORE_EXCLUDED.has(i.type)
-      );
+      // Retirement filter — legacy items flagged for weak/easy-to-eliminate
+      // distractors (see legacy-retirement.js). v2 items are exempt.
+      const retired = new Set((window.NEKTAR_LEGACY_RETIRED_IDS || []));
+      const items = mergedItems().filter((i) => {
+        if (i.source_collection === "diagnostic_v2") return true;
+        if (LEGACY_CORE_EXCLUDED.has(i.type)) return false;
+        if (retired.has(i.id)) return false;
+        return true;
+      });
       return items.length ? items : mergedItems();
     }
 

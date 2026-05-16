@@ -1439,29 +1439,44 @@
     return score;
   }
 
+  // Ping-pong detection — May 2026 widening:
+  //   • Window grown from 4→8 logs so we see swaps even when many confirm_boundary
+  //     items appear between them (real sessions have lots of confirms).
+  //   • isPingPongSequence now filters confirm/retest actions out of the alternation
+  //     check, so the detection triggers based on actual movement events.
   function hasBoundaryPingPong(state) {
-    const logs = state.response_log.slice(-4);
-    if (logs.length < 4) return false;
-    return isPingPongSequence(logs.map((entry) => entry.engine_action), logs.map((entry) => entry.state_after.current_boundary));
+    const logs = state.response_log.slice(-8);
+    if (logs.length < 3) return false;
+    return isPingPongSequence(logs.map((e) => e.engine_action), logs.map((e) => e.state_after.current_boundary));
   }
 
   function projectedPingPong(state, action, projectedBoundary) {
-    const logs = state.response_log.slice(-3);
-    if (logs.length < 3) return false;
-    const actions = logs.map((entry) => entry.engine_action).concat(action);
-    const boundaries = logs.map((entry) => entry.state_after.current_boundary).concat(projectedBoundary);
+    const logs = state.response_log.slice(-7);
+    if (logs.length < 2) return false;
+    const actions = logs.map((e) => e.engine_action).concat(action);
+    const boundaries = logs.map((e) => e.state_after.current_boundary).concat(projectedBoundary);
     return isPingPongSequence(actions, boundaries);
   }
 
   function isPingPongSequence(actions, boundaries) {
-    const movementPattern = actions.every((action) => /step|probe|fast_track/.test(action || ""));
-    const alternatingActions = actions.length >= 4 &&
-      /step|fast_track/.test(actions[0]) &&
-      /probe/.test(actions[1]) &&
-      /step|fast_track/.test(actions[2]) &&
-      /probe/.test(actions[3]);
-    const uniqueBoundaries = new Set(boundaries.filter(Boolean));
-    return movementPattern && alternatingActions && uniqueBoundaries.size <= 2;
+    // Keep only actual movements (step / probe / fast_track). Skip confirms,
+    // retests, handlers, and other no-op-direction actions.
+    const movementIdx = [];
+    for (let i = 0; i < actions.length; i++) {
+      if (/step|probe|fast_track/.test(actions[i] || "")) movementIdx.push(i);
+    }
+    if (movementIdx.length < 3) return false;
+    // Last three movement actions: should alternate up↔down↔up or down↔up↔down.
+    const m = movementIdx.slice(-3).map((idx) => actions[idx]);
+    const isUp   = (a) => /step|fast_track/.test(a);
+    const isDown = (a) => /probe/.test(a);
+    const upDownUp   = isUp(m[0])   && isDown(m[1]) && isUp(m[2]);
+    const downUpDown = isDown(m[0]) && isUp(m[1])   && isDown(m[2]);
+    const alternating = upDownUp || downUpDown;
+    // The boundaries at those three movement points should occupy ≤2 levels.
+    const movementBoundaries = movementIdx.slice(-3).map((idx) => boundaries[idx]).filter(Boolean);
+    const uniqueBoundaries = new Set(movementBoundaries);
+    return alternating && uniqueBoundaries.size <= 2;
   }
 
   function mostRecentBoundaryWithMixedEvidence(state) {

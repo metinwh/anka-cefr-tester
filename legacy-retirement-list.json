@@ -1,0 +1,854 @@
+{
+  "generated_at": "2026-05-16T18:56:50.437Z",
+  "rationale": "Legacy plc_*/gen_* items whose distractors are too dramatically shorter than the key or fall under 3 chars — easy to dismiss by length/elimination. Audit by claude-v2/scripts post-Step-C. Exclude from student-core pool.",
+  "count": 77,
+  "items": [
+    {
+      "id": "plc_a1a2_006",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "The keys are _____ the table.",
+      "key": "on",
+      "distractors": [
+        "at",
+        "in"
+      ]
+    },
+    {
+      "id": "plc_a1a2_009",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "This is Ayşe. _____ is my friend.",
+      "key": "She",
+      "distractors": [
+        "He",
+        "It"
+      ]
+    },
+    {
+      "id": "plc_b1b2_005",
+      "boundary": "B1/B2",
+      "type": "grammar",
+      "prompt": "He said he _____ busy.",
+      "key": "was",
+      "distractors": [
+        "is",
+        "be"
+      ]
+    },
+    {
+      "id": "plc_b2c1_006",
+      "boundary": "B2/C1",
+      "type": "phrasal_verb",
+      "prompt": "Don't give up. Keep _____ it.",
+      "key": "at",
+      "distractors": [
+        "on",
+        "in"
+      ]
+    },
+    {
+      "id": "plc_b2c1_007",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "prompt": "Can you keep an eye _____ my bag?",
+      "key": "on",
+      "distractors": [
+        "to",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_253",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "The keys are _____ the table.",
+      "key": "on",
+      "distractors": [
+        "in",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_254",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "I usually get up _____ seven.",
+      "key": "at",
+      "distractors": [
+        "in",
+        "on"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_255",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "She lives _____ Ankara.",
+      "key": "in",
+      "distractors": [
+        "at",
+        "on"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_256",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "We go _____ school by bus.",
+      "key": "to",
+      "distractors": [
+        "at",
+        "in"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_257",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "This letter is _____ my teacher.",
+      "key": "from",
+      "distractors": [
+        "of",
+        "by"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_258",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "The meeting is _____ Monday.",
+      "key": "on",
+      "distractors": [
+        "in",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_259",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "There is a picture _____ the wall.",
+      "key": "on",
+      "distractors": [
+        "in",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_260",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "He is waiting _____ the bus stop.",
+      "key": "at",
+      "distractors": [
+        "on",
+        "in"
+      ]
+    },
+    {
+      "id": "gen_b2c1_idiom_269",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "prompt": "The deadline was moved twice, but the project is still _____",
+      "key": "on",
+      "distractors": [
+        "in",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_b2c1_idiom_272",
+      "boundary": "B2/C1",
+      "type": "idiom",
+      "prompt": "The two reports use different examples, but their main findi",
+      "key": "in",
+      "distractors": [
+        "on",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_b2c1_grammar_278",
+      "boundary": "B2/C1",
+      "type": "grammar",
+      "prompt": "The discussion focused _____ three main issues.",
+      "key": "on",
+      "distractors": [
+        "to",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_b2c1_grammar_279",
+      "boundary": "B2/C1",
+      "type": "grammar",
+      "prompt": "The problem is associated _____ poor planning.",
+      "key": "with",
+      "distractors": [
+        "to",
+        "by"
+      ]
+    },
+    {
+      "id": "gen_b1b2_idiom_310",
+      "boundary": "B1/B2",
+      "type": "idiom",
+      "prompt": "Leyla manages the whole design team. She is _____ charge of ",
+      "key": "in",
+      "distractors": [
+        "on",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_b2c1_collocation_354",
+      "boundary": "B2/C1",
+      "type": "collocation",
+      "prompt": "The findings should be interpreted _____ caution.",
+      "key": "with",
+      "distractors": [
+        "by",
+        "in"
+      ]
+    },
+    {
+      "id": "gen_b2c1_collocation_357",
+      "boundary": "B2/C1",
+      "type": "collocation",
+      "prompt": "The analysis focuses _____ three main variables.",
+      "key": "on",
+      "distractors": [
+        "to",
+        "in"
+      ]
+    },
+    {
+      "id": "gen_b2c1_collocation_358",
+      "boundary": "B2/C1",
+      "type": "collocation",
+      "prompt": "The argument rests _____ two assumptions.",
+      "key": "on",
+      "distractors": [
+        "in",
+        "at"
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_335",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "Bir iş arkadaşın bugün göndereceği dosyayı hâlâ göndermedi; ",
+      "key": "Hi, just checking whether the file is ready.",
+      "distractors": [
+        "Is the file ready?",
+        "Where is the file?"
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_337",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "Your manager asks if the report is finished. It is almost fi",
+      "key": "It's almost done; I just need to check one section.",
+      "distractors": [
+        "It is nearly finished.",
+        "It is not finished but soon."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_343",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You emailed a teacher three days ago and need a polite follo",
+      "key": "I just wanted to follow up on my previous email.",
+      "distractors": [
+        "I'm writing again about my email.",
+        "Why didn't you answer my email?"
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_344",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You attach a document in an email to a colleague.",
+      "key": "I've attached the document for your review.",
+      "distractors": [
+        "The document is attached.",
+        "Here is attached the document."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_348",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You need to ask a client for a missing address.",
+      "key": "Could you send me the missing address?",
+      "distractors": [
+        "Can you send the address?",
+        "You forgot the address."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_349",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You want to end a semi-formal email after answering a simple",
+      "key": "Please let me know if you need anything else.",
+      "distractors": [
+        "Tell me if you need more help.",
+        "If you need anything, say it."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_350",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You need to tell a teacher you cannot attend the lesson tomo",
+      "key": "Unfortunately, I won't be able to attend tomorrow's lesson.",
+      "distractors": [
+        "Sorry, I can't come to tomorrow's lesson.",
+        "Tomorrow I won't come lesson."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_351",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "A teammate suggests launching tomorrow. You think it is too ",
+      "key": "I'm not sure we're ready to launch tomorrow.",
+      "distractors": [
+        "I think tomorrow is too early.",
+        "Tomorrow is a bad idea."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_353",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You partly agree with a colleague but want to add a concern.",
+      "key": "I see your point, but I'm worried about the timeline.",
+      "distractors": [
+        "I agree, but the timeline is a problem.",
+        "Your point is wrong because timeline."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_355",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "A plan sounds good, but you need one detail before agreeing.",
+      "key": "That sounds good, but I'd like to clarify one detail.",
+      "distractors": [
+        "It sounds good, but I have one question.",
+        "I cannot agree because one detail."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_356",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You need to say a proposal is unrealistic without attacking ",
+      "key": "I'm concerned that the timeline may not be realistic.",
+      "distractors": [
+        "The timeline is not realistic.",
+        "Your timeline is impossible."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_380",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "You are discussing a change that may affect many users, but ",
+      "key": "This could have wider implications, depending on how it is implemented.",
+      "distractors": [
+        "This might affect many users.",
+        "This will affect everyone."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_381",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A manager asks whether one complaint means the product is ba",
+      "key": "One complaint doesn't necessarily mean there is a general problem.",
+      "distractors": [
+        "One complaint may not mean the product is bad.",
+        "One complaint means nothing."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_382",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "Kullanıcı geri bildirimleri karışık, ama birkaç kişi aynı so",
+      "key": "The feedback is mixed, but several users raised the same concern.",
+      "distractors": [
+        "Some people liked it and some did not.",
+        "Users have many different opinions."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_383",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "You need to say a result is important but not final.",
+      "key": "The result is meaningful, but it should be interpreted cautiously.",
+      "distractors": [
+        "The result is important, but we need to be careful.",
+        "The result is important and true."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_384",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A colleague says one solution is clearly best. You want to s",
+      "key": "It may be the strongest option, but I wouldn't rule out the others yet.",
+      "distractors": [
+        "It may be best, but other options could work.",
+        "It is the best option, but others exist."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_385",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A colleague's presentation is clear, but the ending needs a ",
+      "key": "The presentation is clear; the ending could be a little stronger.",
+      "distractors": [
+        "The presentation is good, but the ending needs work.",
+        "The ending is weak."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_386",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A student's essay has good ideas but lacks organization.",
+      "key": "There are some strong ideas here, but the structure needs more work.",
+      "distractors": [
+        "The ideas are good, but the structure is not clear.",
+        "Your essay is disorganized."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_387",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A teammate's draft is too long for the client email.",
+      "key": "We may need to make this a bit more concise for the client.",
+      "distractors": [
+        "This is too long for the client.",
+        "You wrote too much."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_388",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "You need to reject a suggestion while preserving the relatio",
+      "key": "I'm not sure that approach would work for this audience.",
+      "distractors": [
+        "I don't think that approach will work.",
+        "That approach is wrong."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_389",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A colleague asks for feedback on a design that is visually b",
+      "key": "It might be clearer if we reduced the number of elements.",
+      "distractors": [
+        "There are too many elements.",
+        "The design is messy."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_390",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "You need to tell a senior colleague that one figure may be w",
+      "key": "I may be missing something, but this figure looks different from the source.",
+      "distractors": [
+        "This figure may be wrong.",
+        "This number is wrong."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_391",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A team member's solution works but creates extra steps.",
+      "key": "This works, though it may add a bit of extra complexity.",
+      "distractors": [
+        "It works, but it is more complicated.",
+        "This is too complicated."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_393",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A report says costs fell, but customer complaints rose. Choo",
+      "key": "The savings came at a possible cost to customer satisfaction.",
+      "distractors": [
+        "Costs fell, but customers complained more.",
+        "The report is both good and bad."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_394",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "Toplantıda biri “Mükemmel değil, ama iş görür” diyor; bu tut",
+      "key": "So you think it is acceptable, even if it has drawbacks.",
+      "distractors": [
+        "So it can work, but it is not perfect.",
+        "So it is a bad idea."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_395",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A client says, 'I was hoping for something a bit simpler.' C",
+      "key": "The client is asking us to simplify the design.",
+      "distractors": [
+        "The client wants a simpler design.",
+        "The client liked the design."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_396",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "Yöneticin “Bunu aklımızda tutalım, ama şimdilik aksiyon alma",
+      "key": "We should remember it, but no decision is needed now.",
+      "distractors": [
+        "We should think about it later.",
+        "We should start it immediately."
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_311",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "They _____ at home now.",
+      "key": "are",
+      "distractors": [
+        "is",
+        "am"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_313",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "We _____ ready.",
+      "key": "are",
+      "distractors": [
+        "is",
+        "am"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_315",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "You _____ late.",
+      "key": "are",
+      "distractors": [
+        "is",
+        "am"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_316",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "My parents _____ in Izmir.",
+      "key": "are",
+      "distractors": [
+        "is",
+        "am"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_320",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "The children _____ in the garden.",
+      "key": "are",
+      "distractors": [
+        "is",
+        "am"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_336",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "_____ your father work here?",
+      "key": "Does",
+      "distractors": [
+        "Is",
+        "Do"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_338",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "What time _____ the shop open?",
+      "key": "does",
+      "distractors": [
+        "is",
+        "do"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_342",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "Why _____ she call you?",
+      "key": "does",
+      "distractors": [
+        "is",
+        "do"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_343",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "_____ the children hungry?",
+      "key": "Are",
+      "distractors": [
+        "Do",
+        "Is"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_344",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "Where _____ the keys?",
+      "key": "are",
+      "distractors": [
+        "do",
+        "is"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_345",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "There _____ two chairs in the room.",
+      "key": "are",
+      "distractors": [
+        "is",
+        "be"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_359",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "I live with my parents. _____ house is small.",
+      "key": "Our",
+      "distractors": [
+        "We",
+        "Us"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_360",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "Can you help _____?",
+      "key": "me",
+      "distractors": [
+        "my",
+        "I"
+      ]
+    },
+    {
+      "id": "gen_a1a2_grammar_363",
+      "boundary": "A1/A2",
+      "type": "grammar",
+      "prompt": "These are my keys. They are _____.",
+      "key": "mine",
+      "distractors": [
+        "my",
+        "me"
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_441",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "A friend says, 'This plan might be too expensive.' Choose th",
+      "key": "That's a fair point; let's compare the costs.",
+      "distractors": [
+        "Maybe, but it is good.",
+        "You always think money."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_443",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "A customer says the app is confusing. Choose the best summar",
+      "key": "The customer is having trouble understanding the app.",
+      "distractors": [
+        "The customer does not like the app.",
+        "The customer is confused person."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_444",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You want to postpone a meeting politely.",
+      "key": "Would it be possible to move the meeting to Friday?",
+      "distractors": [
+        "Move the meeting to Friday.",
+        "Can we make meeting Friday?"
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_447",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "A colleague says, 'It is not urgent, but keep it in mind.' W",
+      "key": "Remember it, but do not treat it as urgent.",
+      "distractors": [
+        "Do it now if possible.",
+        "Forget it until later."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_448",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You are giving feedback on an essay.",
+      "key": "Your main idea is clear, but the examples need more detail.",
+      "distractors": [
+        "Your essay is good but examples bad.",
+        "Idea clear, examples need detail."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_449",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "A speaker says, 'I'm not against it, but I have reservations",
+      "key": "The speaker has concerns but is not fully opposed.",
+      "distractors": [
+        "The speaker supports it completely.",
+        "The speaker wants to reserve it."
+      ]
+    },
+    {
+      "id": "gen_b1b2_naturalness_judgment_450",
+      "boundary": "B1/B2",
+      "type": "naturalness_judgment",
+      "prompt": "You want to make a cautious prediction.",
+      "key": "It is likely to improve, but not immediately.",
+      "distractors": [
+        "It will improve soon.",
+        "It improves but not fastly."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_483",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "Küçük bir örneklemde ilginç bir örüntü görüyorsun, ama kanıt",
+      "key": "The pattern is worth exploring, but stronger evidence is needed.",
+      "distractors": [
+        "The result proves the theory.",
+        "The sample is small, so the result is useless."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_484",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "Müşteri revizyonun daha iyi olduğunu ama hâlâ tamamlanmadığı",
+      "key": "The revision is an improvement, but further work is needed.",
+      "distractors": [
+        "The client is satisfied.",
+        "The client says it is close but not there."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_485",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "Bir fikir ileride işe yarayabilir, ama şu an başka iş daha ö",
+      "key": "Keep the option open while focusing elsewhere.",
+      "distractors": [
+        "Start working on it immediately.",
+        "Remove it from the plan."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_488",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "You are reviewing a proposal with unclear data. Choose the b",
+      "key": "The proposal is promising, but the evidence needs to be clearer.",
+      "distractors": [
+        "The proposal is bad because data unclear.",
+        "The data is unclear, so nothing can be said."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_490",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "You want to disagree with a senior colleague without soundin",
+      "key": "I see the rationale, but I wonder if the timing is right.",
+      "distractors": [
+        "I disagree with your timing.",
+        "Your timing is not correct."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_491",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "A text says the model is elegant but hard to apply. Choose t",
+      "key": "It is conceptually attractive but practically difficult.",
+      "distractors": [
+        "It is beautiful and difficult.",
+        "It cannot be used."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_492",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "You want to acknowledge a limitation in a presentation.",
+      "key": "This does not cover every case, but it captures the main trend.",
+      "distractors": [
+        "This is not perfect but okay.",
+        "It does not include all, but trend is main."
+      ]
+    },
+    {
+      "id": "gen_b2c1_naturalness_judgment_494",
+      "boundary": "B2/C1",
+      "type": "naturalness_judgment",
+      "prompt": "Ekip hızlı çıkış yapabilir, ama bu güvenilirliği riske atıyo",
+      "key": "Reliability should be protected even if progress is slower.",
+      "distractors": [
+        "Speed is more important than reliability.",
+        "Reliability and speed are the same."
+      ]
+    }
+  ]
+}

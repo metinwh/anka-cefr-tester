@@ -210,7 +210,7 @@ These are all green:
 | 1 — Idioms | ✅ Shipped | 30 idiom items at A2/B1, B1/B2, B2/C1 levels. Includes all user-requested phrases (sacked, jump to conclusions, elephant in the room, etc.) |
 | 2 — Partial credit | ✅ Shipped | 24 items got explicit `acceptable` (credit 0.5). Engine also defaults swapped-in `close_competitor` to credit 0.5 — so all 280+ v2 items now have partial credit one way or another. |
 | 3 — Vocab breadth | ✅ Shipped | +48 vocab items (12 lemmas collided with existing words and were skipped). Vocab now 25% of pool. |
-| **4 — Legacy distractor cleanup** | ⏸ **Deferred** | 87 legacy `plc_*` items have weak distractors. Cannot edit legacy files per project rules. Plan: flag them in a separate `LEGACY_RETIREMENT_LIST.json` later, then exclude from student-core via a small engine config. |
+| **4 — Legacy distractor cleanup** | ✅ Shipped | 77 legacy `plc_*` / `gen_*` items flagged by `scripts/find-weak-distractors.cjs`. List persisted in `legacy-retirement-list.json` + `legacy-retirement.js`. Student-core `coreItems()` now filters these IDs out at runtime. Legacy files unchanged (rule honored). |
 | **5 — Short-prompt context audit** | ⏸ **Deferred** | 74 non-vocab items have prompts <25 chars (e.g., "He said he ___ busy"). Adding 1–2 sentences of context would tighten level discrimination. Skipping for now since v2 idioms + new vocab already added substantial context-rich items. |
 
 When picking up Steps 4 & 5: see Sections 4 and 5 above for the specific items and approach. Validate with the standard test suite after each change.
