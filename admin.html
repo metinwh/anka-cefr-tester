@@ -231,12 +231,13 @@
             <th>IP</th>
             <th>Geo</th>
             <th>Device</th>
+            <th>Feedback</th>
             <th>Session</th>
             <th></th>
           </tr>
         </thead>
         <tbody id="rows">
-          <tr><td colspan="10" class="empty">Enter your admin token and click <strong>Load sessions</strong>.</td></tr>
+          <tr><td colspan="11" class="empty">Enter your admin token and click <strong>Load sessions</strong>.</td></tr>
         </tbody>
       </table>
     </div>
@@ -303,6 +304,13 @@
       const parts = [g.city, g.region, g.country].filter(Boolean);
       return parts.length ? parts.join(", ") : "—";
     }
+    function fbCell(fb) {
+      if (!fb) return "—";
+      const map = { accurate: "✓ doğru", needs_work: "± gelişmeli", wrong: "✗ yanlış" };
+      const rating = map[fb.accuracy_rating] || fb.accuracy_rating || "?";
+      const hasComment = fb.comment && fb.comment.length > 0 ? " · 💬" : "";
+      return rating + hasComment;
+    }
 
     async function load() {
       const token = tokenInput.value.trim();
@@ -363,7 +371,7 @@
       summaryEl.style.display = sessions.length ? "grid" : "none";
 
       if (!sessions.length) {
-        rowsEl.innerHTML = `<tr><td colspan="10" class="empty">No sessions logged yet.</td></tr>`;
+        rowsEl.innerHTML = `<tr><td colspan="11" class="empty">No sessions logged yet.</td></tr>`;
         return;
       }
 
@@ -381,6 +389,7 @@
             <td class="mono">${escapeHtml(s.ip || "—")}</td>
             <td class="dim">${escapeHtml(geoStr(s.geo))}</td>
             <td class="dim">${escapeHtml(fmtDevice(s.user_agent, s.device))}</td>
+            <td class="dim">${escapeHtml(fbCell(s.feedback))}</td>
             <td class="mono">${escapeHtml((s.session_id || "—").slice(0, 22))}</td>
             <td class="actions">
               <button class="row" data-action="view" data-idx="${idx}">view</button>
@@ -411,7 +420,7 @@
       tr.classList.add("expanded");
       const detail = document.createElement("tr");
       detail.classList.add("detail-row");
-      detail.innerHTML = `<td colspan="10" class="detail"><pre>${escapeHtml(JSON.stringify(s, null, 2))}</pre></td>`;
+      detail.innerHTML = `<td colspan="11" class="detail"><pre>${escapeHtml(JSON.stringify(s, null, 2))}</pre></td>`;
       tr.after(detail);
     }
 
@@ -438,6 +447,18 @@
       lines.push(`- **Device:** ${fmtDevice(s.user_agent, s.device)}`);
       lines.push(`- **User-Agent:** \`${s.user_agent || "—"}\``);
       lines.push(`- **Termination:** ${s.result?.termination_action || "—"} — ${s.result?.termination_reason || ""}`);
+      if (s.feedback) {
+        const ratingMap = {
+          accurate:   "1 — Yeterince isabetliydi",
+          needs_work: "2 — Pek isabetli değildi, geliştirilmeli",
+          wrong:      "3 — Tamamen yanlış bildi"
+        };
+        lines.push("");
+        lines.push("### User Feedback");
+        lines.push(`- **Accuracy rating:** ${ratingMap[s.feedback.accuracy_rating] || s.feedback.accuracy_rating || "—"}`);
+        if (s.feedback.comment) lines.push(`- **Comment:** ${s.feedback.comment}`);
+        if (s.feedback.submitted_at) lines.push(`- **Submitted:** ${s.feedback.submitted_at}`);
+      }
       lines.push("");
       const traj = s.trajectory || [];
       lines.push(`## Trajectory (${traj.length} turn${traj.length === 1 ? "" : "s"})`);

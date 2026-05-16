@@ -71,11 +71,14 @@ export default async function handler(req, res) {
       .slice(0, 100);
 
     const day = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-    // Chunk uploads (trajectory pieces) get their own blob path so they don't
-    // race-overwrite the meta record. /api/sessions merges them on read.
-    const isChunk = typeof body.chunk_index === "number" && Array.isArray(body.turns);
+    // Different payload shapes go to different blob paths so they never
+    // race-overwrite each other. /api/sessions merges them on read.
+    const isChunk    = typeof body.chunk_index === "number" && Array.isArray(body.turns);
+    const isFeedback = body.feedback && typeof body.feedback === "object";
     const pathname = isChunk
       ? `sessions/${day}/${sid}.chunk-${String(body.chunk_index).padStart(3, "0")}.json`
+      : isFeedback
+      ? `sessions/${day}/${sid}.feedback.json`
       : `sessions/${day}/${sid}.json`;
 
     // Try multiple shapes for compatibility with the private store.

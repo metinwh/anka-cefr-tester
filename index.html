@@ -189,6 +189,52 @@
       50% { opacity: 0.45; transform: scale(0.65); }
     }
 
+    /* Confidence pill: label + value rendered together */
+    .confidence-pill {
+      gap: 0;
+      padding: 0;
+      height: auto;
+      background: transparent;
+      border: 0;
+      color: var(--accent-soft);
+    }
+    .confidence-pill::before { display: none; }
+    .confidence-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 26px;
+      padding: 0 11px 0 11px;
+      border-radius: 999px 0 0 999px;
+      background: rgba(255,122,26,0.1);
+      border: 1px solid rgba(255,122,26,0.22);
+      border-right: 0;
+      color: var(--accent-soft);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+    .confidence-label::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: dotPulse 2.2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .confidence-value {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 12px;
+      border-radius: 0 999px 999px 0;
+      background: linear-gradient(135deg, var(--accent), #ff8c2a);
+      color: #1a0800;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
     /* ── Progress ────────────────────────────────────────── */
     .progress {
       height: 4px;
@@ -527,6 +573,96 @@
       }
     }
 
+    /* ── Feedback card ──────────────────────────────────── */
+    .feedback-card {
+      margin-top: 8px;
+      padding: 18px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      display: grid;
+      gap: 12px;
+    }
+    .feedback-q {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .feedback-opts {
+      display: grid;
+      gap: 8px;
+    }
+    .feedback-opt {
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: left;
+      line-height: 1.35;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+    .feedback-opt:active {
+      border-color: rgba(255,122,26,0.45);
+      background: rgba(255,122,26,0.06);
+    }
+    .feedback-opt.selected {
+      border-color: var(--accent);
+      background: rgba(255,122,26,0.12);
+      color: var(--accent-soft);
+    }
+    .feedback-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .feedback-input {
+      width: 100%;
+      min-height: 70px;
+      max-height: 200px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+      color: var(--text);
+      font: inherit;
+      font-size: 13px;
+      line-height: 1.45;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .feedback-input:focus {
+      outline: none;
+      border-color: rgba(255,122,26,0.45);
+    }
+    .feedback-submit {
+      min-height: 42px !important;
+      font-size: 13px !important;
+    }
+    .feedback-submit:disabled {
+      opacity: 0.55;
+      filter: grayscale(0.4);
+      cursor: not-allowed;
+    }
+    .feedback-status {
+      min-height: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .feedback-status.ok { color: #4ade80; }
+    .feedback-status.err { color: #f87171; }
+    .feedback-card.submitted .feedback-opt:not(.selected) { opacity: 0.4; }
+    .feedback-card.submitted .feedback-opt,
+    .feedback-card.submitted .feedback-input,
+    .feedback-card.submitted .feedback-submit {
+      pointer-events: none;
+    }
+
     /* ── Core keyframes ──────────────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(10px); }
@@ -863,7 +999,7 @@
     }
 
     // Logging build tag — bump this to force cache busting on the phone.
-    const LOG_BUILD = "v12-2026-05-16-seqchunks-rich";
+    const LOG_BUILD = "v13-2026-05-16-feedback";
     // Endpoint URL — content blockers (1Blocker, AdGuard) often kill anything
     // matching "/log" patterns. Use a neutral name.
     const LOG_ENDPOINT = "/api/record";
@@ -1084,8 +1220,10 @@
       app.className = "screen question fade";
       app.innerHTML = `
         <div class="topline">
-          <span class="chip">EMİN OLMA YÜZDESİ</span>
-          <span>%${pct}</span>
+          <span class="chip confidence-pill">
+            <span class="confidence-label">EMİN OLMA YÜZDESİ</span>
+            <span class="confidence-value">%${pct}</span>
+          </span>
         </div>
         <div class="progress" aria-hidden="true">
           <div class="progress-bar" style="width:${pct}%"></div>
@@ -1160,6 +1298,20 @@
           </div>
           <div class="level">${esc(result.estimated_level)}</div>
           <p>Bu test daha çok tanıma becerini ölçer. Konuşma ve yazma ilk günlerde biraz daha düşük hissedebilir.</p>
+
+          <div class="feedback-card">
+            <div class="feedback-q">Sizce test ne kadar isabetli tahmin yaptı?</div>
+            <div class="feedback-opts">
+              <button class="feedback-opt" data-feedback="accurate" type="button">Yeterince isabetliydi</button>
+              <button class="feedback-opt" data-feedback="needs_work" type="button">Pek isabetli değildi, geliştirilmeli</button>
+              <button class="feedback-opt" data-feedback="wrong" type="button">Tamamen yanlış bildi</button>
+            </div>
+            <label class="feedback-label" for="feedback-comment">İletmek istediğiniz görüşünüz varsa bize yazın:</label>
+            <textarea id="feedback-comment" class="feedback-input" rows="3" maxlength="800" placeholder="(isteğe bağlı)"></textarea>
+            <button class="primary feedback-submit" id="feedback-submit" type="button">Gönder</button>
+            <div class="feedback-status" id="feedback-status"></div>
+          </div>
+
           <div id="log-status" style="margin-top:6px;font-size:11px;color:rgba(255,255,255,0.35);font-family:SFMono-Regular,Consolas,Menlo,monospace;letter-spacing:0.02em;">build: ${LOG_BUILD} · log: ${lastLogStatus}</div>
         </div>
         <button class="primary" data-action="reset" type="button">Tekrar test et</button>
@@ -1272,8 +1424,61 @@
     }
 
     /* Event delegation */
+    // ── Feedback state + handlers ───────────────────────────────────
+    let selectedFeedback = null;
+    function sendFeedback(sid) {
+      const commentEl = document.getElementById("feedback-comment");
+      const statusEl  = document.getElementById("feedback-status");
+      const cardEl    = document.querySelector(".feedback-card");
+      const submitBtn = document.getElementById("feedback-submit");
+      const comment = ((commentEl && commentEl.value) || "").slice(0, 800);
+      if (!selectedFeedback && !comment) {
+        if (statusEl) { statusEl.textContent = "Lütfen bir seçenek seç veya yorum yaz."; statusEl.className = "feedback-status err"; }
+        return;
+      }
+      if (statusEl) { statusEl.textContent = "Gönderiliyor…"; statusEl.className = "feedback-status"; }
+      if (submitBtn) submitBtn.disabled = true;
+      const payload = {
+        session_id: sid,
+        log_build: LOG_BUILD,
+        feedback: {
+          accuracy_rating: selectedFeedback,
+          comment,
+          submitted_at: new Date().toISOString()
+        }
+      };
+      const url = LOG_ENDPOINT + "?d=" + encodeURIComponent(JSON.stringify(payload));
+      fetch(url, { method: "GET" })
+        .then((r) => {
+          if (r.ok) {
+            if (statusEl) { statusEl.textContent = "✓ Teşekkürler!"; statusEl.className = "feedback-status ok"; }
+            if (cardEl) cardEl.classList.add("submitted");
+          } else {
+            if (statusEl) { statusEl.textContent = "Gönderilemedi (" + r.status + ")"; statusEl.className = "feedback-status err"; }
+            if (submitBtn) submitBtn.disabled = false;
+          }
+        })
+        .catch((e) => {
+          if (statusEl) { statusEl.textContent = "Ağ hatası: " + String(e?.message || e).slice(0, 40); statusEl.className = "feedback-status err"; }
+          if (submitBtn) submitBtn.disabled = false;
+        });
+    }
+
     app.addEventListener("click", (e) => {
       if (transition) return;
+      // Feedback rating buttons
+      const fbBtn = e.target.closest("[data-feedback]");
+      if (fbBtn) {
+        selectedFeedback = fbBtn.dataset.feedback;
+        document.querySelectorAll(".feedback-opt").forEach((b) => b.classList.toggle("selected", b === fbBtn));
+        return;
+      }
+      // Feedback submit
+      if (e.target.closest("#feedback-submit")) {
+        const sid = engine?.settings?.seed || "no-session";
+        sendFeedback(sid);
+        return;
+      }
       const ab = e.target.closest("[data-answer]");
       if (ab) { answer(ab.dataset.answer); return; }
       const ab2 = e.target.closest("[data-action]");
@@ -1284,6 +1489,7 @@
         clearTimer();
         engine = null;
         transition = null;
+        selectedFeedback = null;
         render();
         syncTrajectory();
       }

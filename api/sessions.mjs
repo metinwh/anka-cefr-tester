@@ -62,15 +62,21 @@ export default async function handler(req, res) {
     await Promise.all(Array.from({ length: Math.min(concurrency, blobs.length) }, worker));
 
     // Group by base session id. Chunks have ".chunk-NNN.json" suffix.
+    // Feedback has ".feedback.json" suffix.
     const groups = {};
     for (const item of fetched) {
       if (!item) continue;
       const filename = item.pathname.split("/").pop() || "";
-      const isChunk = /\.chunk-\d+\.json$/.test(filename);
-      const baseId = filename.replace(/\.chunk-\d+\.json$/, "").replace(/\.json$/, "");
-      if (!groups[baseId]) groups[baseId] = { meta: null, chunks: [], pathname: item.pathname };
-      if (isChunk) groups[baseId].chunks.push(item.data);
-      else groups[baseId].meta = item.data;
+      const isChunk    = /\.chunk-\d+\.json$/.test(filename);
+      const isFeedback = /\.feedback\.json$/.test(filename);
+      const baseId = filename
+        .replace(/\.chunk-\d+\.json$/, "")
+        .replace(/\.feedback\.json$/, "")
+        .replace(/\.json$/, "");
+      if (!groups[baseId]) groups[baseId] = { meta: null, chunks: [], feedback: null, pathname: item.pathname };
+      if (isChunk)         groups[baseId].chunks.push(item.data);
+      else if (isFeedback) groups[baseId].feedback = item.data;
+      else                 groups[baseId].meta = item.data;
     }
 
     // Merge chunks into trajectory for sessions that don't have one yet.
@@ -108,6 +114,9 @@ export default async function handler(req, res) {
           session._trajectory_from_chunks = sortedChunks.length;
           if (!session.items_asked) session.items_asked = session.trajectory.length;
         }
+      }
+      if (g.feedback && g.feedback.feedback) {
+        session.feedback = g.feedback.feedback;
       }
       return session;
     });
